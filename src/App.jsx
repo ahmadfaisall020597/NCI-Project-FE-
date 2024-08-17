@@ -1,30 +1,29 @@
 import './App.css'
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
-import LoginPage from './components/Login/loginPage'
-import DashboardPage from './components/Dashboard/dashboardPage'
-import AuthMiddleware from './auth/AuthMiddleware'
+import { RouterProvider } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { ThemeProvider } from 'react-bootstrap';
+import { router } from './utils/router/objectRouter';
 
-function App() {
+
+const App = () => {
+
+  const render = () => {
+    try {
+      console.log('masuk router')
+      return (
+        <RouterProvider router={router} />
+      )
+    } catch (error) {
+      console.log('error')
+    }
+  }
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/dashboard"
-          element={<AuthMiddleware component={DashboardPage} />}
-          render={(props) => (
-            <AuthMiddleware component={DashboardPage} {...props} />
-          )}
-        />
-        <Route path="/" element={<Navigate to="/login" />} />
-      </Routes>
-    </Router>
+    <ThemeProvider>
+      <div className="mx-auto h-100 justify-content-center d-flex width-mobile overflow-hidden">
+        {render()}
+      </div>
+    </ThemeProvider>
   )
 }
 
-export default App
+export default App;

@@ -1,0 +1,49 @@
+{
+    "brand": "My Website",
+    "links": [
+        {
+            "name": "Beranda",
+            "url": "/dashboard"
+        },
+        {
+            "name": "Tentang Kami",
+            "url": "/tentang-kami",
+            "submenu": [
+                {
+                    "name": "Latar Belakang",
+                    "url": "/tentang-kami/latar-belakang"
+                },
+                {
+                    "name": "Visi Misi",
+                    "url": "/tentang-kami/visi-misi"
+                },
+                {
+                    "name": "Struktur Organisasi",
+                    "url": "/tentang-kami/struktur-organisasi"
+                }
+            ]
+        },
+        {
+            "name": "Sertifikasi",
+            "url": "/sertifikasi",
+            "submenu": [
+                {
+                    "name": "Skema Sertifikasi",
+                    "url": "/sertifikasi/skema-sertifikasi"
+                },
+                {
+                    "name": "Tempat Uji Komptensi",
+                    "url": "/sertifikasi/tempat-uji-kompetensi"
+                },
+                {
+                    "name": "Persyaratan Sertifikasi",
+                    "url": "/sertifikasi/persyaratan-sertifikasi"
+                }
+            ]
+        },
+        {
+            "name": "Daftar",
+            "url": "/daftar"
+        }
+    ]
+}

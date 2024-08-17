@@ -1,0 +1,28 @@
+.custom-navbar {
+    background-color: #3795BD;
+}
+
+.custom-navbar .dropdown-toggle::after {
+    display: none;
+}
+
+.custom-navbar .dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: max-height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.custom-navbar .dropdown-menu.show {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.custom-navbar .navbar-nav {
+    display: flex;
+    justify-content: center; 
+    margin-left: 10%;
+    margin-right: 10%; 
+}

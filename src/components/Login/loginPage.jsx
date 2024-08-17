@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonService from "../../utils/api/listApi";
 import { toast, ToastContainer } from "react-toastify";
+import { objectRouter } from "../../utils/router/objectRouter";
+import { setAuthorization } from "../../helpers/storage";
 
 const LoginPage = () => {
     const [state, setState] = useState({
@@ -16,17 +18,23 @@ const LoginPage = () => {
         const payload = { email, password };
 
         CommonService.signIn(payload)
-        .then((response) => {
-          console.log("response : ", response);
-          localStorage.setItem("authorization", response.token);
-          if (response && response.token) {
-            localStorage.setItem("authorization", response.token);
-            navigate("/dashboard");
-          }
-        })
-        .catch((error) => {
-          console.error("Login failed:", error);
-        });
+            .then((response) => {
+                console.log("response : ", response);
+                if (response && response.token) {
+                    // Use setAuthorization to store encrypted token
+                    const isSuccess = setAuthorization({ token: response.token });
+                    if (isSuccess) {
+                        console.log('navigate : ', objectRouter.dashboard.path);
+                        navigate(objectRouter.dashboard.path);
+                    } else {
+                        toast.error("Failed to store authorization data.");
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error("Login failed:", error);
+                toast.error("Login failed. Please try again.");
+            });
     }
 
     return (

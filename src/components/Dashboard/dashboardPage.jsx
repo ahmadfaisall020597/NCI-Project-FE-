@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonService from "../../utils/api/listApi";
+import { Stack, Col, Row, Container } from 'react-bootstrap';
+import NavbarComponent from "../../partials/Navbar/navbar";
+import './styles.css';
 
 const DashboardPage = () => {
     const navigate = useNavigate();
@@ -22,9 +25,9 @@ const DashboardPage = () => {
     }
 
     return (
-        <div>
-            <button onClick={handleLogout}>Logout</button>
-        </div>
+        <Stack>
+            <h1>Halaman Dashboard</h1>
+        </Stack>
     )
 }
 
