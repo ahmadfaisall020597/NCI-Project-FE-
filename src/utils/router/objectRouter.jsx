@@ -2,7 +2,10 @@ import { createBrowserRouter, redirect } from "react-router-dom";
 import DashboardPage from "../../components/Dashboard/dashboardPage";
 import { getAuthorization } from "../../helpers/storage";
 import LoginPage from "../../components/Login/loginPage";
+import LatarBelakangPage from "../../components/Tentang Kami/Latar Belakang/latarBelakangPage";
 import Layout from "../../shared/layout";
+import StrukturOrganisasiPage from "../../components/Tentang Kami/Struktur Organisasi/strukturOrganisasiPage";
+import VisiMisiPage from "../../components/Tentang Kami/Visi Misi/visiMisiPage";
 
 export const objectRouter = {
     dashboard: {
@@ -23,6 +26,33 @@ export const objectRouter = {
         footer: false,
         index: true,
     },
+    latarBelakang: {
+        title: "Latar Belakang",
+        path: "/tentang-kami/latar-belakang",
+        element: <LatarBelakangPage />,
+        needAuth: false,
+        header: true,
+        footer: false,
+        index: true
+    },    
+    visiMisi: {
+        title: "Tentang Kami",
+        path: "/tentang-kami/visi-misi",
+        element: <VisiMisiPage />,
+        needAuth: false,
+        header: true,
+        footer: false,
+        index: true
+    },
+    strukturOrganisasi: {
+        title: "Latar Belakang",
+        path: "/tentang-kami/struktur-organisasi",
+        element: <StrukturOrganisasiPage />,
+        needAuth: false,
+        header: true,
+        footer: false,
+        index: true
+    }    
 };
 
 

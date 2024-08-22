@@ -1,0 +1,30 @@
+.card-hover-effect {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover-effect:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-hover-effect .card-img-top {
+    transition: transform 0.3s ease;
+}
+
+.card-hover-effect:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-hover-effect .card-body {
+    padding: 1rem;
+}
+
+.card-hover-effect .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-hover-effect .card-text {
+    font-size: 0.95rem;
+    color: #555;
+}
