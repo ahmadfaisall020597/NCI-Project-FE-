@@ -16,7 +16,7 @@ export const objectRouter = {
     },
     login: {
         title: "Login",
-        path: "/login",
+        path: "/",
         element: <LoginPage />,
         needAuth: false,
         header: false,

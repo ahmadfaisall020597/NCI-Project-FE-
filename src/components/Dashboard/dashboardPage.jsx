@@ -1,33 +1,62 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CommonService from "../../utils/api/listApi";
-import { Stack, Col, Row, Container } from 'react-bootstrap';
-import NavbarComponent from "../../partials/Navbar/navbar";
+import { Stack, Container } from 'react-bootstrap';
 import './styles.css';
+import YoutubePlayer from "../../partials/YoutubePlayer/youtubePlayer";
+import videoData from '../../data/videos.json'
 
 const DashboardPage = () => {
     const navigate = useNavigate();
+    const [state, setState] = useState({
+        selectedVideo: null,
+        playing: false,
+    });
 
-    const handleLogout = async () => {
-        try {
-            const response = await CommonService.signOut();
-            if (response.status === 200) {
-                console.log('Logout successful.');
-                localStorage.clear();
-                console.log('LocalStorage cleared.');
-                navigate('/login');
-            } else {
-                console.error('Logout failed with status:', response.status);
-            }
-        } catch (error) {
-            console.error('Error during logout: ', error);
-        }
+    const { selectedVideo } = state
+
+    useEffect(() => {
+        setState(prevState => ({
+            ...prevState,
+            selectedVideo: videoData.videos[0].url,
+            playing: false,
+        }));
+    }, []);
+
+    const setSelectedVideo = (videoUrl) => {
+        setState(prevState => ({
+            ...prevState,
+            selectedVideo: videoUrl,
+            playing: false,
+        }));
     }
 
     return (
-        <Stack>
-            <h1>Halaman Dashboard</h1>
-        </Stack>
+        <Container>
+            <Stack gap={3} className="my-4">
+                <div className="text-center">
+                    <h1>My Playlist Songs</h1>
+                </div>
+                <div className="mb-4">
+                    {selectedVideo ? (
+                        <YoutubePlayer videoId={selectedVideo} />
+                    ) : (
+                        <p>Loading...</p>
+                    )}
+                </div>
+                <div className="video-list">
+                    <h2>Video List</h2>
+                    {videoData.videos.map((video) => (
+                        <button
+                            key={video.id}
+                            onClick={() => setSelectedVideo(video.url)}
+                            className={`btn btn-custom ${selectedVideo === video.url ? 'active' : ''}`}
+                        >
+                            {video.title}
+                        </button>
+                    ))}
+                </div>
+            </Stack>
+        </Container>
     )
 }
 
