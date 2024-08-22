@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Stack, Container, Carousel, Card, Image } from 'react-bootstrap';
+import { Stack, Container, Carousel, Card, Image, Button } from 'react-bootstrap';
 import './styles.css';
 import videoData from '../../data/videos.json'
 import { dataSpanduk } from "../../data/dataSpanduk";
+import { render } from "react-dom";
+import { useMediaQuery } from "react-responsive";
 
 const DashboardPage = () => {
     const navigate = useNavigate();
@@ -11,14 +13,30 @@ const DashboardPage = () => {
         selectedVideo: null,
         playing: false,
     });
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+    const scrollRef = useRef(null);
 
     const { selectedVideo } = state;
+
+    const scroll = (direction) => {
+        if (direction === 'left') {
+            scrollRef.current.scrollBy({
+                left: -400,
+                behavior: 'smooth',
+            });
+        } else if (direction === 'right') {
+            scrollRef.current.scrollBy({
+                left: 400,
+                behavior: 'smooth',
+            });
+        }
+    };
 
     useEffect(() => {
         setState(prevState => ({
             ...prevState,
             selectedVideo: videoData.videos[0].url,
-            playing: true,
+            playing: false,
         }));
     }, []);
 
@@ -42,8 +60,8 @@ const DashboardPage = () => {
 
     const getThumbnailUrl = (videoId) => `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-    return (
-        <Stack>
+    const renderSpanduk = () => {
+        return (
             <Stack>
                 <Carousel>
                     {dataSpanduk.map((item) => (
@@ -60,52 +78,121 @@ const DashboardPage = () => {
                     ))}
                 </Carousel>
             </Stack>
-            <Stack className="px-4 py-4">
+        )
+    }
+
+    const renderBeritaKegiatan = () => {
+        const sortedData = dataSpanduk.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        const limitedData = sortedData.slice(0, 10);
+
+        return (
+            <Stack className="px-2 py-4">
                 <h1>Kegiatan</h1>
-                <Stack
-                    direction="horizontal"
-                    className="overflow-auto py-4"
-                    style={{ whiteSpace: 'nowrap' }}
-                    gap={4}
-                >
-                    {dataSpanduk.map((item, index) => (
-                        <Card
-                            key={index}
-                            style={{
-                                minWidth: '400px',
-                                width: '400px',
-                                height: '400px',
-                                marginRight: '10px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'space-between',
-                            }}
-                        >
-                            <div style={{ flex: '1' }}>
-                                <Image src={item.image_url} fluid style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    borderRadius: '0 0 150px 0',
-                                    borderBottom: '5px solid #3ABEF9',
+                <Stack direction="horizontal" className="position-relative py-4">
+                    <Button
+                        variant="light"
+                        className="position-absolute"
+                        style={{
+                            left: isMobile ? '0px' : '10px',
+                            top: '45%',
+                            transform: 'translateY(-50%)',
+                            zIndex: 1,
+                            backgroundColor: 'transparent',
+                            border: 'none',
+                            color: 'black',
+                            fontSize: isMobile ? '2rem' : '4rem',
+                            width: 'auto',
+                            height: 'auto',
+                            transition: 'transform 0.3s ease',
+                        }}
+                        onClick={() => scroll('left')}
+                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1.2)'}
+                        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
+                    >
+                        &#8249;
+                    </Button>
+                    <Stack
+                        direction="horizontal"
+                        className="overflow-auto"
+                        style={{
+                            whiteSpace: 'nowrap',
+                            scrollbarWidth: 'none',
+                            msOverflowStyle: 'none',
+                        }}
+                        gap={2}
+                        ref={scrollRef}
+                    >
+                        {limitedData.map((item, index) => (
+                            <Card
+                                key={index}
+                                className="card-responsive"
+                                style={{
+                                    minWidth: isMobile ? '200px' : '400px',
+                                    width: isMobile ? '200px' : '400px',
+                                    height: isMobile ? '200px' : '400px',
+                                    marginRight: '10px',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between',
                                 }}
-                                />
-                            </div>
-                            <div style={{ padding: '10px' }}>
-                                <h6>{item.title}</h6>
-                                <p>{item.deskripsi}</p>
-                            </div>
-                        </Card>
-                    ))}
+                            >
+                                <div style={{ flex: '1', overflow: 'hidden' }}>
+                                    <Image
+                                        src={item.image_url}
+                                        fluid
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: 'cover',
+                                            borderRadius: isMobile ? '0 0 70px 0' : '0 0 150px 0',
+                                            borderBottom: '5px solid #3ABEF9',
+                                        }}
+                                    />
+                                </div>
+                                <div style={{ padding: '10px' }}>
+                                    <h6>{item.title}</h6>
+                                    <p>{item.deskripsi}</p>
+                                </div>
+                            </Card>
+                        ))}
+                    </Stack>
+                    <Button
+                        variant="light"
+                        className="position-absolute"
+                        style={{
+                            right: isMobile ? '0px' : '10px',
+                            top: '45%',
+                            transform: 'translateY(-50%)',
+                            zIndex: 1,
+                            backgroundColor: 'transparent',
+                            border: 'none',
+                            color: 'black',
+                            fontSize: isMobile ? '2rem' : '4rem',
+                            width: 'auto',
+                            height: 'auto',
+                            transition: 'transform 0.3s ease',
+                        }}
+                        onClick={() => scroll('right')}
+                        onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1.2)'}
+                        onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(-50%) scale(1)'}
+                    >
+                        &#8250;
+                    </Button>
                 </Stack>
             </Stack>
-            <Stack className="px-4 py-2">
+        )
+    }
+
+    const renderVideoKegiatan = () => {
+        return (
+            <Stack className="px-2 py-2">
                 <h1>Video Kegiatan</h1>
                 <Stack
                     direction="horizontal"
                     className="overflow-auto py-4"
                     style={{ whiteSpace: 'nowrap' }}
-                    gap={4}
+                    gap={2}
                 >
                     {videoData.videos.map((video) => {
                         const videoId = extractVideoId(video.url);
@@ -114,9 +201,9 @@ const DashboardPage = () => {
                             <Card
                                 key={video.id}
                                 style={{
-                                    minWidth: '400px',
-                                    width: '400px',
-                                    height: '270px',
+                                    minWidth: isMobile ? '340px' : '400px',
+                                    width: isMobile ? '340px' : '400px',
+                                    height: isMobile ? '240px' : '270px',
                                     marginRight: '10px',
                                     cursor: 'pointer',
                                     position: 'relative',
@@ -161,6 +248,13 @@ const DashboardPage = () => {
                     })}
                 </Stack>
             </Stack>
+        )
+    }
+    return (
+        <Stack>
+            {renderSpanduk()}
+            {renderBeritaKegiatan()}
+            {renderVideoKegiatan()}
         </Stack>
     )
 }
