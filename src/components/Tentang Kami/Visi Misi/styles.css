@@ -1,0 +1,34 @@
+.custom-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #3572EF, #3ABEF9);
+    color: white; /* Ensure text is readable on gradient */
+}
+
+.custom-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+    max-height: 150px;
+    object-fit: contain;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent white for a softer look */
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef); /* Light gray gradient for a subtle effect */
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8); /* Lighter text color */
+}
+
