@@ -1,5 +1,6 @@
 .custom-navbar {
-    background-color: #3795BD;
+    /* background-color: #3795BD; */
+    background: linear-gradient(to right, #3572EF, #3ABEF9);
 }
 
 .custom-navbar .dropdown-toggle::after {
@@ -25,4 +26,34 @@
     justify-content: center; 
     margin-left: 10%;
     margin-right: 10%; 
+}
+
+
+.custom-nav-link {
+    color: white !important; 
+}
+
+.custom-nav-link:hover, 
+.custom-nav-link:focus {
+    color: #272829 !important; 
+}
+
+
+.custom-dropdown .dropdown-toggle {
+    color: white !important; 
+}
+
+.custom-dropdown .dropdown-toggle:hover, 
+.custom-dropdown .dropdown-toggle:focus {
+    color: #272829 !important; 
+}
+
+
+.custom-dropdown .dropdown-menu .dropdown-item {
+    color: #272829 !important; 
+}
+
+.custom-dropdown .dropdown-menu .dropdown-item:hover, 
+.custom-dropdown .dropdown-menu .dropdown-item:focus {
+    color: #272829 !important; 
 }

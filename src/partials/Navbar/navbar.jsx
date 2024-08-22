@@ -31,13 +31,23 @@ const NavbarComponent = () => {
                                     className="custom-dropdown"
                                 >
                                     {link.submenu.map((sublink, subIndex) => (
-                                        <NavDropdown.Item key={subIndex} href={sublink.url}>
+                                        <NavDropdown.Item
+                                            key={subIndex}
+                                            href={sublink.url}
+                                            className="custom-nav-link"
+                                        >
                                             {sublink.name}
                                         </NavDropdown.Item>
                                     ))}
                                 </NavDropdown>
                             ) : (
-                                <Nav.Link key={index} href={link.url}>{link.name}</Nav.Link>
+                                <Nav.Link
+                                    key={index}
+                                    href={link.url}
+                                    className="custom-nav-link"
+                                >
+                                    {link.name}
+                                </Nav.Link>
                             )
                         ))}
                     </Nav>
