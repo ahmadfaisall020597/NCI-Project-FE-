@@ -1,0 +1,39 @@
+/* LatarBelakangPage.css */  
+  .latar-belakang-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+    /* margin-bottom: 1rem; */
+    margin-top: 6rem;
+  }
+  
+  .latar-belakang-logo {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 8rem;
+  }
+  
+  .latar-belakang-text {
+    font-size: 1.25rem;
+    color: #444;
+    line-height: 1.6;
+    text-align: center;
+  }
+  
+  .latar-belakang-text p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .latar-belakang-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+  
+  .latar-belakang-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  

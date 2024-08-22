@@ -14,7 +14,7 @@
                     "url": "/tentang-kami/latar-belakang"
                 },
                 {
-                    "name": "Visi Misi",
+                    "name": "Visi Misi Motto",
                     "url": "/tentang-kami/visi-misi"
                 },
                 {
@@ -24,26 +24,26 @@
             ]
         },
         {
-            "name": "Sertifikasi",
-            "url": "/sertifikasi",
+            "name": "Program Pelatihan",
+            "url": "/program-pelatihan",
             "submenu": [
                 {
-                    "name": "Skema Sertifikasi",
-                    "url": "/sertifikasi/skema-sertifikasi"
+                    "name": "Pelatihan Listrik",
+                    "url": "/program-pelatihan/pelatihan-listrik"
                 },
                 {
-                    "name": "Tempat Uji Komptensi",
-                    "url": "/sertifikasi/tempat-uji-kompetensi"
-                },
-                {
-                    "name": "Persyaratan Sertifikasi",
-                    "url": "/sertifikasi/persyaratan-sertifikasi"
+                    "name": "Pelatihan Pengelasan",
+                    "url": "/program-pelatihan/pelatihan-pengelasan"
                 }
             ]
         },
         {
-            "name": "Daftar",
-            "url": "/daftar"
+            "name": "Daftar Online",
+            "url": "/daftar-online"
+        },
+        {
+            "name": "Kemendikbud",
+            "url": "https://www.kemdikbud.go.id/"
         }
     ]
 }
