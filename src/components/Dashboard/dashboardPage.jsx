@@ -87,15 +87,28 @@ const DashboardPage = () => {
         navigate(newPath, { state: { itemDetail: item } });
     }
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const monthNames = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
+        const month = monthNames[date.getMonth()];
+        const year = date.getFullYear();
+
+        return `${day} ${month} ${year}`;
+    };
+
     const renderBeritaKegiatan = () => {
         const sortedData = dataSpanduk.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
         const limitedData = sortedData.slice(0, 10);
 
         return (
-            <Stack className="px-2 py-4">
-                <h1>Kegiatan</h1>
-                <Stack direction="horizontal" className="position-relative py-4">
+            <Stack className="px-2 py-2">
+                <p className="fs-2 fw-semibold">Kegiatan</p>
+                <Stack direction="horizontal" className="position-relative">
                     <Button
                         variant="light"
                         className="position-absolute"
@@ -134,9 +147,9 @@ const DashboardPage = () => {
                                 key={index}
                                 className="card-responsive"
                                 style={{
-                                    minWidth: isMobile ? '200px' : '400px',
-                                    width: isMobile ? '200px' : '400px',
-                                    height: isMobile ? '200px' : '400px',
+                                    minWidth: isMobile ? '330px' : '400px',
+                                    width: isMobile ? '300px' : '400px',
+                                    height: isMobile ? '250px' : '400px',
                                     marginRight: '10px',
                                     display: 'flex',
                                     flexDirection: 'column',
@@ -147,7 +160,7 @@ const DashboardPage = () => {
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                                 onClick={() => handleBeritaDetail(item.id)}
                             >
-                                <div style={{ flex: '1', overflow: 'hidden' }}>
+                                <div style={{ position: 'relative', flex: '1', overflow: 'hidden' }}>
                                     <Image
                                         src={item.image_url}
                                         fluid
@@ -160,9 +173,22 @@ const DashboardPage = () => {
                                         }}
                                     />
                                 </div>
-                                <div style={{ padding: '10px' }}>
-                                    <h6>{item.title}</h6>
-                                    <p>{item.deskripsi}</p>
+                                <div
+                                    className="text-container"
+                                    style={{ padding: '10px' }}
+                                >
+                                    <p
+                                        className="fw-semibold"
+                                        style={{ fontSize: isMobile ? '12px' : '16px' }}
+                                    >
+                                        {item.title}
+                                    </p>
+                                    <p
+                                        className="py-2"
+                                        style={{ fontSize: isMobile ? '10px' : '12px' }}
+                                    >
+                                        {formatDate(item.date)}
+                                    </p>
                                 </div>
                             </Card>
                         ))}
@@ -198,10 +224,10 @@ const DashboardPage = () => {
     const renderVideoKegiatan = () => {
         return (
             <Stack className="px-2 py-2">
-                <h1>Video Kegiatan</h1>
+                <p className="fs-2 fw-semibold">Video Kegiatan</p>
                 <Stack
                     direction="horizontal"
-                    className="overflow-auto py-4"
+                    className="overflow-auto"
                     style={{ whiteSpace: 'nowrap' }}
                     gap={2}
                 >

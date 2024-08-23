@@ -39,7 +39,7 @@ const LoginPage = () => {
 
     return (
         <div>
-            <h1>Login Page</h1>
+            <p className="fs-2 fw-semibold">Login Page</p>
             <form onSubmit={submitLogin}>
                 <div>
                     <input

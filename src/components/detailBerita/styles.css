@@ -1,0 +1,11 @@
+
+@media (min-width: 768px) {
+  .responsive-title-berita {
+    align-self: center;
+    width: 60%;
+  }
+  .responsive-title-berita-top {
+    align-self: center;
+    width: 80%;
+  }
+}
