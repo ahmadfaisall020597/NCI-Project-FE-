@@ -135,7 +135,10 @@ const DashboardPage = () => {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'space-between',
+                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                                 }}
+                                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                             >
                                 <div style={{ flex: '1', overflow: 'hidden' }}>
                                     <Image
@@ -183,6 +186,7 @@ const DashboardPage = () => {
             </Stack>
         )
     }
+
 
     const renderVideoKegiatan = () => {
         return (
@@ -252,6 +256,7 @@ const DashboardPage = () => {
     }
     return (
         <Stack>
+            <div className="d-flex" style={{backgroundColor: 'black', margin: '34px'}}/>
             {renderSpanduk()}
             {renderBeritaKegiatan()}
             {renderVideoKegiatan()}

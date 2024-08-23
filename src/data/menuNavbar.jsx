@@ -1,9 +1,9 @@
-{
+export const menuNavbar = {
     "brand": "My Website",
     "links": [
         {
             "name": "Beranda",
-            "url": "/dashboard"
+            "url": "/"
         },
         {
             "name": "Tentang Kami",
@@ -46,4 +46,4 @@
             "url": "https://www.kemdikbud.go.id/"
         }
     ]
-}
+}; 

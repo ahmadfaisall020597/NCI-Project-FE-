@@ -1,6 +1,16 @@
 .custom-navbar {
-    /* background-color: #3795BD; */
-    background: linear-gradient(to right, #3572EF, #3ABEF9);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+    background: linear-gradient(to right, rgba(53, 114, 239, 0.5), rgba(58, 190, 249, 0.5));
+    padding-top: 10px;
+}
+
+@media (max-width: 992px) {
+    .custom-navbar {
+        background: linear-gradient(to right, rgba(53, 114, 239, 0.5), rgba(58, 190, 249, 0.5));
+    }
 }
 
 .custom-navbar .dropdown-toggle::after {
@@ -23,37 +33,65 @@
 
 .custom-navbar .navbar-nav {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     margin-left: 5%;
-    margin-right: 10%; 
+    margin-right: 10%;
 }
 
 
 .custom-nav-link {
-    color: white !important; 
+    color: white !important;
 }
 
-.custom-nav-link:hover, 
+.custom-nav-link:hover,
 .custom-nav-link:focus {
-    color: #272829 !important; 
+    color: #272829 !important;
 }
 
 
 .custom-dropdown .dropdown-toggle {
-    color: white !important; 
+    color: white !important;
 }
 
-.custom-dropdown .dropdown-toggle:hover, 
+.custom-dropdown .dropdown-toggle:hover,
 .custom-dropdown .dropdown-toggle:focus {
-    color: #272829 !important; 
+    color: #272829 !important;
 }
 
 
 .custom-dropdown .dropdown-menu .dropdown-item {
-    color: #272829 !important; 
+    color: #272829 !important;
 }
 
-.custom-dropdown .dropdown-menu .dropdown-item:hover, 
+.custom-dropdown .dropdown-menu .dropdown-item:hover,
 .custom-dropdown .dropdown-menu .dropdown-item:focus {
-    color: #272829 !important; 
+    color: #272829 !important;
 }
+
+.logo-image {
+    height: 40px;
+    width: auto;
+}
+
+.custom-navbar .navbar-toggler {
+    border: none;
+}
+
+.custom-navbar .navbar-toggler-icon {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../public/hamburger.svg');
+    background-size: cover;
+    transition: background-image 0.3s ease;
+}
+
+.custom-navbar .navbar-toggler.toggled .navbar-toggler-icon {
+    background-image: url('../../../public/close.svg');
+}
+
+.dropdown-arrow {
+    margin-left: 5px;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+

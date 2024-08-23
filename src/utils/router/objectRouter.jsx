@@ -10,16 +10,16 @@ import VisiMisiPage from "../../components/Tentang Kami/Visi Misi/visiMisiPage";
 export const objectRouter = {
     dashboard: {
         title: "Dashboard",
-        path: "/dashboard",
+        path: "/",
         element: <DashboardPage />,
-        needAuth: true,
+        needAuth: false,
         header: true,
         footer: false,
         index: true,
     },
     login: {
         title: "Login",
-        path: "/",
+        path: "/login",
         element: <LoginPage />,
         needAuth: false,
         header: false,
@@ -65,10 +65,10 @@ export const convertObjectToArray = () => {
             if (objectKey.needAuth) {
                 if (!getAuthorization()) {
                     console.log('tidak ada auth');
-                    return redirect(obj.login.path);
+                    return redirect(obj.dashboard.path);
                 }
             }
-            if (objectKey.path == obj.login.path) {
+            if (objectKey.path == obj.dashboard.path) {
                 if (getAuthorization()) {
                     console.log('masuk dashboard');
                     return redirect(obj.dashboard.path)
