@@ -63,7 +63,7 @@ const DashboardPage = () => {
     const renderSpanduk = () => {
         return (
             <Stack>
-                <Carousel>
+                <Carousel indicators>
                     {dataSpanduk.map((item) => (
                         <Carousel.Item key={item.id} className="carousel-item">
                             <img
@@ -71,9 +71,6 @@ const DashboardPage = () => {
                                 src={item.image_url}
                                 alt={`slide${item.id}`}
                             />
-                            <Carousel.Caption>
-                                <h3>{item.title}</h3>
-                            </Carousel.Caption>
                         </Carousel.Item>
                     ))}
                 </Carousel>
@@ -256,7 +253,7 @@ const DashboardPage = () => {
     }
     return (
         <Stack>
-            <div className="d-flex" style={{backgroundColor: 'black', margin: '34px'}}/>
+            <div style={{ margin: '34px' }} />
             {renderSpanduk()}
             {renderBeritaKegiatan()}
             {renderVideoKegiatan()}

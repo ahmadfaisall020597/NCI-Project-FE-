@@ -23,5 +23,16 @@
     object-fit: cover;
 }
 
+.carousel-indicators [data-bs-target] {
+    background-color: #000; 
+    border-radius: 50%; 
+    width: 8px; 
+    height: 8px; 
+  }
+  
+  .carousel-indicators .active {
+    background-color: #fff;
+  }
+
 
 
