@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getLoading, setVisiMisi } from "./visiMisiSlice";
 import "./styles.css";
+import { useMediaQuery } from "react-responsive";
 
 const VisiMisiPage = () => {
     const dispatch = useDispatch();
     const { visi, misi, moto } = useSelector((state) => state.visiMisi);
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
     useEffect(() => {
         dispatch(getLoading());
@@ -20,21 +22,29 @@ const VisiMisiPage = () => {
                 <Container className="py-4">
                     <Row className="min-vh-100 align-items-center justify-content-center text-center">
                         <Col md={8}>
-                            <div className="mb-5">
-                                <h2 style={{ fontSize: '1.5rem' }}>Visi</h2>
-                                <p style={{ textAlign: 'center', fontSize: '1.125rem', marginBottom: '2rem' }}>{visi}</p>
+                            <div
+                                style={{
+                                    marginBottom: isMobile ? '10px' : '20px'
+                                }}
+                            >
+                                <p className="fw-semibold" style={{ fontSize: isMobile ? '20px' : '28px' }}>Visi</p>
+                                <p style={{ textAlign: 'center', fontSize: isMobile ? '14px' : '20px', marginBottom: '2rem' }}>{visi}</p>
                             </div>
-                            <div className="mb-5">
-                                <h2 style={{ fontSize: '1.5rem' }}>Misi</h2>
+                            <div
+                                style={{
+                                    marginBottom: isMobile ? '10px' : '20px'
+                                }}
+                            >
+                                <p className="fw-semibold" style={{ fontSize: isMobile ? '20px' : '28px' }}>Misi</p>
                                 <div className="misi-list">
                                     {misi.map((item, index) => (
-                                        <div key={index} className="misi-item" style={{ fontSize: '1.125rem' }}>
+                                        <div key={index} className="misi-item" style={{ fontSize: isMobile ? '14px' : '20px' }}>
                                             {item}
                                         </div>
                                     ))}
                                 </div>
                             </div>
-                            <h2 style={{ fontSize: '1.5rem', marginTop: '3rem' }}>Motto</h2>
+                            <p className="fw-semibold" style={{ fontSize: isMobile ? '20px' : '28px', marginTop: isMobile ? '30px' : '40px' }}>Motto</p>
                             <Row className="justify-content-center">
                                 {moto.map((item, index) => (
                                     <Col md={6} lg={4} key={index} className="mb-4">
