@@ -6,6 +6,7 @@ import LatarBelakangPage from "../../components/Tentang Kami/Latar Belakang/lata
 import Layout from "../../shared/layout";
 import StrukturOrganisasiPage from "../../components/Tentang Kami/Struktur Organisasi/strukturOrganisasiPage";
 import VisiMisiPage from "../../components/Tentang Kami/Visi Misi/visiMisiPage";
+import DetailBerita from "../../components/detailBerita/detailBerita";
 
 export const objectRouter = {
     dashboard: {
@@ -52,6 +53,15 @@ export const objectRouter = {
         header: true,
         footer: false,
         index: true
+    },
+    detailBerita: {
+        title: "Detail Berita",
+        path: "/detail-berita/:id",
+        element: <DetailBerita />,
+        needAuth: false,
+        header: true,
+        footer: false,
+        index: true
     }    
 };
 
@@ -61,7 +71,7 @@ export const convertObjectToArray = () => {
         const obj = objectRouter;
 
         const loaderFn = objectKey => {
-            console.log('object key : ', objectKey);
+            // console.log('object key : ', objectKey);
             if (objectKey.needAuth) {
                 if (!getAuthorization()) {
                     console.log('tidak ada auth');
@@ -86,7 +96,7 @@ export const convertObjectToArray = () => {
                 : null,
             loader: () => loaderFn(obj[key])
         }));
-        console.log('data object : ', dataObject);
+        // console.log('data object : ', dataObject);
         return dataObject;
     } catch (error) {
         console.log('error : ', error);
@@ -95,7 +105,7 @@ export const convertObjectToArray = () => {
 
 const ErrorPage = () => <div>Error Page cuy</div>;
 
-console.log('children : ', convertObjectToArray());
+// console.log('children : ', convertObjectToArray());
 
 export const router = createBrowserRouter([
     {

@@ -4,8 +4,8 @@ import { Stack, Container, Carousel, Card, Image, Button } from 'react-bootstrap
 import './styles.css';
 import videoData from '../../data/videos.json'
 import { dataSpanduk } from "../../data/dataSpanduk";
-import { render } from "react-dom";
 import { useMediaQuery } from "react-responsive";
+import { History, objectRouter } from "../../utils/router/objectRouter";
 
 const DashboardPage = () => {
     const navigate = useNavigate();
@@ -78,6 +78,15 @@ const DashboardPage = () => {
         )
     }
 
+    const handleBeritaDetail = (id) => {
+        const item = {
+            beritaId: id,
+            dataBerita: dataSpanduk,
+        }
+        const newPath = `${objectRouter.detailBerita.path.replace("/:id", "/" + id)}`;
+        navigate(newPath, { state: { itemDetail: item } });
+    }
+
     const renderBeritaKegiatan = () => {
         const sortedData = dataSpanduk.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -136,6 +145,7 @@ const DashboardPage = () => {
                                 }}
                                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
                                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                onClick={() => handleBeritaDetail(item.id)}
                             >
                                 <div style={{ flex: '1', overflow: 'hidden' }}>
                                     <Image
