@@ -6,8 +6,8 @@ import {
   setLatarBelakang,
 } from "./../Latar Belakang/latarBelakangSlice";
 import latarBelakangData from "./../../../data/latarBelakang.json";
-import logo from "./../../../../public/images/latar belakang.png"; // Replace with the actual path to your logo/image
 import "./styles.css"; // Import the CSS file
+import { Images } from "../../../helpers/images";
 
 const LatarBelakangPage = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const LatarBelakangPage = () => {
     <Container className="latar-belakang-page">
       <Row className="align-items-center">
         <Col md={4} className="d-flex justify-content-center">
-          <Image src={logo} alt="Logo" fluid className="latar-belakang-logo" />
+          <Image src={Images.logoLatarBelakang} alt="Logo" fluid className="latar-belakang-logo" />
         </Col>
         <Col md={8} className="d-flex flex-column justify-content-center">
           <h1 className="latar-belakang-title">Latar Belakang</h1>

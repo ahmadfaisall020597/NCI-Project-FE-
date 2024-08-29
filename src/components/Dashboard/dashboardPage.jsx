@@ -289,7 +289,7 @@ const DashboardPage = () => {
     }
     return (
         <Stack>
-            <div style={{ margin: '34px' }} />
+            {/* <div style={{ margin: '34px' }} /> */}
             {renderSpanduk()}
             {renderBeritaKegiatan()}
             {renderVideoKegiatan()}

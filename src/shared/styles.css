@@ -1,0 +1,8 @@
+.content-container {
+    padding-top: 56px; /* Adjust this value based on the height of your navbar */
+}
+
+.navbar {
+    position: relative; /* Or sticky if you want it to stick to the top when scrolling */
+    z-index: 10; /* Ensure it stays above the content */
+}

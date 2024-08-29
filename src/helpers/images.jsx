@@ -6,4 +6,10 @@ export const Images = {
     image3: base_url + "images/image3.jpg",
     image4: base_url + "images/image4.jpg",
     logoNci: base_url + "images/logo-nci.png",
+    logoLatarBelakang: base_url + "images/latar-belakang.png",
+    integrity: base_url + "images/integrity.png",
+    excellence: base_url + "images/excellence.png",
+    collaboration: base_url + "images/collaboration.png",
+    innovation: base_url + "images/innovation.png",
+    strukturOrganisasi: base_url + "images/struktur-organisasi.png"
 };

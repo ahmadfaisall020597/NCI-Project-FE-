@@ -15,7 +15,7 @@ const visiMisiSlice = createSlice({
             state.baseLoading = true;
         },
         setVisiMisi(state, action) {
-            const { visi, misi, moto } = action.payload;
+            const { visi, misi, moto } = action.payload[0];
             state.visi = visi;
             state.misi = misi;
             state.moto = moto;

@@ -27,7 +27,6 @@ const DetailBerita = () => {
 
     return (
         <Stack>
-            <div style={{ margin: '34px' }} />
             <Stack className="">
                 {beritaItem && beritaItem.image_url && (
                     <>

@@ -1,5 +1,5 @@
 import { Container, Row, Col, Card, Stack } from "react-bootstrap";
-import visiMisiData from "./../../../data/visiMisi.json";
+import { VisiMisiData } from "../../../data/visiMisi";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getLoading, setVisiMisi } from "./visiMisiSlice";
@@ -9,16 +9,17 @@ import { useMediaQuery } from "react-responsive";
 const VisiMisiPage = () => {
     const dispatch = useDispatch();
     const { visi, misi, moto } = useSelector((state) => state.visiMisi);
+    console.log('visi : ', visi);
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
     useEffect(() => {
         dispatch(getLoading());
-        dispatch(setVisiMisi(visiMisiData));
+        dispatch(setVisiMisi(VisiMisiData));
     }, [dispatch]);
 
     const renderVisiandMisi = () => {
         return (
-            <Stack className="py-4">
+            <Stack>
                 <Container className="py-4">
                     <Row className="min-vh-100 align-items-center justify-content-center text-center">
                         <Col md={8}>
@@ -68,7 +69,7 @@ const VisiMisiPage = () => {
     }
 
     return (
-        <Stack className="py-4">
+        <Stack>
             {renderVisiandMisi()}
         </Stack>
     );

@@ -7,6 +7,8 @@ import Layout from "../../shared/layout";
 import StrukturOrganisasiPage from "../../components/Tentang Kami/Struktur Organisasi/strukturOrganisasiPage";
 import VisiMisiPage from "../../components/Tentang Kami/Visi Misi/visiMisiPage";
 import DetailBerita from "../../components/detailBerita/detailBerita";
+import BeritaPage from "../../components/Berita/berita";
+import VideoPage from "../../components/Video/videoPage";
 
 export const objectRouter = {
     dashboard: {
@@ -35,7 +37,7 @@ export const objectRouter = {
         header: true,
         footer: false,
         index: true
-    },    
+    },
     visiMisi: {
         title: "Tentang Kami",
         path: "/tentang-kami/visi-misi",
@@ -62,7 +64,25 @@ export const objectRouter = {
         header: true,
         footer: false,
         index: true
-    }    
+    },
+    berita: {
+        title: "Manage Berita",
+        path: "/manage-berita",
+        element: <BeritaPage />,
+        needAuth: true,
+        header: true,
+        footer: false,
+        index: true
+    },
+    video: {
+        title: "Manage Berita",
+        path: "/manage-video",
+        element: <VideoPage />,
+        needAuth: true,
+        header: true,
+        footer: false,
+        index: true
+    }
 };
 
 
@@ -78,12 +98,12 @@ export const convertObjectToArray = () => {
                     return redirect(obj.dashboard.path);
                 }
             }
-            if (objectKey.path == obj.dashboard.path) {
-                if (getAuthorization()) {
-                    console.log('masuk dashboard');
-                    return redirect(obj.dashboard.path)
-                }
-            }
+            // if (objectKey.path == obj.dashboard.path) {
+            //     if (getAuthorization()) {
+            //         console.log('masuk dashboard');
+            //         return redirect(obj.dashboard.path)
+            //     }
+            // }
             return null;
         };
         const dataObject = Object.keys(obj).map(key => ({
@@ -103,7 +123,7 @@ export const convertObjectToArray = () => {
     }
 }
 
-const ErrorPage = () => <div>Error Page cuy</div>;
+const ErrorPage = () => <div>Halaman tidak ditemukan.</div>;
 
 // console.log('children : ', convertObjectToArray());
 
