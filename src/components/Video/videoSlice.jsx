@@ -86,15 +86,15 @@ export const {
     setPagination,
 } = videoSlice.actions;
 
-export const fetchVideos = (page = 1) => async (dispatch) => {
+export const fetchVideos = (page = 1, searchQuery = '') => async (dispatch) => {
     console.log('hit list video');
     dispatch(fetchVideosStart());
     try {
-        const response = await CommonService.listVideo(page);
+        const response = await CommonService.listVideo(page, 10, searchQuery);
         console.log('response:', response);
 
         if (response && response.data) {
-            dispatch(fetchVideosSuccess(response.data));
+            dispatch(fetchVideosSuccess(response.data.data));
             dispatch(setPagination({
                 currentPage: page,
                 totalPages: response.last_page || 1,

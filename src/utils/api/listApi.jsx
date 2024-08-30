@@ -25,9 +25,9 @@ const createVideo = (payload) => {
   });
 }
 
-const listVideo = (page = 1, limit = 10) => {
+const listVideo = (page = 1, limit = 10, searchQuery = '') => {
   return request({
-    url: `/api/videos?page=${page}&limit=${limit}`,
+    url: `/api/videos?page=${page}&limit=${limit}&search=${searchQuery}`,
     method: 'GET'
   });
 }

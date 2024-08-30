@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form, Button, Container, Alert, Stack, Table, Card } from 'react-bootstrap';
+import { Form, Button, Container, Alert, Stack, Table, Card, InputGroup, FormControl, Row, Col } from 'react-bootstrap';
 import { fetchVideos, createVideo, updateVideo, deleteVideo } from './videoSlice';
 import ReactPaginate from 'react-paginate';
 import './styles.css';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 import dayjs from 'dayjs';
+import { MdDelete, MdEdit } from "react-icons/md";
 
 const VideoPage = () => {
     const [state, setState] = useState({
@@ -17,19 +18,31 @@ const VideoPage = () => {
         validated: false,
         error: "",
     });
-
+    const [searchQuery, setSearchQuery] = useState('');
+    const [debouncedQuery, setDebouncedQuery] = useState('');
     const dispatch = useDispatch();
     const { videos, loading, error, totalPages, currentPage } = useSelector((state) => state.video);
+    console.log('videos : ', videos);
     // console.log('total pages : ', totalPages),
     // console.log('current pages : ', currentPage);
 
     useEffect(() => {
-        dispatch(fetchVideos(1));
-    }, [dispatch]);
+        dispatch(fetchVideos(currentPage, debouncedQuery));
+    }, [dispatch, currentPage, debouncedQuery]);
 
     useEffect(() => {
         console.log('Videos state updated:', videos);
     }, [videos]);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedQuery(searchQuery);
+        }, 500);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchQuery]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -158,9 +171,28 @@ const VideoPage = () => {
         </Container>
     );
 
+    const filteredVideos = videos.filter(video =>
+        video.title.toLowerCase().includes(debouncedQuery.toLowerCase())
+    );
+
     const renderTable = () => (
         <Container className="mt-5" style={{ maxWidth: '1440px', margin: '0 auto' }}>
             <h4 className="mb-4" style={{ textAlign: 'center' }}>Daftar Video</h4>
+            <Row className="mb-3">
+                <Col lg="auto" className="d-flex justify-content-end">
+                    <div style={{ maxWidth: '500px', width: '100%' }}>
+                        <InputGroup>
+                            <FormControl
+                                placeholder="Cari judul video..."
+                                aria-label="Cari judul video"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                style={{ width: '100%' }}
+                            />
+                        </InputGroup>
+                    </div>
+                </Col>
+            </Row>
             {loading ? (
                 <p>Loading...</p>
             ) : error ? (
@@ -170,7 +202,6 @@ const VideoPage = () => {
                     <Table striped bordered hover responsive style={{ borderRadius: '10px', overflow: 'hidden' }}>
                         <thead className="thead-dark">
                             <tr>
-                                <th>NO</th>
                                 <th>Judul</th>
                                 <th>Link Video</th>
                                 <th>Tanggal Buat</th>
@@ -178,22 +209,46 @@ const VideoPage = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {videos.length > 0 ? (
-                                videos.map((video, index) => (
+                            {filteredVideos.length > 0 ? (
+                                filteredVideos.map((video, index) => (
                                     <tr key={video.id}>
-                                        <td>{index + 1 + (currentPage - 1) * 10}</td>
                                         <td>{video.title}</td>
                                         <td><a href={video.url} target="_blank" rel="noopener noreferrer">{video.url}</a></td>
                                         <td>{video.date == null ? formatDate(video.created_at) : formatDate(video.date)}</td>
-                                        <td>
-                                            <Button variant="warning" size="sm" onClick={() => handleEdit(video)} style={{ marginRight: '5px', borderRadius: '5px' }}>Edit</Button>
-                                            <Button variant="danger" size="sm" onClick={() => handleDelete(video.id)} style={{ borderRadius: '5px' }}>Delete</Button>
+                                        <td style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                            <Button
+                                                style={{
+                                                    background: 'none',
+                                                    border: 'none',
+                                                    padding: 0,
+                                                    marginRight: '30px',
+                                                    borderRadius: 0,
+                                                    color: 'inherit',
+                                                    fontSize: '24px'
+                                                }}
+                                                onClick={() => handleEdit(video)}
+                                            >
+                                                <MdEdit />
+                                            </Button>
+                                            <Button
+                                                style={{
+                                                    background: 'none',
+                                                    border: 'none',
+                                                    padding: 0,
+                                                    borderRadius: 0,
+                                                    color: 'inherit',
+                                                    fontSize: '24px'
+                                                }}
+                                                onClick={() => handleDelete(video.id)}
+                                            >
+                                                <MdDelete />
+                                            </Button>
                                         </td>
                                     </tr>
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan="4" style={{ textAlign: 'center' }}>No videos available</td>
+                                    <td colSpan="5" style={{ textAlign: 'center' }}>No videos available</td>
                                 </tr>
                             )}
                         </tbody>
