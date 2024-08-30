@@ -13,13 +13,19 @@ const request = async (options) => {
     Accept: "application/json",
     "Access-Control-Allow-Origin": "*",
     crossorigin: true,
-    ...(token && { authorization: `Bearer ${token.access_token}` }),
+    ...(token && { authorization: `Bearer ${token.token}` }),
   };
   const onSuccess = async (response) => {
+    console.log('response token : ', response);
     return response.data;
   };
 
-  return client(options).then(onSuccess);
+  const onError = (error) => {
+    console.error('Request error:', error);
+    throw error;
+  };
+
+  return client(options).then(onSuccess).catch(onError);
 };
 
 export default request;

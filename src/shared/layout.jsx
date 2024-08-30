@@ -25,7 +25,7 @@ const Layout = () => {
     // }, [location]);
 
     // const currentObjectRoute = Object.values(objectRouter).find(route => route.path === currentPath);
-    console.log('currentObjectRoute : ', currentObjectRoute);
+    // console.log('currentObjectRoute : ', currentObjectRoute);
     return (
         <Stack className="w-100">
             <div>

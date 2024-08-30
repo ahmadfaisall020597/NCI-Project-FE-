@@ -43,7 +43,7 @@ const NavbarComponent = () => {
         }));
     };
 
-    console.log('local : ', state.Auth);
+    // console.log('local : ', state.Auth);
 
     return (
         <Navbar className="custom-navbar" expand="lg">

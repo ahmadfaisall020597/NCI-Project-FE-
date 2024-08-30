@@ -9,7 +9,7 @@ const App = () => {
 
   const render = () => {
     try {
-      console.log('masuk router')
+      // console.log('masuk router')
       return (
         <RouterProvider router={router} />
       )

@@ -6,9 +6,14 @@ import videoData from '../../data/videos.json'
 import { dataSpanduk } from "../../data/dataSpanduk";
 import { useMediaQuery } from "react-responsive";
 import { History, objectRouter } from "../../utils/router/objectRouter";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchVideosDashboard } from "../Video/videoSlice";
 
 const DashboardPage = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { videos, loading, error } = useSelector((state) => state.video);
+    console.log('videos : ', videos);
     const [state, setState] = useState({
         selectedVideo: null,
         playing: false,
@@ -33,11 +38,14 @@ const DashboardPage = () => {
     };
 
     useEffect(() => {
-        setState(prevState => ({
-            ...prevState,
-            selectedVideo: videoData.videos[0].url,
-            playing: false,
-        }));
+        dispatch(fetchVideosDashboard());
+        if (videos) {
+            setState(prevState => ({
+                ...prevState,
+                selectedVideo: videos.url,
+                playing: false,
+            }));
+        }
     }, []);
 
     const setSelectedVideo = (videoUrl) => {
@@ -233,7 +241,7 @@ const DashboardPage = () => {
                     style={{ whiteSpace: 'nowrap' }}
                     gap={2}
                 >
-                    {videoData.videos.map((video) => {
+                    {videos.map((video) => {
                         const videoId = extractVideoId(video.url);
                         const thumbnailUrl = getThumbnailUrl(videoId);
                         return (

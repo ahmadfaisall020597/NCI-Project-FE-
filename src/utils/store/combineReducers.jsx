@@ -4,6 +4,7 @@ import latarBelakangSlice from "../../components/Tentang Kami/Latar Belakang/lat
 import strukturOrganisasiSlice from "../../components/Tentang Kami/Struktur Organisasi/strukturOrganisasiSlice";
 import visiMisiSlice from "../../components/Tentang Kami/Visi Misi/visiMisiSlice";
 import beritaSlice from "../../components/Berita/beritaSlice";
+import videoSlice from "../../components/Video/videoSlice";
 
 const rootReducer = combineReducers({
     dashboard: dashboardSlice,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     strukturOrganisasi: strukturOrganisasiSlice,
     visiMisi: visiMisiSlice,
     berita: beritaSlice,
+    video: videoSlice,
 });
 
 export default rootReducer;
