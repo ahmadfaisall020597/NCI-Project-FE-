@@ -11,5 +11,6 @@ export const Images = {
     excellence: base_url + "images/excellence.png",
     collaboration: base_url + "images/collaboration.png",
     innovation: base_url + "images/innovation.png",
-    strukturOrganisasi: base_url + "images/struktur-organisasi.png"
+    strukturOrganisasi: base_url + "images/struktur-organisasi.png",
+    backgroundLogin: base_url + "images/background.jpg",
 };

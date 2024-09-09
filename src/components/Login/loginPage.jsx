@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CommonService from "../../utils/api/listApi";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { objectRouter } from "../../utils/router/objectRouter";
 import { setAuthorization } from "../../helpers/storage";
+import { FaUser, FaLock } from "react-icons/fa";
+import Swal from 'sweetalert2'; 
+import './styles.css';
+import { Images } from "../../helpers/images";
 
 const LoginPage = () => {
     const [state, setState] = useState({
@@ -21,11 +25,17 @@ const LoginPage = () => {
             .then((response) => {
                 console.log("response : ", response);
                 if (response && response.token) {
-                    // Use setAuthorization to store encrypted token
+                    toast.success(response.message);
                     const isSuccess = setAuthorization({ token: response.token });
                     if (isSuccess) {
-                        console.log('navigate : ', objectRouter.dashboard.path);
-                        navigate(objectRouter.dashboard.path);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Login Successful',
+                            text: 'Welcome! You have successfully logged in.',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            navigate(objectRouter.dashboard.path);
+                        });
                     } else {
                         toast.error("Failed to store authorization data.");
                     }
@@ -33,35 +43,57 @@ const LoginPage = () => {
             })
             .catch((error) => {
                 console.error("Login failed:", error);
-                toast.error("Login failed. Please try again.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: 'Incorrect email or password. Please try again.',
+                    confirmButtonText: 'OK'
+                });
             });
     }
 
     return (
-        <div>
-            <p className="fs-2 fw-semibold">Login Page</p>
-            <form onSubmit={submitLogin}>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Email"
-                        required
-                        value={state.email}
-                        onChange={(e) => setState({ ...state, email: e.target.value })}
-                    />
-                </div>
-                <div>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        required
-                        value={state.password}
-                        onChange={(e) => setState({ ...state, password: e.target.value })}
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <ToastContainer />
+        <div
+            className="body"
+            style={{
+                backgroundImage: `url(${Images.backgroundLogin})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
+            <div className="wrapper">
+                <form action="">
+                    <h1>Login NCI</h1>
+
+                    <div className="input-box">
+                        <input
+                            type="text"
+                            placeholder="Email"
+                            required
+                            value={state.email}
+                            onChange={(e) => setState({ ...state, email: e.target.value })}
+                        />
+                        <FaUser className="icon" />
+                    </div>
+
+                    <div className="input-box">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            required
+                            value={state.password}
+                            onChange={(e) => setState({ ...state, password: e.target.value })}
+                        />
+                        <FaLock className="icon" />
+                    </div>
+
+                    <button type="submit" onClick={submitLogin}>Login</button>
+                </form>
+            </div>
         </div>
     );
 }
