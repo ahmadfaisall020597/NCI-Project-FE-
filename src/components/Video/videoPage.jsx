@@ -23,8 +23,8 @@ const VideoPage = () => {
     const dispatch = useDispatch();
     const { videos, loading, error, totalPages, currentPage } = useSelector((state) => state.video);
     console.log('videos : ', videos);
-    // console.log('total pages : ', totalPages),
-    // console.log('current pages : ', currentPage);
+    console.log('total pages : ', totalPages),
+    console.log('current pages : ', currentPage);
 
     useEffect(() => {
         dispatch(fetchVideos(currentPage, debouncedQuery));

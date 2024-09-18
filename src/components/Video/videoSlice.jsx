@@ -97,7 +97,7 @@ export const fetchVideos = (page = 1, searchQuery = '') => async (dispatch) => {
             dispatch(fetchVideosSuccess(response.data.data));
             dispatch(setPagination({
                 currentPage: page,
-                totalPages: response.last_page || 1,
+                totalPages: response.data.last_page || 1,
             }));
         } else {
             throw new Error('Invalid response structure');
