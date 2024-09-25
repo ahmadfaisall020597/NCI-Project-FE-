@@ -93,7 +93,7 @@ export const menuNavbarAdmin = {
         },
         {
             "name": "Kemendikbud",
-            "url": "https://www.kemdikbud.go.id/"
+            "url": "/kemdikbud"
         },
         {
             "name": "Manage Data",

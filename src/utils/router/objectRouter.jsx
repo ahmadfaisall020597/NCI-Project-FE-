@@ -10,6 +10,7 @@ import DetailBerita from "../../components/detailBerita/detailBerita";
 import BeritaPage from "../../components/Berita/berita";
 import VideoPage from "../../components/Video/videoPage";
 import DaftarOnlinePage from "../../components/daftarOnline/daftarOnline";
+import KemendikbudPage from "../../components/Kemdikbud/kemdikbudPage";
 
 export const objectRouter = {
     dashboard: {
@@ -88,6 +89,15 @@ export const objectRouter = {
         title: "Daftar Online",
         path: "/daftar-online",
         element: <DaftarOnlinePage />,
+        needAuth: true,
+        header: true,
+        footer: false,
+        index: true
+    },
+    kemdikbud: {
+        title: "Kemdikbud",
+        path: "/kemdikbud",
+        element: <KemendikbudPage />,
         needAuth: true,
         header: true,
         footer: false,

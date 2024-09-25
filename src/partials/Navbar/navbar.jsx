@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navbar, Nav, NavDropdown, Container, Stack, Button } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { menuNavbar, menuNavbarAdmin } from '../../data/menuNavbar';
 import './styles.css';
 import { objectRouter } from '../../utils/router/objectRouter';
@@ -12,18 +12,22 @@ const NavbarComponent = () => {
         menuAdmin: {},
         isAuthenticated: false,
         isMenuOpen: false,
-        Auth: null
+        Auth: null,
+        activeLink: ''
     });
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     useEffect(() => {
         const authToken = localStorage.getItem('authorization');
+        const currentPath = window.location.pathname;
         setState(prevState => ({
             ...prevState,
             menu: menuNavbar,
             menuAdmin: menuNavbarAdmin,
             isAuthenticated: !!authToken,
-            Auth: authToken
+            Auth: authToken,
+            activeLink: currentPath 
         }));
     }, []);
 
@@ -43,124 +47,77 @@ const NavbarComponent = () => {
         }));
     };
 
-    // console.log('local : ', state.Auth);
+    const handleLinkClick = (url) => {
+        setState(prevState => ({
+            ...prevState,
+            activeLink: url,
+        }));
+    };
 
     return (
         <Navbar className="custom-navbar" expand="lg">
-            {state.Auth ? (
-                <Container fluid>
-                    <Navbar.Brand href={objectRouter.dashboard.path} className="d-flex align-items-center">
-                        <img
-                            src={Images.logoNci}
-                            alt='brand logo'
-                            className='logo-image'
-                            style={{
-                                paddingLeft: isMobile ? '10px' : '40px'
-                            }}
-                        />
-                        <h6 className="mb-0 ml-2 px-2 text-white">Nusa Citra Indonesia</h6>
-                    </Navbar.Brand>
-                    <Navbar.Toggle
-                        aria-controls="basic-navbar-nav"
-                        onClick={handleToggle}
-                        className={state.isMenuOpen ? 'toggled' : ''}
+            <Container fluid>
+                <Navbar.Brand href={objectRouter.dashboard.path} className="d-flex align-items-center">
+                    <img
+                        src={Images.logoNci}
+                        alt='brand logo'
+                        className='logo-image'
+                        style={{
+                            paddingLeft: isMobile ? '10px' : '40px'
+                        }}
                     />
-                    <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
-                        <Nav className='ml-auto'>
-                            {state.menuAdmin.links && state.menuAdmin.links.map((link, index) => (
-                                link.submenu ? (
-                                    <NavDropdown
-                                        key={index}
-                                        title={
-                                            <div className="d-flex justify-content-between align-items-center w-100">
-                                                <span>{link.name}</span>
-                                                {isMobile && <span className="dropdown-arrow">&#x25BC;</span>}
-                                            </div>
-                                        }
-                                        id={`nav-dropdown-${index}`}
-                                        className="custom-dropdown"
-                                    >
-                                        {link.submenu.map((sublink, subIndex) => (
-                                            <NavDropdown.Item
-                                                key={subIndex}
-                                                href={sublink.url}
-                                                className="custom-nav-link"
-                                            >
-                                                {sublink.name}
-                                            </NavDropdown.Item>
-                                        ))}
-                                    </NavDropdown>
-                                ) : (
-                                    <Nav.Link
-                                        key={index}
-                                        href={link.url}
-                                        className="custom-nav-link"
-                                    >
-                                        {link.name}
-                                    </Nav.Link>
-                                )
-                            ))}
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            ) : (
-                <Container fluid>
-                    <Navbar.Brand href={objectRouter.dashboard.path} className="d-flex align-items-center">
-                        <img
-                            src={Images.logoNci}
-                            alt='brand logo'
-                            className='logo-image'
-                            style={{
-                                paddingLeft: isMobile ? '10px' : '40px'
-                            }}
-                        />
-                        <h6 className="mb-0 ml-2 px-2 text-white">Nusa Citra Indonesia</h6>
-                    </Navbar.Brand>
-                    <Navbar.Toggle
-                        aria-controls="basic-navbar-nav"
-                        onClick={handleToggle}
-                        className={state.isMenuOpen ? 'toggled' : ''}
-                    />
-                    <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
-                        <Nav className='ml-auto'>
-                            {state.menu.links && state.menu.links.map((link, index) => (
-                                link.submenu ? (
-                                    <NavDropdown
-                                        key={index}
-                                        title={
-                                            <div className="d-flex justify-content-between align-items-center w-100">
-                                                <span>{link.name}</span>
-                                                {isMobile && <span className="dropdown-arrow">&#x25BC;</span>}
-                                            </div>
-                                        }
-                                        id={`nav-dropdown-${index}`}
-                                        className="custom-dropdown"
-                                    >
-                                        {link.submenu.map((sublink, subIndex) => (
-                                            <NavDropdown.Item
-                                                key={subIndex}
-                                                href={sublink.url}
-                                                className="custom-nav-link"
-                                            >
-                                                {sublink.name}
-                                            </NavDropdown.Item>
-                                        ))}
-                                    </NavDropdown>
-                                ) : (
-                                    <Nav.Link
-                                        key={index}
-                                        href={link.url}
-                                        className="custom-nav-link"
-                                    >
-                                        {link.name}
-                                    </Nav.Link>
-                                )
-                            ))}
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            )
-            }
+                    <h6 className="mb-0 ml-2 px-2 text-white">Nusa Citra Indonesia</h6>
+                </Navbar.Brand>
+                <Navbar.Toggle
+                    aria-controls="basic-navbar-nav"
+                    onClick={handleToggle}
+                    className={state.isMenuOpen ? 'toggled' : ''}
+                />
+                <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
+                    <Nav className='ml-auto'>
+                        {state.menuAdmin.links && state.menuAdmin.links.map((link, index) => {
+                            const isActiveParent = state.activeLink === link.url ||
+                                (link.submenu && link.submenu.some(sub => state.activeLink === sub.url));
+
+                            return link.submenu ? (
+                                <NavDropdown
+                                    key={index}
+                                    title={
+                                        <div className="d-flex justify-content-between align-items-center w-100">
+                                            <span className={`custom-nav-link ${isActiveParent ? 'active' : ''}`}>
+                                                {link.name}
+                                            </span>
+                                            {isMobile && <span className="dropdown-arrow">&#x25BC;</span>}
+                                        </div>
+                                    }
+                                    id={`nav-dropdown-${index}`}
+                                    className="custom-dropdown"
+                                >
+                                    {link.submenu.map((sublink, subIndex) => (
+                                        <NavDropdown.Item
+                                            key={subIndex}
+                                            href={sublink.url}
+                                            className={`custom-nav-link ${state.activeLink === sublink.url ? 'active' : ''}`}
+                                            onClick={() => handleLinkClick(sublink.url)}
+                                        >
+                                            {sublink.name}
+                                        </NavDropdown.Item>
+                                    ))}
+                                </NavDropdown>
+                            ) : (
+                                <Nav.Link
+                                    key={index}
+                                    href={link.url}
+                                    className={`custom-nav-link ${isActiveParent ? 'active' : ''}`}
+                                    onClick={() => handleLinkClick(link.url)}
+                                >
+                                    {link.name}
+                                </Nav.Link>
+                            );
+                        })}
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
         </Navbar>
     );
 };

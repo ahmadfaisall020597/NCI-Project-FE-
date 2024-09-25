@@ -95,3 +95,17 @@
     display: inline-block;
 }
 
+.custom-nav-link.active {
+    color: black !important; 
+}
+
+.custom-nav-link:hover {
+    color: black !important; 
+}
+
+.active-nav-link {
+    color: black;
+}
+
+
+
