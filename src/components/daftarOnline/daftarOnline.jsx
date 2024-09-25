@@ -1,18 +1,20 @@
-import { Stack } from "react-bootstrap";
+import { Stack, Button } from "react-bootstrap";
+import './styles.css';
 
 const DaftarOnlinePage = () => {
+    const handleRegisterClick = () => {
+        window.open('https://forms.gle/cXZTb9PqYngucBRo7', '_blank');
+    };
+
     return (
-        <Stack className="d-flex justify-content-center align-items-center h-100 overflow-auto" style={{ maxHeight: '100vh' }}>
-            <iframe
-                src="https://docs.google.com/forms/d/e/1FAIpQLSfDSb2M-96nElvgrVY146fM844XIlyaF8jNJfFxFrCuYtOrBA/viewform?embedded=true"
-                width="100%"
-                height="1000"
-                frameBorder="0"
-                marginHeight="0"
-                marginWidth="0"
-            >
-                Loading…
-            </iframe>
+        <Stack className="register-page h-100">
+            <h1>Pendaftaran Online Silahkan klik disini!</h1>
+            <div className="animation-container">
+                <i className="fas fa-hand-point-down hand-animation"></i>
+            </div>
+            <Button className="register-button" onClick={handleRegisterClick}>
+                Klik di sini
+            </Button>
         </Stack>
     );
 };
