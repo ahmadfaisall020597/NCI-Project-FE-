@@ -11,6 +11,7 @@ import BeritaPage from "../../components/Berita/berita";
 import VideoPage from "../../components/Video/videoPage";
 import DaftarOnlinePage from "../../components/daftarOnline/daftarOnline";
 import KemendikbudPage from "../../components/Kemdikbud/kemdikbudPage";
+import PengumumanPage from "../../components/Pengumuman/pengumumanPage";
 
 export const objectRouter = {
     dashboard: {
@@ -98,11 +99,20 @@ export const objectRouter = {
         title: "Kemdikbud",
         path: "/kemdikbud",
         element: <KemendikbudPage />,
+        needAuth: false,
+        header: true,
+        footer: false,
+        index: true
+    },
+    pengumuman: {
+        title: "Pengumuman",
+        path: "/manage-pengumuman",
+        element: <PengumumanPage />,
         needAuth: true,
         header: true,
         footer: false,
         index: true
-    }
+    },
 };
 
 

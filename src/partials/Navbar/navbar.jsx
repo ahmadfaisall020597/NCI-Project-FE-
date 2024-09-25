@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Container, Stack } from 'react-bootstrap';
 import { menuNavbar, menuNavbarAdmin } from '../../data/menuNavbar';
 import './styles.css';
 import { objectRouter } from '../../utils/router/objectRouter';
@@ -27,7 +27,7 @@ const NavbarComponent = () => {
             menuAdmin: menuNavbarAdmin,
             isAuthenticated: !!authToken,
             Auth: authToken,
-            activeLink: currentPath 
+            activeLink: currentPath
         }));
     }, []);
 
@@ -37,7 +37,7 @@ const NavbarComponent = () => {
             ...prevState,
             isAuthenticated: false,
         }));
-        window.location.href = objectRouter.dashboard.path;
+        window.location.href = objectRouter.login.path;
     };
 
     const handleToggle = () => {
@@ -78,6 +78,7 @@ const NavbarComponent = () => {
                         {state.menuAdmin.links && state.menuAdmin.links.map((link, index) => {
                             const isActiveParent = state.activeLink === link.url ||
                                 (link.submenu && link.submenu.some(sub => state.activeLink === sub.url));
+                            if (link.requiresAuth && !state.isAuthenticated) return null;
 
                             return link.submenu ? (
                                 <NavDropdown
@@ -115,6 +116,17 @@ const NavbarComponent = () => {
                                 </Nav.Link>
                             );
                         })}
+                        <Stack>
+                            {state.isAuthenticated && (
+                                <Nav.Link
+                                    href="#"
+                                    className={`custom-nav-link`}
+                                    onClick={handleLogout}
+                                >
+                                    Logout
+                                </Nav.Link>
+                            )}
+                        </Stack>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

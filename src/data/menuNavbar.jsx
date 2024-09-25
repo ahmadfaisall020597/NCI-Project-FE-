@@ -106,8 +106,12 @@ export const menuNavbarAdmin = {
                 {
                     "name": "Manage Video",
                     "url": "/manage-video"
+                },
+                {
+                    "name": "Manage Pengumuman",
+                    "url": "/manage-pengumuman"
                 }
             ]
-        }
+        },
     ]
 };
