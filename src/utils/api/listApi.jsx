@@ -62,6 +62,36 @@ const listVideoDashboard = () => {
   })
 }
 
+const listPengumuman = (page = 1, limit = 10, searchQuery = '') => {
+  return request({
+    url: `/api/announcement?page=${page}&limit=${limit}&search=${searchQuery}`,
+    method: 'GET'
+  });
+}
+
+const createPengumuman = (payload) => {
+  return request({
+    url: "/api/announcement",
+    method: 'POST',
+    data: payload,
+  });
+}
+
+const editPengumuman = (id, payload) => {
+  return request({
+    url: `/api/announcement/${id}`,
+    method: 'PUT',
+    data: payload,
+  });
+}
+
+const deletePengumuman = (id, payload) => {
+  return request({
+    url: `/api/announcement/${id}`,
+    method: 'DELETE',
+    data: payload,
+  })
+}
 
 const CommonService = {
   signIn,
@@ -72,6 +102,10 @@ const CommonService = {
   deleteVideo,
   editVideo,
   listVideoDashboard,
+  listPengumuman,
+  createPengumuman,
+  editPengumuman,
+  deletePengumuman,
 }
 
 export default CommonService;
