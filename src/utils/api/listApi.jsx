@@ -106,6 +106,12 @@ const CommonService = {
   createPengumuman,
   editPengumuman,
   deletePengumuman,
+  createBerita,
+  listBerita,
+  detailBerita,
+  deleteBerita,
+  editBerita,
+  listBeritaDashboard,
 }
 
 export default CommonService;
