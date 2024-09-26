@@ -62,6 +62,53 @@ const listVideoDashboard = () => {
   })
 }
 
+const createBerita = (payload) => {
+  return request({
+    url: "/api/news",
+    method: 'POST',
+    data: payload,
+  });
+}
+
+const listBerita = (page = 1, limit = 10, searchQuery = '') => {
+  return request({
+    url: `/api/news?page=${page}&limit=${limit}&search=${searchQuery}`,
+    method: 'GET'
+  });
+}
+
+const detailBerita = (id) => {
+  return request({
+    url: `/api/berita/${id}`,
+    method: 'GET'
+  });
+}
+
+const deleteBerita = (id, payload) => {
+  return request({
+    url: `/api/news/${id}`,
+    method: 'DELETE',
+    data: payload,
+  })
+}
+
+const editBerita = (id, payload) => {
+  return request({
+    url: `/api/news/${id}`,
+    method: 'PUT',
+    data: payload,
+  });
+}
+
+const listBeritaDashboard = () => {
+  return request({
+    url: "/api/index-dashboard",
+    method: 'GET',
+  })
+}
+
+
+
 
 const CommonService = {
   signIn,
@@ -72,6 +119,12 @@ const CommonService = {
   deleteVideo,
   editVideo,
   listVideoDashboard,
+  createBerita,
+  listBerita,
+  detailBerita,
+  deleteBerita,
+  editBerita,
+  listBeritaDashboard,
 }
 
 export default CommonService;

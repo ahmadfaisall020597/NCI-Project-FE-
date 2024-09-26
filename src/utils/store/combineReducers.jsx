@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
     latarBelakang: latarBelakangSlice,
     strukturOrganisasi: strukturOrganisasiSlice,
     visiMisi: visiMisiSlice,
-    berita: beritaSlice,
+    news: beritaSlice,
     video: videoSlice,
 });
 
