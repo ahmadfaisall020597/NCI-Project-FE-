@@ -125,15 +125,15 @@ const deleteBerita = (id, payload) => {
 
 const editBerita = (id, payload) => {
   return request({
-    url: `/api/news/${id}`,
-    method: 'PUT',
+    url: `/api/news-update/${id}`,
+    method: 'POST',
     data: payload,
   });
 }
 
 const listBeritaDashboard = () => {
   return request({
-    url: "/api/index-dashboard",
+    url: "/api/views-dashboard",
     method: 'GET',
   })
 }
