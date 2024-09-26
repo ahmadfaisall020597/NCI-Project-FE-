@@ -94,7 +94,6 @@ export const fetchNews = (page = 1, searchQuery = '') => async (dispatch) => {
   dispatch(fetchnewsStart());
   try {
     const response = await CommonService.listBerita(page, 10, searchQuery);
-    console.log('response:', response);
     
     if(response && response.data) {
       dispatch(fetchnewsSuccess(response.data.data));
@@ -115,7 +114,6 @@ export const fetchNewsDashboard = () => async (dispatch) => {
   dispatch(fetchnewsStart());
   try {
     const response = await CommonService.listBeritaDashboard();
-    console.log('response : ', response);
     dispatch(fetchnewsSuccess(response.data));
   } catch (error) {
     dispatch(fetchnewsFailure(error.response ? error.response.data : error.message));
@@ -154,8 +152,6 @@ export const updateNews = (id, payload) => async (dispatch) => {
   dispatch(updateNewsStart());
   try {
     const response = await CommonService.editBerita(id, payload);
-    console.log('response updated:', response);
-    console.log('response updated:', response.data)
 
     dispatch(updateNewsSuccess(response.data));
   } catch (error) {
