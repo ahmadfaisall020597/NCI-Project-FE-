@@ -92,3 +92,73 @@
         font-size: 12px; 
     }
 }
+.marquee-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+    background-color: #79b2db; /* Optional: add a background color */
+}
+
+.label {
+    position: absolute; /* Make the label absolute */
+    left: 50vh; /* Set a fixed position from the left */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust to center */
+    font-weight: bold; /* Make the label bold */
+}
+
+.marquee {
+    display: flex;
+    align-items: center; /* Center vertically for label and item */
+    justify-content: center; /* Center the item */
+    flex: 1;
+    position: relative;
+}
+
+.marquee-item {
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    opacity: 0; /* Mulai dengan tidak terlihat */
+    animation: slideDown 0.5s forwards; /* Animasi muncul */
+}
+
+.show {
+    opacity: 1; /* Menjadi terlihat */
+    animation: slideDown 0.5s forwards; /* Animasi untuk muncul */
+}
+
+.hide {
+    opacity: 0; /* Hilang */
+    animation: slideDownOut 0.5s forwards; /* Animasi untuk menghilang */
+}
+
+/* Kunci animasi muncul */
+@keyframes slideDown {
+    0% {
+        opacity: 0; /* Mulai tidak terlihat */
+        transform: translateY(-100%); /* Mulai dari atas */
+    }
+    100% {
+        opacity: 1; /* Menjadi terlihat */
+        transform: translateY(0); /* Berhenti di posisi normal */
+    }
+}
+
+/* Kunci animasi menghilang */
+@keyframes slideDownOut {
+    0% {
+        opacity: 1; /* Mulai terlihat */
+        transform: translateY(0); /* Mulai dari posisi normal */
+    }
+    100% {
+        opacity: 0; /* Menghilang */
+        transform: translateY(100%); /* Bergerak ke bawah */
+    }
+}
+
