@@ -26,16 +26,6 @@ export const menuNavbar = {
         {
             "name": "Program Pelatihan",
             "url": "/program-pelatihan",
-            "submenu": [
-                {
-                    "name": "Pelatihan Listrik",
-                    "url": "/program-pelatihan/pelatihan-listrik"
-                },
-                {
-                    "name": "Pelatihan Pengelasan",
-                    "url": "/program-pelatihan/pelatihan-pengelasan"
-                }
-            ]
         },
         {
             "name": "Daftar Online",
@@ -76,16 +66,6 @@ export const menuNavbarAdmin = {
         {
             "name": "Program Pelatihan",
             "url": "/program-pelatihan",
-            "submenu": [
-                {
-                    "name": "Pelatihan Listrik",
-                    "url": "/program-pelatihan/pelatihan-listrik"
-                },
-                {
-                    "name": "Pelatihan Pengelasan",
-                    "url": "/program-pelatihan/pelatihan-pengelasan"
-                }
-            ]
         },
         {
             "name": "Daftar Online",

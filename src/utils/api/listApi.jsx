@@ -133,7 +133,7 @@ const editBerita = (id, payload) => {
 
 const listBeritaDashboard = () => {
   return request({
-    url: "/api/index-dashboard",
+    url: "/api/views-dashboard",
     method: 'GET',
   })
 }

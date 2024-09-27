@@ -8,15 +8,19 @@ import { useMediaQuery } from "react-responsive";
 import { History, objectRouter } from "../../utils/router/objectRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVideosDashboard } from "../Video/videoSlice";
+import { fetchNewsDashboard } from "../Berita/beritaSlice";
 
 const DashboardPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { videos, loading, error } = useSelector((state) => state.video);
+    const news = useSelector((state) => state.news);
+    console.log('news : ', news);
     console.log('videos : ', videos);
     const [state, setState] = useState({
         selectedVideo: null,
         playing: false,
+        selectedNews: null
     });
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
     const scrollRef = useRef(null);
@@ -45,6 +49,13 @@ const DashboardPage = () => {
                 selectedVideo: videos.url,
                 playing: false,
             }));
+        }
+        dispatch(fetchNewsDashboard());
+        if (news) {
+            setState(prevState => ({
+                ...prevState,
+                selectedNews: news.data
+            }))
         }
     }, []);
 
