@@ -4,6 +4,7 @@ import { pelatihan } from '../../data/pelatihan';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import { objectRouter } from '../../utils/router/objectRouter';
+import Footer from '../../partials/Footer/footer';
 
 const ProgramPelatihanPage = () => {
     const navigate = useNavigate();
@@ -17,9 +18,9 @@ const ProgramPelatihanPage = () => {
     }
 
     return (
-        <Stack className='py-2'>
+        <Stack className='py-2 d-flex flex-column min-vh-100'>
             <h2 className='text-center'>Program Pelatihan</h2>
-            <div className="scroll-container">
+            <div className="scroll-container flex-grow-1">
                 {pelatihan.program_pelatihan.map((programItem) => (
                     <div key={programItem.id} className="card-wrapper">
                         <Card
@@ -50,6 +51,7 @@ const ProgramPelatihanPage = () => {
                     </div>
                 ))}
             </div>
+            <Footer />
         </Stack>
     );
 };

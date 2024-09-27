@@ -52,3 +52,58 @@ export const pelatihan = {
         },
     ]
 }
+
+export const detailPelatihan = [
+    {
+        "id": 1,
+        "title": "Dasar-Dasar Instalasi Listrik",
+        "image": "https://limaprimasolusindo.co.id/wp-content/uploads/2022/09/teknisi-k3-listrik.webp",
+        "nama_program": "Dasar-Dasar Instalasi Listrik",
+        "persyaratan": ["ktp", "npwp", "sim"],
+        "deskripsi": "Pelatihan untuk memahami dasar-dasar instalasi listrik pada bangunan.",
+        "durasi": "3 minggu",
+        "tanggal_mulai": "2024-10-01",
+        "lokasi": "Jakarta",
+        "biaya": "Rp. 2500000",
+        "target_output": "Target Output"
+    },
+    {
+        "id": 2,
+        "title": "Pemeliharaan Sistem Listrik",
+        "image": "https://pelatihan-indonesia.id/wp-content/uploads/2024/01/K3-Listrik.jpg",
+        "nama_program": "Pemeliharaan Sistem Listrik",
+        "persyaratan": ["ktp", "npwp", "sim"],
+        "deskripsi": "Pelatihan tentang cara merawat dan memperbaiki sistem kelistrikan.",
+        "durasi": "4 minggu",
+        "tanggal_mulai": "2024-11-15",
+        "lokasi": "Bandung",
+        "biaya": "Rp. 3000000",
+        "target_output": "Target Output"
+    },
+    {
+        "id": 3,
+        "title": "Pengelasan Dasar",
+        "image": "https://jpteknik.com/wp-content/uploads/2019/05/pengelasan.jpg",
+        "nama_program": "Pengelasan Dasar",
+        "persyaratan": ["ktp", "npwp", "sim"],
+        "deskripsi": "Pelatihan pengelasan untuk pemula dengan berbagai teknik pengelasan.",
+        "durasi": "2 minggu",
+        "tanggal_mulai": "2024-09-20",
+        "lokasi": "Surabaya",
+        "biaya": "Rp. 2000000",
+        "target_output": "Target Output"
+    },
+    {
+        "id": 4,
+        "title": "Pengelasan Lanjutan",
+        "image": "https://klopmartbucket.s3.ap-southeast-1.amazonaws.com/uploads/article/8-cara-mengelas-yang-benar-dan-aman_MjAyMjExMDEwODI0MTkx.jpg",
+        "nama_program": "Pengelasan Lanjutan",
+        "persyaratan": ["ktp", "npwp", "sim"],
+        "deskripsi": "Pelatihan lanjutan untuk menguasai pengelasan pada berbagai material.",
+        "durasi": "3 minggu",
+        "tanggal_mulai": "2024-10-10",
+        "lokasi": "Yogyakarta",
+        "biaya": "Rp. 3500000",
+        "target_output": "Target Output"
+    }
+]

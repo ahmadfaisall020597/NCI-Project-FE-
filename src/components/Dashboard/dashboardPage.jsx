@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchVideosDashboard } from "../Video/videoSlice";
 import { fetchNewsDashboard } from "../Berita/beritaSlice";
 import { fetchPengumuman } from "../Pengumuman/pengumumanSlice";
+import Footer from "../../partials/Footer/footer";
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -168,7 +169,7 @@ const DashboardPage = () => {
     return (
       <div className="marquee-container">
         <div className="marquee">
-        <span className="label">Pengumuman : </span>
+          <span className="label">Pengumuman : </span>
           {limitedPengumuman.length > 0 && (
             <div className={`marquee-item ${isExiting ? "hide" : "show"}`}>
               <span className="marquee-deskripsi">
@@ -354,9 +355,8 @@ const DashboardPage = () => {
                 {selectedVideo === video.url && videoId ? (
                   <div style={{ position: "relative", paddingTop: "56.25%" }}>
                     <iframe
-                      src={`https://www.youtube.com/embed/${videoId}?autoplay=${
-                        state.playing ? 1 : 0
-                      }`}
+                      src={`https://www.youtube.com/embed/${videoId}?autoplay=${state.playing ? 1 : 0
+                        }`}
                       title={video.title}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -409,6 +409,7 @@ const DashboardPage = () => {
       {renderPengumuman()}
       {renderBeritaKegiatan()}
       {renderVideoKegiatan()}
+      <Footer />
     </Stack>
   );
 };
