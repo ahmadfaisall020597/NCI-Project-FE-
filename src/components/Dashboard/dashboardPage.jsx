@@ -2,36 +2,37 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Stack,
-  Container,
   Carousel,
   Card,
   Image,
   Button,
 } from "react-bootstrap";
 import "./styles.css";
-import videoData from "../../data/videos.json";
 import { dataSpanduk } from "../../data/dataSpanduk";
 import { useMediaQuery } from "react-responsive";
-import { History, objectRouter } from "../../utils/router/objectRouter";
+import { objectRouter } from "../../utils/router/objectRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVideosDashboard } from "../Video/videoSlice";
 import { fetchNewsDashboard } from "../Berita/beritaSlice";
 import { fetchPengumuman } from "../Pengumuman/pengumumanSlice";
 
 const DashboardPage = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { videos, loading, error } = useSelector((state) => state.video);
-    const news = useSelector((state) => state.news);
-    console.log('news : ', news);
-    console.log('videos : ', videos);
-    const [state, setState] = useState({
-        selectedVideo: null,
-        playing: false,
-        selectedNews: null
-    });
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
-    const scrollRef = useRef(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { videos } = useSelector((state) => state.video);
+  const { news } = useSelector((state) => state.news);
+  const { pengumuman } = useSelector((state) => state.pengumuman);
+  console.log("videos : ", videos);
+  console.log("news : ", news);
+  console.log("pengumuman : ", pengumuman);
+  const [state, setState] = useState({
+    selectedPengumuman: null,
+    selectedNews: null,
+    selectedVideo: null,
+    playing: false,
+  });
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const scrollRef = useRef(null);
 
   const { selectedVideo } = state;
 
@@ -49,23 +50,18 @@ const DashboardPage = () => {
     }
   };
 
-    useEffect(() => {
-        dispatch(fetchVideosDashboard());
-        if (videos) {
-            setState(prevState => ({
-                ...prevState,
-                selectedVideo: videos.url,
-                playing: false,
-            }));
-        }
-        dispatch(fetchNewsDashboard());
-        if (news) {
-            setState(prevState => ({
-                ...prevState,
-                selectedNews: news.data
-            }))
-        }
-    }, []);
+  useEffect(() => {
+    dispatch(fetchVideosDashboard());
+    if (videos) {
+      setState((prevState) => ({
+        ...prevState,
+        selectedVideo: videos.url,
+        playing: false,
+      }));
+    }
+    dispatch(fetchNewsDashboard());
+    dispatch(fetchPengumuman());
+  }, []);
 
   const setSelectedVideo = (videoUrl) => {
     setState((prevState) => ({

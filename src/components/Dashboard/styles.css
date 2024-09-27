@@ -135,30 +135,30 @@
 
 .hide {
     opacity: 0; /* Hilang */
-    animation: slideDownOut 0.5s forwards; /* Animasi untuk menghilang */
+    animation: slideDownOut 0.5s forwards; 
 }
 
 /* Kunci animasi muncul */
 @keyframes slideDown {
     0% {
-        opacity: 0; /* Mulai tidak terlihat */
-        transform: translateY(-100%); /* Mulai dari atas */
+        opacity: 0;
+        transform: translateY(-100%); 
     }
     100% {
-        opacity: 1; /* Menjadi terlihat */
-        transform: translateY(0); /* Berhenti di posisi normal */
+        opacity: 1; 
+        transform: translateY(0); 
     }
 }
 
 /* Kunci animasi menghilang */
 @keyframes slideDownOut {
     0% {
-        opacity: 1; /* Mulai terlihat */
-        transform: translateY(0); /* Mulai dari posisi normal */
+        opacity: 1;
+        transform: translateY(0);
     }
     100% {
-        opacity: 0; /* Menghilang */
-        transform: translateY(100%); /* Bergerak ke bawah */
+        opacity: 0;
+        transform: translateY(100%); 
     }
 }
 
