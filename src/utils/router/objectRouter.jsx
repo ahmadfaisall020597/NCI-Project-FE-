@@ -14,6 +14,7 @@ import KemendikbudPage from "../../components/Kemdikbud/kemdikbudPage";
 import PengumumanPage from "../../components/Pengumuman/pengumumanPage";
 import ProgramPelatihanPage from "../../components/programPelatihan/programPelatihan";
 import DetailPelatihanPage from "../../components/programPelatihan/detailPelatihan/detailPelatihan";
+import PelatihanPage from "../../components/Pelatihan/pelatihanPage";
 
 export const objectRouter = {
     dashboard: {
@@ -129,6 +130,15 @@ export const objectRouter = {
         path: "/detail-pelatihan/:id",
         element: <DetailPelatihanPage />,
         needAuth: false,
+        header: true,
+        footer: false,
+        index: true
+    },
+    pelatihan: {
+        title: "Pelatihan",
+        path: "/manage-pelatihan",
+        element: <PelatihanPage />,
+        needAuth: true,
         header: true,
         footer: false,
         index: true

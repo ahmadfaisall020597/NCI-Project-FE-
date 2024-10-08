@@ -90,7 +90,11 @@ export const menuNavbarAdmin = {
                 {
                     "name": "Manage Pengumuman",
                     "url": "/manage-pengumuman"
-                }
+                },
+                {
+                    "name": "Manage Program Pelatihan",
+                    "url": "/manage-pelatihan"
+                },
             ]
         },
     ]
