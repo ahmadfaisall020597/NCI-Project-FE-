@@ -1,11 +1,18 @@
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
-  Container,
-  Card,
   Form,
-  Alert,
   Button,
+  Container,
+  Alert,
+  Stack,
+  Table,
+  Card,
   InputGroup,
+  FormControl,
+  Row,
+  Col,
+  Spinner,
+  Modal,
 } from "react-bootstrap";
 
 const PelatihanPage = () => {
@@ -29,6 +36,7 @@ const PelatihanPage = () => {
 
   const inputFileRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,6 +111,14 @@ const PelatihanPage = () => {
       spandukPreview: file ? URL.createObjectURL(file) : state.spanduk,
     }));
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   const inputPelatihan = () => {
     return (
@@ -306,7 +322,131 @@ const PelatihanPage = () => {
     );
   };
 
-  return inputPelatihan();
+  const renderTable = () => {
+    return (
+      <Container
+        className="mt-5"
+        style={{ maxWidth: "1440px", margin: "0 auto" }}
+      >
+        <h4 className="mb-4" style={{ textAlign: "center" }}>
+          Daftar Pelatihan
+        </h4>
+        <Row className="mb-3">
+          <Col lg="auto" className="d-flex justify-content-end">
+            <div style={{ maxWidth: "500px", width: "100%" }}>
+              <InputGroup>
+                <FormControl
+                  placeholder="Cari judul pelatihan..."
+                  aria-label="Cari judul pelatihan"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ width: "100%" }}
+                />
+              </InputGroup>
+            </div>
+          </Col>
+        </Row>
+        {/* {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <Alert variant="danger">{error}</Alert>
+        ) : ( */}
+          <>
+            <Table
+              striped
+              bordered
+              hover
+              responsive
+              style={{ borderRadius: "10px", overflow: "hidden" }}
+            >
+              <thead className="thead-dark">
+                <tr>
+                  <th>NO</th>
+                  <th>Image</th>
+                  <th>Judul</th>
+                  <th>Tanggal</th>
+                  <th>Deskripsi</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              {/* <tbody>
+                {filteredNews.length > 0 ? (
+                  filteredNews.map((berita, index) => (
+                    <tr key={berita.id}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <img
+                          src={berita.image_url}
+                          alt={berita.title}
+                          style={{ width: "100px", borderRadius: "8px" }}
+                        />
+                      </td>
+                      <td>{berita.title}</td>
+                      <td>{formatDate(berita.date)}</td>
+                      <td>{berita.deskripsi}</td>
+                      <td>
+                        <Button
+                          variant="warning"
+                          className="me-2"
+                          onClick={() => handleEdit(berita)}
+                        >
+                          <MdEdit size={20} />
+                        </Button>
+                        <Button
+                          variant="danger"
+                          onClick={() => handleDelete(berita.id)}
+                        >
+                          <MdDelete size={20} />
+                        </Button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="6" className="text-center">
+                      Tidak ada berita yang ditemukan
+                    </td>
+                  </tr>
+                )}
+              </tbody> */}
+            </Table>
+            {/* <Stack className="py-3">
+              <div className="text-center mb-3">
+                Page {currentPage} of {totalPages}
+              </div>
+              <ReactPaginate
+                previousLabel={"<<"}
+                nextLabel={">>"}
+                breakLabel={"..."}
+                pageCount={totalPages}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageChange}
+                containerClassName={"pagination"}
+                pageClassName={"page-item"}
+                pageLinkClassName={"page-link"}
+                previousClassName={"page-item"}
+                previousLinkClassName={"page-link"}
+                nextClassName={"page-item"}
+                nextLinkClassName={"page-link"}
+                breakClassName={"page-item"}
+                breakLinkClassName={"page-link"}
+                activeClassName={"active"}
+                forcePage={currentPage - 1}
+              />
+            </Stack> */}
+          </>
+        {/* )} */}
+      </Container>
+    );
+  };
+
+  return (
+    <Stack>
+      {inputPelatihan()}
+      {renderTable()}
+    </Stack>
+);
 };
 
 export default PelatihanPage;
