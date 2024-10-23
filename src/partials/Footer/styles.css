@@ -29,3 +29,22 @@
 .footer ul li i {
     margin-right: 10px;
 }
+
+  .d-flex {
+    margin-left: 0; /* Ensure it doesn't have left margin */
+    margin-right: 0; /* Ensure it doesn't have right margin */
+  }
+
+  .whatsapp-icon {
+    font-size: 1.5rem; /* Adjust size as needed */
+  }
+
+  .circular-button {
+    width: 120px; /* Adjust size as needed */
+    height: 120px; /* Adjust size as needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40%; /* Makes the button circular */
+  }
+  

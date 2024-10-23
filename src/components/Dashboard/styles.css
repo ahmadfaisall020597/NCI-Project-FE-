@@ -104,7 +104,7 @@
 
 .label {
     position: absolute; /* Make the label absolute */
-    left: 50vh; /* Set a fixed position from the left */
+    left: 30vh; /* Set a fixed position from the left */
     top: 50%; /* Center vertically */
     transform: translateY(-50%); /* Adjust to center */
     font-weight: bold; /* Make the label bold */
