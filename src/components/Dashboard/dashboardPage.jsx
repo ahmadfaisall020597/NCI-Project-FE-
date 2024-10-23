@@ -189,7 +189,7 @@ const DashboardPage = () => {
 
     return (
       <Stack className="px-2 py-2">
-        <p className="fs-2 fw-semibold">Kegiatan</p>
+        <p className="fs-2 fw-semibold text-center">KEGIATAN</p>
         <Stack direction="horizontal" className="position-relative">
           <Button
             variant="light"
@@ -321,20 +321,17 @@ const DashboardPage = () => {
 
   const renderVideoKegiatan = () => {
     const scrollRef = useRef(null);
-
+  
     const scroll = (direction) => {
       if (scrollRef.current) {
-        const scrollAmount =
-          direction === "left"
-            ? -scrollRef.current.offsetWidth
-            : scrollRef.current.offsetWidth;
+        const scrollAmount = direction === "left" ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
         scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
       }
     };
-
+  
     return (
       <Stack className="px-2 py-2">
-        <p className="fs-2 fw-semibold">Video Kegiatan</p>
+        <p className="fs-2 fw-semibold text-center">VIDEO KEGIATAN</p>
         <Stack direction="horizontal" className="position-relative">
           <Button
             variant="light"
@@ -389,15 +386,15 @@ const DashboardPage = () => {
                     position: "relative",
                     overflow: "hidden",
                     border: "none", // Remove border
+                    padding: 0, // Ensure no padding around the image
+                    margin: 0, // Remove any margin
                   }}
                   onClick={() => handleVideoClick(video.url)}
                 >
                   {selectedVideo === video.url && videoId ? (
                     <div style={{ position: "relative", paddingTop: "56.25%" }}>
                       <iframe
-                        src={`https://www.youtube.com/embed/${videoId}?autoplay=${
-                          state.playing ? 1 : 0
-                        }`}
+                        src={`https://www.youtube.com/embed/${videoId}?autoplay=${state.playing ? 1 : 0}`}
                         title={video.title}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -418,10 +415,8 @@ const DashboardPage = () => {
                       style={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "cover", // Ensure image covers the card
-                        cursor: "pointer",
-                        margin: 0, // No margin around the image
-                        padding: 0, // No padding around the image
+                        objectFit: "cover", // Ensure the image covers the card
+                        display: "block", // Remove gaps around the image
                       }}
                     />
                   )}
@@ -434,11 +429,22 @@ const DashboardPage = () => {
                       width: "100%",
                       backgroundColor: "white",
                       color: "black",
+                      boxShadow: "0 -1px 5px rgba(0, 0, 0, 0.1)", // Optional: shadow effect
                       zIndex: 1, // Ensure title is on top
                     }}
                   >
-                    <h6 style={{ margin: 0 }}>{video.title}</h6>{" "}
-                    {/* Remove default margin for h6 */}
+                    {/* Ensure that the title wraps correctly and is fully visible */}
+                    <h6
+                      style={{
+                        margin: 0,
+                        whiteSpace: "normal", // Allow title to wrap
+                        overflow: "visible", // Avoid cutting off long text
+                        textOverflow: "unset", // Disable text truncation
+                        fontSize: isMobile ? "12px" : "14px", // Adjust size based on screen
+                      }}
+                    >
+                      {video.title}
+                    </h6>
                   </div>
                 </Card>
               );
@@ -474,6 +480,8 @@ const DashboardPage = () => {
       </Stack>
     );
   };
+  
+  
 
   return (
     <Stack>
