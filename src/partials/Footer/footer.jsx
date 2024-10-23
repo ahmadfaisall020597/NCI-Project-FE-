@@ -1,57 +1,69 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
 import './styles.css';
 
 const Footer = () => {
-    const googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=-6.2571797,106.8257732";
-
     return (
-        <footer className="footer bg-dark text-white pt-4">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-6">
-                        <h5>Our Location</h5>
-                        <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
-                            <MapContainer center={[-6.2571797, 106.8257732]} zoom={13} style={{ height: '300px', width: '100%' }}>
-                                <TileLayer
-                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                    attribution="&copy; OpenStreetMap contributors"
-                                />
-                                <Marker position={[-6.2571797, 106.8257732]}>
-                                    <Popup>
-                                        Our Office Location
-                                    </Popup>
-                                </Marker>
-                            </MapContainer>
-                        </a>
-                    </div>
-
-                    <div className="col-md-6">
-                        <h5>Contact Us</h5>
-                        <ul className="list-unstyled">
-                            <li>
-                                <i className="fas fa-phone-alt"></i> Phone: <a href="tel:+123456789">+123456789</a>
-                            </li>
-                            <li>
-                                <i className="fas fa-envelope"></i> Email: <a href="mailto:youngpineapple97@gmail.com">youngpineapple97@gmail.com</a>
-                            </li>
-                            <li>
-                                <i className="fas fa-globe"></i> Website: <a href="https://github.com/ahmadfaisall020597">https://github.com/ahmadfaisall020597</a>
-                            </li>
-                            <li>
-                                <i className="fas fa-map-marker-alt"></i> Address: Kemang, Jakarta, Indonesia
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div className="row mt-4">
-                    <div className="col text-center">
-                        <p>© {new Date().getFullYear()} Nusa Citra Indonesia. All rights reserved.</p>
-                    </div>
-                </div>
+      <footer className="footer bg-dark text-white pt-4">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6">
+              <h5>Our Location</h5>
+              <div style={{ width: "100%" }}>
+                <iframe
+                  width="520"
+                  height="400"
+                  frameBorder="0"
+                  scrolling="no"
+                  marginHeight="0"
+                  marginWidth="0"
+                  src="https://maps.google.com/maps?width=520&height=400&hl=en&q=Jl.%20Asem%20Jaya%20No.5%204,%20RT.004/RW.005,%20Kel.Mustika%20Jaya,%20Kec.%20Mustika%20Jaya,%20Kota%20Bekasi,%20Jawa%20Barat%2017158+(NCI)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+                  title="Google Map Location"
+                ></iframe>
+              </div>
             </div>
-        </footer>
+
+            <div className="col-md-6">
+              <h5>Contact Us</h5>
+              <ul className="list-unstyled">
+                <li>
+                  <i className="fas fa-phone-alt"></i> Phone :{" "}
+                  <a href="tel:+123456789">0858 - 9248 - 0853 </a>
+                </li>
+                <li>
+                  <i className="fas fa-envelope"></i> Email :{" "}
+                  <a href="mailto:nusacitraindonesia@yahoo.co.id">
+                    nusacitraindonesia@yahoo.co.id
+                  </a>
+                </li>
+                <li>
+                  <i className="fas fa-globe"></i> Website :{" "}
+                  <a href="https://nusacitraindonesia.com/">
+                   nusacitraindonesia.com
+                  </a>
+                </li>
+                <li>
+                  <i className="fas fa-map-marker-alt"></i>
+                  <span>Alamat : Jl. Asem Jaya No.5 4, RT.004/RW.005</span>
+                  <br />
+                  <span>
+                    Kel. Mustika Jaya, Kec. Mustika Jaya, 
+                  </span>
+                  <br />
+                  <span>Kota Bekasi, Jawa Barat 17158</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="row mt-4">
+            <div className="col text-center">
+              <p>
+                © {new Date().getFullYear()} Nusa Citra Indonesia. All rights
+                reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
     );
 };
 

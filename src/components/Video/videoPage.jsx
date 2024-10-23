@@ -128,12 +128,17 @@ const VideoPage = () => {
     };
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        return format(date, "dd MMMM yyyy HH:mm", { locale: id });
+      const date = new Date(dateString);
+      return dayjs(date).format("YYYY-MM-DD HH:mm"); // Use dayjs for formatting
     };
-
+  
     const handleDateChange = (e) => {
-        setState({ ...state, date: e.target.value });
+      const selectedDate = e.target.value; // Get the raw input value
+      const formattedDate = dayjs(selectedDate).format("YYYY-MM-DD HH:mm"); // Format it
+      setState({
+        ...state,
+        date: formattedDate, // Store the formatted date
+      });
     };
 
     // Format date for input
