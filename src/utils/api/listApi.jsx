@@ -138,6 +138,44 @@ const listBeritaDashboard = () => {
   })
 }
 
+const createPelatihan =  (payload) => {
+  return request({
+    url: "/api/pelatihan",
+    method: 'POST',
+    data: payload,
+  });
+}
+
+const listPelatihan = (page = 1, limit = 10, searchQuery = '') => {
+  return request({
+    url: `/api/pelatihan?page=${page}&limit=${limit}&search=${searchQuery}`,
+    method: 'GET'
+  });
+}
+
+const deletePelatihan = (id, payload) => {
+  return request({
+    url: `/api/pelatihan/${id}`,
+    method: 'DELETE',
+    data: payload,
+  })
+}
+
+const editPelatihan = (id, payload) => {
+  return request({
+    url: `/api/pelatihan-update/${id}`,
+    method: 'POST',
+    data: payload,
+  });
+}
+
+const listPelatihanDashboard = () => {
+  return request({
+    url: "/api/views-dashboard-pelatihan",
+    method: 'GET',
+  })
+}
+
 const CommonService = {
   signIn,
   signOut,
@@ -157,6 +195,11 @@ const CommonService = {
   deleteBerita,
   editBerita,
   listBeritaDashboard,
+  createPelatihan,
+  listPelatihan,
+  deletePelatihan,
+  editPelatihan,
+  listPelatihanDashboard
 }
 
 export default CommonService;

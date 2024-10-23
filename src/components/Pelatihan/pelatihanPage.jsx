@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Form,
   Button,
@@ -14,29 +15,91 @@ import {
   Spinner,
   Modal,
 } from "react-bootstrap";
+import ReactPaginate from "react-paginate";
+import { fetchPelatihan, createPelatihan, updatePelatihan, deletePelatihan } from "./pelatihanSlice";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
+import dayjs from "dayjs";
+import Swal from "sweetalert2"; // Import Swal
+import { MdDelete, MdEdit } from "react-icons/md";
 
 const PelatihanPage = () => {
   const [state, setState] = useState({
     id: null,
     title: "",
-    logoKemendikbudRistek: "",
-    locoNCI: "",
+    image_kemendikbud_ristek: "",
+    image_kemendikbud_ristekPreview: "",
+    image_logo_nci: "",
+    image_logo_nciPreview: "",
+    image_logo_mitra: "",
+    image_logo_mitraPreview: "",
     deskripsi: "",
     persyaratan: [],
-    spanduk: "",
-    spandukPreview: "",
-    durasi: "",
-    lokasi: "",
+    image_spanduk_pelatihan: "",
+    image_spanduk_pelatihanPreview: "",
+    duration: "",
+    location: "",
     biaya: "",
-    linkFormPendaftaran: "",
+    url_daftar: "",
     output: "",
+    date: "",
     validated: false,
     error: "",
   });
 
   const inputFileRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // State for loading
+  const [successMessage, setSuccessMessage] = useState(""); // State for success popup
+
+  const dispatch = useDispatch();
+  const { pelatihan, loading, error, currentPage, totalPages } = useSelector(
+    (state) => state.pelatihan
+  );
+
+  console.log('data', pelatihan)
+
+  useEffect(() => {
+    dispatch(fetchPelatihan(currentPage, debouncedQuery));
+  }, [dispatch, currentPage, debouncedQuery]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  
+  useEffect(() => {
+    console.log('Pelatihan state updated:', pelatihan);
+}, [pelatihan]);
+  
+  const handlePageChange = (page) => {
+    dispatch(fetchPelatihan(page.selected + 1));
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return dayjs(date).format("YYYY-MM-DD HH:mm"); // Use dayjs for formatting
+  };
+
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value; // Get the raw input value
+    const formattedDate = dayjs(selectedDate).format("YYYY-MM-DD HH:mm"); // Format it
+    setState({
+      ...state,
+      date: formattedDate, // Store the formatted date
+    });
+  };
+  
+
+  const formattedDate = state.date
+  ? dayjs(state.date).format("YYYY-MM-DDTHH:mm")
+  : "";
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,15 +110,17 @@ const PelatihanPage = () => {
 
     if (
       state.title === "" ||
-      state.logoKemendikbudRistek === "" ||
-      state.locoNCI === "" ||
+      state.image_kemendikbud_ristek === "" ||
+      state.image_logo_mitra === "" ||
       state.deskripsi === "" ||
-      state.persyaratan.length === 0 ||
       state.spanduk === "" ||
-      state.durasi === "" ||
-      state.lokasi === "" ||
+      state.persyaratan.length === 0 ||
+      state.image_spanduk_pelatihan === "" ||
+      state.duration === "" ||
+      state.location === "" ||
       state.biaya === "" ||
-      state.linkFormPendaftaran === ""
+      state.url_daftar === "" ||
+      state.output === ""
     ) {
       setState((prevState) => ({
         ...prevState,
@@ -64,22 +129,68 @@ const PelatihanPage = () => {
       return;
     }
 
-    const data = {
+    const pelatihanData = {
       title: state.title,
-      logoKemendikbudRistek: state.logoKemendikbudRistek,
-      locoNCI: state.locoNCI,
+      image_kemendikbud_ristek: state.image_kemendikbud_ristek,
+      image_kemendikbud_ristekPreview: state.image_kemendikbud_ristekPreview,
+      image_logo_nci: state.image_logo_nci,
+      image_logo_nciPreview: state.image_logo_nciPreview,
+      image_logo_mitra: state.image_logo_mitra,
+      image_logo_mitraPreview: state.image_logo_mitraPreview,
       deskripsi: state.deskripsi,
       persyaratan: state.persyaratan,
-      spanduk: state.spanduk,
-      spandukPreview: state.spandukPreview,
-      durasi: state.durasi,
-      lokasi: state.lokasi,
+      image_spanduk_pelatihan: state.image_spanduk_pelatihan,
+      image_spanduk_pelatihanPreview: state.image_spanduk_pelatihanPreview,
+      duration: state.duration,
+      location: state.location,
       biaya: state.biaya,
-      linkFormPendaftaran: state.linkFormPendaftaran,
+      url_daftar: state.url_daftar,
       output: state.output,
+      date: state.date,
     };
 
     setIsLoading(true);
+
+    try {
+      if (state.id) {
+        await dispatch(updatePelatihan(state.id, pelatihanData));
+        // Mengganti alert success dengan SweetAlert setelah update
+        Swal.fire("Berhasil", "Pelatihan berhasil diupdate!", "success");
+      } else {
+        await dispatch(createPelatihan(pelatihanData));
+        // Mengganti alert success dengan SweetAlert setelah create
+        Swal.fire("Berhasil", "Pelatihan berhasil dibuat!", "success");
+      }
+
+      setState({
+        id: null,
+        title: "",
+        image_kemendikbud_ristek: "",
+        image_kemendikbud_ristekPreview: "",
+        image_logo_nci: "",
+        image_logo_nciPreview: "",
+        image_logo_mitra: "",
+        image_logo_mitraPreview: "",
+        deskripsi: "",
+        persyaratan: [],
+        image_spanduk_pelatihan: "",
+        image_spanduk_pelatihanPreview: "",
+        duration: "",
+        location: "",
+        biaya: "",
+        url_daftar: "",
+        output: "",
+        date: "",
+        validated: false,
+        error: "",
+      });
+      // Reset input file field using ref
+      if (inputFileRef.current) {
+        inputFileRef.current.value = ""; // Reset input file value
+      }
+    } finally {
+      setIsLoading(false); // Set loading to false after operation
+    }
   };
 
   const handleAddPersyaratan = () => {
@@ -104,22 +215,84 @@ const PelatihanPage = () => {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const { name, files } = e.target;
+    const file = files[0];
+    const filePreview = file ? URL.createObjectURL(file) : null;
+  
     setState((prevState) => ({
       ...prevState,
-      spanduk: file ? file : null,
-      spandukPreview: file ? URL.createObjectURL(file) : state.spanduk,
+      [`${name}`]: file || null,  // Set the image file
+      [`${name}Preview`]: filePreview || prevState[`${name}Preview`]  // Set the preview
     }));
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(searchQuery);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
-
+  
+  const handleEdit = (pelatihan) => {
+    let parsedPersyaratan;
+  
+    // Check if persyaratan is a string or an array
+    if (typeof pelatihan.persyaratan === "string") {
+      try {
+        // Attempt to parse as JSON first
+        parsedPersyaratan = JSON.parse(pelatihan.persyaratan);
+      } catch (e) {
+        // If JSON parsing fails, try to split by commas
+        parsedPersyaratan = pelatihan.persyaratan.split(",").map(item => item.trim());
+      }
+    } else if (Array.isArray(pelatihan.persyaratan)) {
+      // If it's already an array, use it directly
+      parsedPersyaratan = pelatihan.persyaratan;
+    } else {
+      // Fallback to an empty array if persyaratan is not defined or has an unexpected type
+      parsedPersyaratan = [];
+    }
+  
+    setState({
+      id: pelatihan.id,
+      title: pelatihan.title,
+      image_kemendikbud_ristek: pelatihan.image_kemendikbud_ristek,
+      image_kemendikbud_ristekPreview: pelatihan.image_kemendikbud_ristek,
+      image_logo_nci: pelatihan.image_logo_nci,
+      image_logo_nciPreview: pelatihan.image_logo_nci,
+      image_logo_mitra: pelatihan.image_logo_mitra,
+      image_logo_mitraPreview: pelatihan.image_logo_mitra,
+      deskripsi: pelatihan.deskripsi,
+      persyaratan: parsedPersyaratan, // This will now always be an array
+      image_spanduk_pelatihan: pelatihan.image_spanduk_pelatihan,
+      image_spanduk_pelatihanPreview: pelatihan.image_spanduk_pelatihan,
+      duration: pelatihan.duration,
+      location: pelatihan.location,
+      biaya: pelatihan.biaya,
+      url_daftar: pelatihan.url_daftar,
+      output: pelatihan.output,
+      date: pelatihan.date == null ? pelatihan.created_at : pelatihan.date,
+      validated: false,
+      error: "",
+    });
+  };
+  
+  const handleDelete = async (id) => {
+    // SweetAlert untuk konfirmasi penghapusan berita
+    Swal.fire({
+      title: "Apakah Anda yakin?",
+      text: "Berita akan dihapus secara permanen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Ya, hapus!",
+      cancelButtonText: "Batal",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setIsLoading(true);
+        try {
+          await dispatch(deletePelatihan(id));
+          // Mengganti alert success dengan SweetAlert setelah delete
+          Swal.fire("Berhasil", "Berita berhasil dihapus!", "success");
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    });
+  };
+ 
   const inputPelatihan = () => {
     return (
       <Container
@@ -142,6 +315,99 @@ const PelatihanPage = () => {
               <Form.Control.Feedback type="invalid">
                 Judul tidak boleh kosong.
               </Form.Control.Feedback>
+            </Form.Group>
+
+            {/* Image KemendikbudRistek Section */}
+            <Form.Group className="py-4" controlId="formImage">
+              <Form.Label>Gambar Kemendikbud Ristek</Form.Label>
+              <Form.Control
+                type="file"
+                name="image_kemendikbud_ristek"
+                onChange={handleImageChange}
+                ref={inputFileRef}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Gambar tidak boleh kosong.
+              </Form.Control.Feedback>
+              {state.image_kemendikbud_ristekPreview && (
+                <div
+                  className="mt-3"
+                  style={{ maxWidth: "200px", overflow: "hidden" }}
+                >
+                  <img
+                    src={state.image_kemendikbud_ristekPreview}
+                    alt="Preview"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                  />
+                </div>
+              )}
+            </Form.Group>
+
+            {/* Image Logo NCI Section */}
+            <Form.Group className="py-4" controlId="formImage">
+              <Form.Label>Gambar Logo NCI</Form.Label>
+              <Form.Control
+                type="file"
+                name="image_logo_nci"
+                onChange={handleImageChange}
+                ref={inputFileRef}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Gambar tidak boleh kosong.
+              </Form.Control.Feedback>
+              {state.image_logo_nciPreview && (
+                <div
+                  className="mt-3"
+                  style={{ maxWidth: "200px", overflow: "hidden" }}
+                >
+                  <img
+                    src={state.image_logo_nciPreview}
+                    alt="Preview"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                  />
+                </div>
+              )}
+            </Form.Group>
+
+            {/* Image Logo Mitra Section */}
+            <Form.Group className="py-4" controlId="formImage">
+              <Form.Label>Gambar Logo Mitra</Form.Label>
+              <Form.Control
+                type="file"
+                name="image_logo_mitra"
+                onChange={handleImageChange}
+                ref={inputFileRef}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Gambar tidak boleh kosong.
+              </Form.Control.Feedback>
+              {state.image_logo_mitraPreview && (
+                <div
+                  className="mt-3"
+                  style={{ maxWidth: "200px", overflow: "hidden" }}
+                >
+                  <img
+                    src={state.image_logo_mitraPreview}
+                    alt="Preview"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                  />
+                </div>
+              )}
             </Form.Group>
 
             {/* Deskripsi Field */}
@@ -168,24 +434,25 @@ const PelatihanPage = () => {
               {state.persyaratan.length === 0 && (
                 <div className="mb-1" style={{ marginBottom: "0.5rem" }}></div>
               )}
-              {state.persyaratan.map((persyaratan, index) => (
-                <div key={index} className="d-flex mb-2">
-                  <Form.Control
-                    type="text"
-                    placeholder={`Persyaratan ${index + 1}`}
-                    value={persyaratan}
-                    onChange={(e) => handlePersyaratanChange(e, index)}
-                    required
-                  />
-                  <Button
-                    variant="danger"
-                    className="ms-2"
-                    onClick={() => handleRemovePersyaratan(index)}
-                  >
-                    Hapus
-                  </Button>
-                </div>
-              ))}
+              {Array.isArray(state.persyaratan) &&
+                state.persyaratan.map((persyaratan, index) => (
+                  <div key={index} className="d-flex mb-2">
+                    <Form.Control
+                      type="text"
+                      placeholder={`Persyaratan ${index + 1}`}
+                      value={persyaratan}
+                      onChange={(e) => handlePersyaratanChange(e, index)}
+                      required
+                    />
+                    <Button
+                      variant="danger"
+                      className="ms-2"
+                      onClick={() => handleRemovePersyaratan(index)}
+                    >
+                      Hapus
+                    </Button>
+                  </div>
+                ))}
               <div className="my-2">
                 <Button variant="primary" onClick={handleAddPersyaratan}>
                   Tambah Persyaratan
@@ -201,6 +468,7 @@ const PelatihanPage = () => {
               <Form.Label>Gambar Spanduk</Form.Label>
               <Form.Control
                 type="file"
+                name="image_spanduk_pelatihan"
                 onChange={handleImageChange}
                 ref={inputFileRef}
                 required
@@ -208,13 +476,13 @@ const PelatihanPage = () => {
               <Form.Control.Feedback type="invalid">
                 Gambar tidak boleh kosong.
               </Form.Control.Feedback>
-              {state.spandukPreview && (
+              {state.image_spanduk_pelatihanPreview && (
                 <div
                   className="mt-3"
                   style={{ maxWidth: "200px", overflow: "hidden" }}
                 >
                   <img
-                    src={state.spandukPreview}
+                    src={state.image_spanduk_pelatihanPreview}
                     alt="Preview"
                     style={{
                       width: "100%",
@@ -231,11 +499,11 @@ const PelatihanPage = () => {
               <Form.Label>Durasi Pelatihan</Form.Label>
               <InputGroup>
                 <Form.Control
-                  type="number"
+                  type="text"
                   placeholder="Masukkan durasi"
-                  value={state.durasi}
+                  value={state.duration}
                   onChange={(e) =>
-                    setState({ ...state, durasi: e.target.value })
+                    setState({ ...state, duration: e.target.value })
                   }
                   required
                 />
@@ -252,8 +520,10 @@ const PelatihanPage = () => {
               <Form.Control
                 type="text"
                 placeholder="Masukkan lokasi pelatihan"
-                value={state.lokasi}
-                onChange={(e) => setState({ ...state, lokasi: e.target.value })}
+                value={state.location}
+                onChange={(e) =>
+                  setState({ ...state, location: e.target.value })
+                }
                 required
               />
               <Form.Control.Feedback type="invalid">
@@ -287,9 +557,9 @@ const PelatihanPage = () => {
               <Form.Control
                 type="text"
                 placeholder="Masukkan link form pendaftaran pelatihan"
-                value={state.linkFormPendaftaran}
+                value={state.url_daftar}
                 onChange={(e) =>
-                  setState({ ...state, linkFormPendaftaran: e.target.value })
+                  setState({ ...state, url_daftar: e.target.value })
                 }
                 required
               />
@@ -313,14 +583,54 @@ const PelatihanPage = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Button type="submit" variant="primary" disabled={isLoading}>
-              {isLoading ? "Menyimpan..." : "Simpan"}
-            </Button>
+            <Form.Group className="py-4" controlId="formTanggal">
+              <Form.Label>Tanggal Dibuat</Form.Label>
+              <Form.Control
+                type="datetime-local"
+                value={formattedDate}
+                onChange={handleDateChange}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Tanggal tidak boleh kosong.
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Stack className="py-3">
+              <Button
+                variant="primary"
+                type="submit"
+                disabled={isLoading}
+                style={{
+                  borderRadius: "5px",
+                  backgroundColor: "#007bff",
+                  borderColor: "#007bff",
+                }}
+              >
+                {isLoading ? (
+                  <>
+                    <Spinner animation="border" size="sm" /> Loading...
+                  </>
+                ) : state.id ? (
+                  "Update"
+                ) : (
+                  "Submit"
+                )}
+              </Button>
+            </Stack>
           </Form>
         </Card>
       </Container>
     );
   };
+
+  const filteredPelatihan = Array.isArray(pelatihan)
+  ? pelatihan.filter(
+      (pelatihan) =>
+        pelatihan.title &&
+        pelatihan.title.toLowerCase().includes(debouncedQuery.toLowerCase())
+    )
+  : [];
 
   const renderTable = () => {
     return (
@@ -346,11 +656,11 @@ const PelatihanPage = () => {
             </div>
           </Col>
         </Row>
-        {/* {loading ? (
+        {loading ? (
           <p>Loading...</p>
         ) : error ? (
           <Alert variant="danger">{error}</Alert>
-        ) : ( */}
+        ) : (
           <>
             <Table
               striped
@@ -369,32 +679,34 @@ const PelatihanPage = () => {
                   <th>Action</th>
                 </tr>
               </thead>
-              {/* <tbody>
-                {filteredNews.length > 0 ? (
-                  filteredNews.map((berita, index) => (
-                    <tr key={berita.id}>
+              <tbody>
+                {filteredPelatihan.length > 0 ? (
+                  filteredPelatihan.map((pelatihan, index) => (
+                    <tr key={pelatihan.id}>
                       <td>{index + 1}</td>
                       <td>
                         <img
-                          src={berita.image_url}
-                          alt={berita.title}
+                          src={pelatihan.image_spanduk_pelatihan}
+                          alt={pelatihan.title}
                           style={{ width: "100px", borderRadius: "8px" }}
                         />
                       </td>
-                      <td>{berita.title}</td>
-                      <td>{formatDate(berita.date)}</td>
-                      <td>{berita.deskripsi}</td>
+                      <td>{pelatihan.title}</td>
+                      <td> {pelatihan.date == null
+                          ? formatDate(pelatihan.created_at)
+                          : formatDate(pelatihan.date)}</td>
+                      <td>{pelatihan.deskripsi}</td>
                       <td>
                         <Button
                           variant="warning"
                           className="me-2"
-                          onClick={() => handleEdit(berita)}
+                          onClick={() => handleEdit(pelatihan)}
                         >
                           <MdEdit size={20} />
                         </Button>
                         <Button
                           variant="danger"
-                          onClick={() => handleDelete(berita.id)}
+                          onClick={() => handleDelete(pelatihan.id)}
                         >
                           <MdDelete size={20} />
                         </Button>
@@ -404,13 +716,13 @@ const PelatihanPage = () => {
                 ) : (
                   <tr>
                     <td colSpan="6" className="text-center">
-                      Tidak ada berita yang ditemukan
+                      Tidak ada pelatihan yang ditemukan
                     </td>
                   </tr>
                 )}
-              </tbody> */}
+              </tbody>
             </Table>
-            {/* <Stack className="py-3">
+            <Stack className="py-3">
               <div className="text-center mb-3">
                 Page {currentPage} of {totalPages}
               </div>
@@ -434,18 +746,45 @@ const PelatihanPage = () => {
                 activeClassName={"active"}
                 forcePage={currentPage - 1}
               />
-            </Stack> */}
+            </Stack>
           </>
-        {/* )} */}
+        )} 
       </Container>
     );
   };
 
   return (
-    <Stack>
-      {inputPelatihan()}
-      {renderTable()}
-    </Stack>
+    <div>
+    {isLoading && (
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ minHeight: "100vh" }}
+      >
+        <Spinner animation="border" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      </div>
+    )}
+    {inputPelatihan()}
+    {renderTable()}
+
+    {/* Success Popup */}
+    <Modal
+      show={!!successMessage}
+      onHide={() => setSuccessMessage("")}
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Success</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>{successMessage}</Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={() => setSuccessMessage("")}>
+          OK
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  </div>
 );
 };
 
