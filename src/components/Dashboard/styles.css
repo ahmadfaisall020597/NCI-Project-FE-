@@ -9,18 +9,82 @@
 
 .carousel-item {
     position: relative;
-    height: 300px;
+    height: 100vh;
     overflow: hidden;
 }
 
 .carousel-image {
     position: absolute;
-    top: 50%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.stack-container {
+    position: absolute;
+    bottom: 20px;
     left: 50%;
-    transform: translate(-50%, -50%);
-    min-height: 100%;
-    min-width: 100%;
-    object-fit: cover;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .carousel-item {
+        height: 86vh;
+    }
+
+    .carousel-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .carousel-item {
+        height: 72vh;
+    }
+
+    .carousel-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .stack-container {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 575px) and (max-width: 768px) {
+    .carousel-item {
+        height: 53vh;
+    }
+
+    .carousel-image {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .stack-container {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 576px) {
+    .carousel-item {
+        height: 30vh;
+    }
+
+    .stack-container {
+        font-size: 1rem;
+    }
 }
 
 .carousel-indicators [data-bs-target] {
@@ -39,7 +103,7 @@
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
-    position: relative; 
+    position: relative;
 }
 
 .card-responsive img {
@@ -55,27 +119,27 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 100%; 
+    width: 100%;
 }
 
 .text-container p {
     margin: 0;
-    font-size: 16px; 
-    word-wrap: break-word; 
-    white-space: normal; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
+    font-size: 16px;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .text-container p.title {
-    font-size: 12px; 
-    font-weight: bold; 
-    line-height: 1.2; 
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.2;
     overflow: hidden;
-    display: -webkit-box; 
-    -webkit-line-clamp: 2; 
-    -webkit-box-orient: vertical; 
-    white-space: normal; 
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
     text-overflow: ellipsis;
 }
 
@@ -85,13 +149,14 @@
 
 @media (max-width: 768px) {
     .card-responsive img {
-        height: 150px; 
+        height: 150px;
     }
 
     .text-container p.title {
-        font-size: 12px; 
+        font-size: 12px;
     }
 }
+
 .marquee-container {
     display: flex;
     align-items: center;
@@ -99,21 +164,29 @@
     height: 50px;
     overflow: hidden;
     position: relative;
-    background-color: #79b2db; /* Optional: add a background color */
+    background-color: #79b2db;
+    /* Optional: add a background color */
 }
 
 .label {
-    position: absolute; /* Make the label absolute */
-    left: 30vh; /* Set a fixed position from the left */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust to center */
-    font-weight: bold; /* Make the label bold */
+    position: absolute;
+    /* Make the label absolute */
+    left: 30vh;
+    /* Set a fixed position from the left */
+    top: 50%;
+    /* Center vertically */
+    transform: translateY(-50%);
+    /* Adjust to center */
+    font-weight: bold;
+    /* Make the label bold */
 }
 
 .marquee {
     display: flex;
-    align-items: center; /* Center vertically for label and item */
-    justify-content: center; /* Center the item */
+    align-items: center;
+    /* Center vertically for label and item */
+    justify-content: center;
+    /* Center the item */
     flex: 1;
     position: relative;
 }
@@ -124,29 +197,35 @@
     align-items: center;
     justify-content: center;
     height: 50px;
-    opacity: 0; /* Mulai dengan tidak terlihat */
-    animation: slideDown 0.5s forwards; /* Animasi muncul */
+    opacity: 0;
+    /* Mulai dengan tidak terlihat */
+    animation: slideDown 0.5s forwards;
+    /* Animasi muncul */
 }
 
 .show {
-    opacity: 1; /* Menjadi terlihat */
-    animation: slideDown 0.5s forwards; /* Animasi untuk muncul */
+    opacity: 1;
+    /* Menjadi terlihat */
+    animation: slideDown 0.5s forwards;
+    /* Animasi untuk muncul */
 }
 
 .hide {
-    opacity: 0; /* Hilang */
-    animation: slideDownOut 0.5s forwards; 
+    opacity: 0;
+    /* Hilang */
+    animation: slideDownOut 0.5s forwards;
 }
 
 /* Kunci animasi muncul */
 @keyframes slideDown {
     0% {
         opacity: 0;
-        transform: translateY(-100%); 
+        transform: translateY(-100%);
     }
+
     100% {
-        opacity: 1; 
-        transform: translateY(0); 
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -156,10 +235,9 @@
         opacity: 1;
         transform: translateY(0);
     }
+
     100% {
         opacity: 0;
-        transform: translateY(100%); 
+        transform: translateY(100%);
     }
 }
-  
-

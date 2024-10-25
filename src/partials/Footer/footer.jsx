@@ -9,7 +9,7 @@ const Footer = () => {
             <h5>Our Location</h5>
             <div style={{ width: "100%" }}>
               <iframe
-                width="520"
+                width="100%" 
                 height="400"
                 frameBorder="0"
                 scrolling="no"
@@ -17,6 +17,7 @@ const Footer = () => {
                 marginWidth="0"
                 src="https://maps.google.com/maps?width=520&height=400&hl=en&q=Jl.%20Asem%20Jaya%20No.5%204,%20RT.004/RW.005,%20Kel.Mustika%20Jaya,%20Kec.%20Mustika%20Jaya,%20Kota%20Bekasi,%20Jawa%20Barat%2017158+(NCI)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
                 title="Google Map Location"
+                style={{ width: "100%", height: "auto" }}
               ></iframe>
             </div>
           </div>

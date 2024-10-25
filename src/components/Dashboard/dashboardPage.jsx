@@ -81,23 +81,21 @@ const DashboardPage = () => {
   const getThumbnailUrl = (videoId) =>
     `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-  const renderSpanduk = () => {
-    return (
-      <Stack>
-        <Carousel indicators>
-          {dataSpanduk.map((item) => (
-            <Carousel.Item key={item.id} className="carousel-item">
-              <img
-                className="d-block carousel-image"
-                src={item.image_url}
-                alt={`slide${item.id}`}
-              />
-            </Carousel.Item>
-          ))}
-        </Carousel>
-      </Stack>
-    );
-  };
+  const renderSpanduk = () => (
+    <Stack>
+      <Carousel indicators>
+        {dataSpanduk.map((item) => (
+          <Carousel.Item key={item.id} className="carousel-item">
+            <img
+              className="d-block carousel-image"
+              src={item.image_url}
+              alt={`slide${item.id}`}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </Stack>
+  );
 
   const handleBeritaDetail = (id) => {
     const item = {
@@ -321,14 +319,14 @@ const DashboardPage = () => {
 
   const renderVideoKegiatan = () => {
     const scrollRef = useRef(null);
-  
+
     const scroll = (direction) => {
       if (scrollRef.current) {
         const scrollAmount = direction === "left" ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
         scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
       }
     };
-  
+
     return (
       <Stack className="px-2 py-2">
         <p className="fs-2 fw-semibold text-center">VIDEO KEGIATAN</p>
@@ -480,18 +478,17 @@ const DashboardPage = () => {
       </Stack>
     );
   };
-  
-  
+
+
 
   return (
-    <Stack>
-      {/* <div style={{ margin: '34px' }} /> */}
+    <div className="dashboard-page">
       {renderSpanduk()}
       {renderPengumuman()}
       {renderBeritaKegiatan()}
       {renderVideoKegiatan()}
       <Footer />
-    </Stack>
+    </div>
   );
 };
 

@@ -1,50 +1,78 @@
 .footer {
-    background-color: #343a40;
-    color: white;
-    padding: 20px 0;
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
 }
 
 .footer a {
-    color: #ffffff;
-    text-decoration: none;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .footer a:hover {
-    color: #cccccc;
+  color: #cccccc;
 }
 
 .footer h5 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .footer ul {
-    padding: 0;
+  padding: 0;
 }
 
 .footer ul li {
-    list-style-type: none;
-    margin-bottom: 10px;
+  list-style-type: none;
+  margin-bottom: 10px;
 }
 
 .footer ul li i {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
-  .d-flex {
-    margin-left: 0; /* Ensure it doesn't have left margin */
-    margin-right: 0; /* Ensure it doesn't have right margin */
+.d-flex {
+  margin-left: 0; 
+  margin-right: 0; 
+}
+
+.whatsapp-icon {
+  font-size: 1.5rem; 
+}
+
+.circular-button {
+  width: 120px; 
+  height: 120px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; 
+}
+
+
+@media (max-width: 768px) {
+  .footer {
+      padding: 15px 10px; 
   }
 
-  .whatsapp-icon {
-    font-size: 1.5rem; /* Adjust size as needed */
+  .footer h5 {
+      font-size: 1.5rem; 
+  }
+
+  .footer ul li {
+      margin-bottom: 8px; 
+  }
+
+  .footer iframe {
+      width: 100%; 
+      height: auto; 
   }
 
   .circular-button {
-    width: 120px; /* Adjust size as needed */
-    height: 120px; /* Adjust size as needed */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 40%; /* Makes the button circular */
+      width: 80px; 
+      height: 80px; 
   }
-  
+
+  .circular-button i {
+      font-size: 3rem;
+  }
+}
