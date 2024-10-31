@@ -49,8 +49,8 @@ const slideShowPage = () => {
 
   const dispatch = useDispatch();
   const { slideshow, loading, error, currentPage, totalPages } = useSelector(
-    (state) => state.slideshow
-  );
+    (state) => state.slideshow);
+  console.log('data slide', slideshow)
 
   useEffect(() => {
     dispatch(fetchSlideShow(currentPage, debouncedQuery));

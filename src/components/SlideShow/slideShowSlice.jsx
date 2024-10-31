@@ -16,8 +16,8 @@ const slideShowSlice = createSlice({
         state.error = null;
       },
       fetchslideshowSuccess: (state, action) => {
-        state.news = action.payload;
-        console.log('state : ', state.news);
+        state.slideshow = action.payload;
+        console.log('state : ', state.slideshow);
         state.loading = false;
       },
       fetchslideshowFailure: (state, action) => {
@@ -25,12 +25,12 @@ const slideShowSlice = createSlice({
         state.error = action.payload;
       },
       createSlideShowStart: (state) => {
-        console.log('state create berita : ', state)
+        console.log('state create slideshow : ', state)
         state.loading = true;
         state.error = null;
       },
       createSlideShowSuccess: (state, action) => {
-        state.news.push(action.payload);
+        state.slideshow.push(action.payload);
         state.loading = false;
       },
       createSlideShowFailure: (state, action) => {
@@ -42,7 +42,7 @@ const slideShowSlice = createSlice({
         state.error = null;
       },
       updateSlideShowSuccess: (state, action) => {
-        state.news = state.news.map(news =>
+        state.slideshow = state.slideshow.map(news =>
           news.id === action.payload.id ? action.payload : news
         );
         state.loading = false;
@@ -56,7 +56,7 @@ const slideShowSlice = createSlice({
         state.error = null;
       },
       deleteSlideShowSuccess: (state, action) => {
-        state.news = state.news.filter(news => news.id !== action.payload);
+        state.slideshow = state.slideshow.filter(news => news.id !== action.payload);
         state.loading = false;
       },
       deleteSlideShowFailure: (state, action) => {
@@ -100,6 +100,7 @@ export const {
           currentPage: page,
           totalPages: response.data.last_page || 1,
         }))
+        console.log('response : ', response);
       }
         else {
           throw new Error('Invalid response structure');
