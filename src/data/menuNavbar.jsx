@@ -95,6 +95,11 @@ export const menuNavbarAdmin = {
                     "name": "Manage Program Pelatihan",
                     "url": "/manage-pelatihan"
                 },
+                {
+                    "name": "Manage Slide Show",
+                    "url": "/manage-slideshow"
+                },
+
             ]
         },
     ]

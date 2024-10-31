@@ -15,6 +15,7 @@ import PengumumanPage from "../../components/Pengumuman/pengumumanPage";
 import ProgramPelatihanPage from "../../components/programPelatihan/programPelatihan";
 import DetailPelatihanPage from "../../components/programPelatihan/detailPelatihan/detailPelatihan";
 import PelatihanPage from "../../components/Pelatihan/pelatihanPage";
+import SlideShowPage from "../../components/SlideShow/slideShow";
 
 export const objectRouter = {
     dashboard: {
@@ -143,6 +144,15 @@ export const objectRouter = {
         footer: false,
         index: true
     },
+    slideShow: {
+        title: "Slide Show",
+        path: "/manage-slideshow",
+        element: <SlideShowPage />,
+        needAuth: true,
+        header: true,
+        footer: false,
+        index: true
+    }
 };
 
 

@@ -175,6 +175,50 @@ const listPelatihanDashboard = () => {
     method: 'GET',
   })
 }
+const createSlideShow = (payload) => {
+  return request({
+    url: "/api/slideshow",
+    method: 'POST',
+    data: payload,
+  });
+}
+
+const listSlideShow = (page = 1, limit = 10, searchQuery = '') => {
+  return request({
+    url: `/api/slideshow?page=${page}&limit=${limit}&search=${searchQuery}`,
+    method: 'GET'
+  });
+}
+
+const detailSlideShow = (id) => {
+  return request({
+    url: `/api/slideshow/${id}`,
+    method: 'GET'
+  });
+}
+
+const deleteSlideShow = (id, payload) => {
+  return request({
+    url: `/api/slideshow/${id}`,
+    method: 'DELETE',
+    data: payload,
+  })
+}
+
+const editSlideShow = (id, payload) => {
+  return request({
+    url: `/api/slideshow-update/${id}`,
+    method: 'POST',
+    data: payload,
+  });
+}
+
+const listSlideShowDashboard = () => {
+  return request({
+    url: "/api/views-dashboard-slideshow",
+    method: 'GET'
+  })
+}
 
 const CommonService = {
   signIn,
@@ -199,7 +243,13 @@ const CommonService = {
   listPelatihan,
   deletePelatihan,
   editPelatihan,
-  listPelatihanDashboard
+  listPelatihanDashboard,
+  createSlideShow,
+  listSlideShow,
+  detailSlideShow,
+  deleteSlideShow,
+  editSlideShow,
+  listSlideShowDashboard
 }
 
 export default CommonService;

@@ -7,6 +7,7 @@ import beritaSlice from "../../components/Berita/beritaSlice";
 import videoSlice from "../../components/Video/videoSlice";
 import pengumumanSlice from "../../components/Pengumuman/pengumumanSlice";
 import pelatihanSlice from "../../components/Pelatihan/pelatihanSlice";
+import slideShowSlice from "../../components/SlideShow/slideShowSlice";
 
 const rootReducer = combineReducers({
     dashboard: dashboardSlice,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     video: videoSlice,
     pengumuman: pengumumanSlice,
     pelatihan: pelatihanSlice,
+    slideshow: slideShowSlice
 });
 
 export default rootReducer;
