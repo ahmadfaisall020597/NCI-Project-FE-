@@ -111,7 +111,7 @@ export const {
   };
 
   export const fetchSlideShowDashboard = () => async (dispatch) => {
-    dispatch(fetchnewsStart());
+    dispatch(fetchslideshowStart());
     try {
       const response = await CommonService.listSlideShowDashboard();
       console.log('response berita dashboard', response)

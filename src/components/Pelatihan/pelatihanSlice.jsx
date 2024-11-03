@@ -26,7 +26,7 @@ const pelatihanSlice = createSlice({
         state.error = action.payload;
       },
       createPelatihanStart: (state) => {
-        console.log('state create berita : ', state)
+        console.log('state create pelatihan : ', state)
         state.loading = true;
         state.error = null;
       },
@@ -114,7 +114,7 @@ export const fetchPelatihanDashboard = () => async (dispatch) => {
   dispatch(fetchpelatihanStart());
   try {
     const response = await CommonService.listPelatihanDashboard();
-    console.log('response berita dashboard', response)
+    console.log('response pelatihan dashboard', response)
     dispatch(fetchpelatihanSuccess(response.data));
   } catch (error) {
     dispatch(fetchpelatihanFailure(error.response ? error.response.data : error.message));

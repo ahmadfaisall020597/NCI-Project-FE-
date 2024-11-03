@@ -253,7 +253,7 @@ const slideShowPage = () => {
               <Form.Control
                 as="textarea"
                 rows={3}
-                placeholder="Masukkan deskripsi berita"
+                placeholder="Masukkan deskripsi slide show"
                 value={state.deskripsi}
                 onChange={(e) =>
                   setState({ ...state, deskripsi: e.target.value })
@@ -307,15 +307,15 @@ const slideShowPage = () => {
             style={{ maxWidth: "1440px", margin: "0 auto" }}
           >
             <h4 className="mb-4" style={{ textAlign: "center" }}>
-              Daftar Berita
+              Daftar Slide Show
             </h4>
             <Row className="mb-3">
               <Col lg="auto" className="d-flex justify-content-end">
                 <div style={{ maxWidth: "500px", width: "100%" }}>
                   <InputGroup>
                     <FormControl
-                      placeholder="Cari judul berita..."
-                      aria-label="Cari judul berita"
+                      placeholder="Cari judul slide show..."
+                      aria-label="Cari judul slide show"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       style={{ width: "100%" }}
@@ -382,7 +382,7 @@ const slideShowPage = () => {
                     ) : (
                       <tr>
                         <td colSpan="6" className="text-center">
-                          Tidak ada berita yang ditemukan
+                          Tidak ada slide show yang ditemukan
                         </td>
                       </tr>
                     )}

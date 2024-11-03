@@ -8,6 +8,7 @@ import { objectRouter } from "../../utils/router/objectRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchVideosDashboard } from "../Video/videoSlice";
 import { fetchNewsDashboard } from "../Berita/beritaSlice";
+import { fetchSlideShowDashboard } from "../SlideShow/slideShowSlice";
 import { fetchPengumuman } from "../Pengumuman/pengumumanSlice";
 import Footer from "../../partials/Footer/footer";
 
@@ -17,9 +18,11 @@ const DashboardPage = () => {
   const { videos } = useSelector((state) => state.video);
   const { news } = useSelector((state) => state.news);
   const { pengumuman } = useSelector((state) => state.pengumuman);
+  const { slideshow } = useSelector((state) => state.slideshow);
   console.log("videos : ", videos);
   console.log("news : ", news);
   console.log("pengumuman : ", pengumuman);
+  console.log("slideshow : ", slideshow);
   const [state, setState] = useState({
     selectedPengumuman: null,
     selectedNews: null,
@@ -56,6 +59,7 @@ const DashboardPage = () => {
     }
     dispatch(fetchNewsDashboard());
     dispatch(fetchPengumuman());
+    dispatch(fetchSlideShowDashboard())
   }, []);
 
   const setSelectedVideo = (videoUrl) => {
@@ -84,7 +88,7 @@ const DashboardPage = () => {
   const renderSpanduk = () => (
     <Stack>
       <Carousel indicators>
-        {dataSpanduk.map((item) => (
+        {slideshow.map((item) => (
           <Carousel.Item key={item.id} className="carousel-item">
             <img
               className="d-block carousel-image"
@@ -383,7 +387,7 @@ const DashboardPage = () => {
                     cursor: "pointer",
                     position: "relative",
                     overflow: "hidden",
-                    border: "none", // Remove border
+                    border: "hidden", // Remove border
                     padding: 0, // Ensure no padding around the image
                     margin: 0, // Remove any margin
                   }}
