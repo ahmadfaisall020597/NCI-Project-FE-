@@ -2,14 +2,13 @@ import { useLocation, useParams } from "react-router-dom";
 import { Image, Stack } from "react-bootstrap";
 import './styles.css';
 import { useMediaQuery } from "react-responsive";
+import WhatsAppButton from "../../partials/Whatsapp/whatsapp";
 
 const DetailBerita = () => {
     const location = useLocation();
     const { id } = useParams();
-    console.log('id : ', id)
     const { itemDetail } = location.state;
     const beritaItem = itemDetail.dataBerita.find(item => item.id == id);
-    console.log('item berita : ', beritaItem);
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
     const formatDate = (dateString) => {
@@ -81,6 +80,7 @@ const DetailBerita = () => {
                     </>
                 )}
             </Stack>
+            <WhatsAppButton />
         </Stack>
     )
 }

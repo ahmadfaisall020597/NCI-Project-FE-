@@ -8,6 +8,7 @@ import {
 import latarBelakangData from "./../../../data/latarBelakang.json";
 import "./styles.css"; // Import the CSS file
 import { Images } from "../../../helpers/images";
+import WhatsAppButton from "../../../partials/Whatsapp/whatsapp";
 
 const LatarBelakangPage = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const LatarBelakangPage = () => {
           </div>
         </Col>
       </Row>
+      <WhatsAppButton />
     </Container>
   );
 };

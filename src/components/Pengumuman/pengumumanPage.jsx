@@ -23,14 +23,11 @@ const PengumumanPage = () => {
     const { pengumuman, loading, error, totalPages, currentPage } = useSelector((state) => state.pengumuman)
     const [isLoading, setIsLoading] = useState(false); // State for loading
     const [successMessage, setSuccessMessage] = useState(""); // State for success popup
-    console.log('pengumuman : ', pengumuman);
-
     useEffect(() => {
         dispatch(fetchPengumuman(currentPage, debouncedQuery));
     }, [dispatch, currentPage, debouncedQuery]);
 
     useEffect(() => {
-        console.log('Videos state updated:', pengumuman);
     }, [pengumuman]);
 
     useEffect(() => {
@@ -63,8 +60,6 @@ const PengumumanPage = () => {
             date: state.date,
         };
 
-        console.log('pengumuman data : ', pengumumanData);
-
         if (state.id) {
              await dispatch(updatePengumuman(state.id, pengumumanData));
             // Mengganti alert success dengan SweetAlert setelah update
@@ -89,12 +84,10 @@ const PengumumanPage = () => {
     };
 
     const handlePageChange = (selectedPage) => {
-        // console.log('Selected page:', selectedPage.selected);
         dispatch(fetchPengumuman(selectedPage.selected + 1));
     };
 
     const handleEdit = (pengumuman) => {
-        console.log('pengumuman edit : ', pengumuman);
         setState({
             id: pengumuman.id,
             deskripsi: pengumuman.deskripsi,

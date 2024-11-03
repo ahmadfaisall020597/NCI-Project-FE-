@@ -9,12 +9,10 @@ const App = () => {
 
   const render = () => {
     try {
-      // console.log('masuk router')
       return (
         <RouterProvider router={router} />
       )
     } catch (error) {
-      console.log('error')
     }
   }
   return (

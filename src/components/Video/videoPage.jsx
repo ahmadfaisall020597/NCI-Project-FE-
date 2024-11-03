@@ -24,16 +24,12 @@ const VideoPage = () => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false); // State for loading
     const { videos, loading, error, totalPages, currentPage } = useSelector((state) => state.video);
-    console.log('videos : ', videos);
-    console.log('total pages : ', totalPages),
-    console.log('current pages : ', currentPage);
 
     useEffect(() => {
         dispatch(fetchVideos(currentPage, debouncedQuery));
     }, [dispatch, currentPage, debouncedQuery]);
 
     useEffect(() => {
-        console.log('Videos state updated:', videos);
     }, [videos]);
 
     useEffect(() => {
@@ -66,10 +62,8 @@ const VideoPage = () => {
             url: state.url,
             date: state.date,
         };
-        // console.log('video data : ', videoData);
 
         if (state.id) {
-            // console.log('submit edit : ', state.id)
             await dispatch(updateVideo(state.id, videoData));
             Swal.fire("Berhasil", "Video berhasil diupdate!", "success");
         } else {
@@ -112,7 +106,6 @@ const VideoPage = () => {
       };
 
     const handlePageChange = (selectedPage) => {
-        // console.log('Selected page:', selectedPage.selected);
         dispatch(fetchVideos(selectedPage.selected + 1));
     };
 

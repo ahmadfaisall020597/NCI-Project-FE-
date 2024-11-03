@@ -23,7 +23,6 @@ const LoginPage = () => {
 
         CommonService.signIn(payload)
             .then((response) => {
-                console.log("response : ", response);
                 if (response && response.token) {
                     toast.success(response.message);
                     const isSuccess = setAuthorization({ token: response.token });
@@ -42,7 +41,6 @@ const LoginPage = () => {
                 }
             })
             .catch((error) => {
-                console.error("Login failed:", error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Login Failed',

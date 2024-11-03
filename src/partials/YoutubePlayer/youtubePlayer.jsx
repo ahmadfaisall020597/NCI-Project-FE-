@@ -1,7 +1,6 @@
 import ReactPlayer from "react-player";
 
 const YoutubePlayer = ({ videoId }) => {
-    console.log('video id : ', videoId);
     const playerWrapperStyle = {
         height: '500px',
         width: '100%',
@@ -15,7 +14,6 @@ const YoutubePlayer = ({ videoId }) => {
     };
 
     const url = `https://www.youtube.com/watch?v=${videoId}`;
-    console.log('url : ', url);
 
     return (
         <div style={playerWrapperStyle}>

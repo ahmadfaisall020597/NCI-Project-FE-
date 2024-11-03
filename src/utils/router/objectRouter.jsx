@@ -161,19 +161,11 @@ export const convertObjectToArray = () => {
         const obj = objectRouter;
 
         const loaderFn = objectKey => {
-            // console.log('object key : ', objectKey);
             if (objectKey.needAuth) {
                 if (!getAuthorization()) {
-                    console.log('tidak ada auth');
                     return redirect(obj.dashboard.path);
                 }
             }
-            // if (objectKey.path == obj.dashboard.path) {
-            //     if (getAuthorization()) {
-            //         console.log('masuk dashboard');
-            //         return redirect(obj.dashboard.path)
-            //     }
-            // }
             return null;
         };
         const dataObject = Object.keys(obj).map(key => ({
@@ -186,16 +178,12 @@ export const convertObjectToArray = () => {
                 : null,
             loader: () => loaderFn(obj[key])
         }));
-        // console.log('data object : ', dataObject);
         return dataObject;
     } catch (error) {
-        console.log('error : ', error);
     }
 }
 
 const ErrorPage = () => <div>Halaman tidak ditemukan.</div>;
-
-// console.log('children : ', convertObjectToArray());
 
 export const router = createBrowserRouter([
     {

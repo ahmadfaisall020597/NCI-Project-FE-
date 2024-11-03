@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { Stack, Image, Card, ListGroup } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
+import WhatsAppButton from "../../../partials/Whatsapp/whatsapp";
 
 const DetailPelatihanPage = () => {
   const { state } = useLocation();
@@ -29,13 +30,9 @@ const DetailPelatihanPage = () => {
     },
   } = itemDetail;
 
-  console.log("detail pelatihan", itemDetail);
-
   // Ensure persyaratan is an array if it's a string
   const parsedPersyaratan =
     typeof persyaratan === "string" ? JSON.parse(persyaratan) : persyaratan;
-
-  console.log("syarat", parsedPersyaratan);
 
   return (
     <Stack className="py-2 px-4">
@@ -128,6 +125,7 @@ const DetailPelatihanPage = () => {
           </ListGroup>
         {/* </Card.Body> */}
       </Card>
+    <WhatsAppButton />
     </Stack>
   );
 };

@@ -20,12 +20,6 @@ const Layout = () => {
         };
     }, [getOutlet]);
 
-    // useEffect(() => {
-    //     setCurrentPath(location.pathname);
-    // }, [location]);
-
-    // const currentObjectRoute = Object.values(objectRouter).find(route => route.path === currentPath);
-    // console.log('currentObjectRoute : ', currentObjectRoute);
     return (
         <Stack className="w-100">
             <div>

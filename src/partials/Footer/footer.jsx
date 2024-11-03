@@ -49,29 +49,6 @@ const Footer = () => {
                 <br />
                 <span>Kota Bekasi, Jawa Barat 17158</span>
               </li>
-              <div className="d-flex justify-content-end mt-3">
-                <a
-                  href="https://wa.me/6285892480853"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <button
-                    className="btn btn-success btn-lg rounded-circle"
-                    style={{
-                      width: "120px",
-                      height: "120px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <i
-                      className="fab fa-whatsapp"
-                      style={{ fontSize: "5rem" }}
-                    ></i>
-                  </button>
-                </a>
-              </div>
             </ul>
           </div>
         </div>

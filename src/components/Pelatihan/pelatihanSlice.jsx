@@ -18,7 +18,6 @@ const pelatihanSlice = createSlice({
       },
       fetchpelatihanSuccess: (state, action) => {
         state.pelatihan = action.payload;
-        console.log('state : ', state.pelatihan);
         state.loading = false;
       },
       fetchpelatihanFailure: (state, action) => {
@@ -26,7 +25,6 @@ const pelatihanSlice = createSlice({
         state.error = action.payload;
       },
       createPelatihanStart: (state) => {
-        console.log('state create pelatihan : ', state)
         state.loading = true;
         state.error = null;
       },
@@ -65,7 +63,6 @@ const pelatihanSlice = createSlice({
         state.error = action.payload;
       },
       setPagination: (state, action) => {
-        console.log('action page:', action)
         state.currentPage = action.payload.currentPage;
         state.totalPages = action.payload.totalPages;
       },
@@ -90,7 +87,6 @@ export const {
 } = pelatihanSlice.actions;
 
 export const fetchPelatihan = (page = 1, searchQuery = '') => async (dispatch) => {
-  console.log('hit fetch berita')
   dispatch(fetchpelatihanStart());
   try {
     const response = await CommonService.listPelatihan(page, 10, searchQuery);
@@ -114,7 +110,6 @@ export const fetchPelatihanDashboard = () => async (dispatch) => {
   dispatch(fetchpelatihanStart());
   try {
     const response = await CommonService.listPelatihanDashboard();
-    console.log('response pelatihan dashboard', response)
     dispatch(fetchpelatihanSuccess(response.data));
   } catch (error) {
     dispatch(fetchpelatihanFailure(error.response ? error.response.data : error.message));
@@ -122,7 +117,6 @@ export const fetchPelatihanDashboard = () => async (dispatch) => {
 };
 
 export const createPelatihan = (payload) => async (dispatch) => {
-    console.log('hit create pelatihan:', payload)
     dispatch(createPelatihanStart());
     try {
       // Create a new FormData object
@@ -155,7 +149,6 @@ export const createPelatihan = (payload) => async (dispatch) => {
         },
       });
   
-      console.log('response : ', response);
       dispatch(createPelatihanSuccess(response));
     } catch (error) {
       dispatch(createPelatihanFailure(error.response?.data || error.message));

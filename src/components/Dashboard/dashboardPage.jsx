@@ -11,6 +11,7 @@ import { fetchNewsDashboard } from "../Berita/beritaSlice";
 import { fetchSlideShowDashboard } from "../SlideShow/slideShowSlice";
 import { fetchPengumuman } from "../Pengumuman/pengumumanSlice";
 import Footer from "../../partials/Footer/footer";
+import WhatsAppButton from "../../partials/Whatsapp/whatsapp";
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -19,10 +20,6 @@ const DashboardPage = () => {
   const { news } = useSelector((state) => state.news);
   const { pengumuman } = useSelector((state) => state.pengumuman);
   const { slideshow } = useSelector((state) => state.slideshow);
-  console.log("videos : ", videos);
-  console.log("news : ", news);
-  console.log("pengumuman : ", pengumuman);
-  console.log("slideshow : ", slideshow);
   const [state, setState] = useState({
     selectedPengumuman: null,
     selectedNews: null,
@@ -71,7 +68,6 @@ const DashboardPage = () => {
   };
 
   const handleVideoClick = (videoUrl) => {
-    console.log("video url : ", videoUrl);
     setSelectedVideo(videoUrl);
   };
 
@@ -182,7 +178,6 @@ const DashboardPage = () => {
     const sortedData = news
       .slice()
       .sort((a, b) => new Date(b.date) - new Date(a.date));
-    console.log("Sorted data news", sortedData);
 
     const limitedData = sortedData.slice(0, 10);
     {
@@ -498,6 +493,7 @@ const DashboardPage = () => {
       {renderPengumuman()}
       {renderBeritaKegiatan()}
       {renderVideoKegiatan()}
+      <WhatsAppButton />
       <Footer />
     </div>
   );

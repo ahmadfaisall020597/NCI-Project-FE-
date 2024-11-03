@@ -24,7 +24,6 @@ const pengumumanSlice = createSlice({
             state.error = action.payload;
         },
         createPengumumanStart: (state) => {
-            // console.log('state : ', state);
             state.loading = true;
             state.error = null;
         },
@@ -51,7 +50,7 @@ const pengumumanSlice = createSlice({
             state.error = action.payload;
         },
         setPagination: (state, action) => {
-            console.log('action page : ', action);
+            
             state.currentPage = action.payload.currentPage;
             state.totalPages = action.payload.totalPages;
         },
@@ -87,11 +86,10 @@ export const {
 } = pengumumanSlice.actions;
 
 export const fetchPengumuman = (page = 1, searchQuery = '') => async (dispatch) => {
-    console.log('hit list video');
     dispatch(fetchPengumumanStart());
     try {
         const response = await CommonService.listPengumuman(page, 10, searchQuery);
-        console.log('response:', response);
+        
 
         if (response && response.data) {
             dispatch(fetchPengumumanSuccess(response.data.data));
@@ -103,18 +101,15 @@ export const fetchPengumuman = (page = 1, searchQuery = '') => async (dispatch) 
             throw new Error('Invalid response structure');
         }
     } catch (error) {
-        console.error('Fetch videos error:', error);
         dispatch(fetchPengumumanFailure(error.response ? error.response.data : error.message));
     }
 };
 
 
 export const createPengumuman = (payload) => async (dispatch) => {
-    console.log('hit create pengumuman : ', payload);
     dispatch(createPengumumanStart());
     try {
         const response = await CommonService.createPengumuman(payload);
-        console.log('sukses : ', response);
         dispatch(createPengumumanSuccess(response));
     } catch (error) {
         dispatch(createPengumumanFailure(error.response.data));

@@ -24,7 +24,6 @@ const videoSlice = createSlice({
             state.error = action.payload;
         },
         createVideoStart: (state) => {
-            console.log('state : ', state);
             state.loading = true;
             state.error = null;
         },
@@ -63,7 +62,7 @@ const videoSlice = createSlice({
             state.error = action.payload;
         },
         setPagination: (state, action) => {
-            console.log('action page : ', action);
+            
             state.currentPage = action.payload.currentPage;
             state.totalPages = action.payload.totalPages;
         },
@@ -87,11 +86,10 @@ export const {
 } = videoSlice.actions;
 
 export const fetchVideos = (page = 1, searchQuery = '') => async (dispatch) => {
-    console.log('hit list video');
     dispatch(fetchVideosStart());
     try {
         const response = await CommonService.listVideo(page, 10, searchQuery);
-        console.log('response:', response);
+        
 
         if (response && response.data) {
             dispatch(fetchVideosSuccess(response.data.data));
@@ -103,7 +101,6 @@ export const fetchVideos = (page = 1, searchQuery = '') => async (dispatch) => {
             throw new Error('Invalid response structure');
         }
     } catch (error) {
-        console.error('Fetch videos error:', error);
         dispatch(fetchVideosFailure(error.response ? error.response.data : error.message));
     }
 };
@@ -112,21 +109,17 @@ export const fetchVideosDashboard = () => async (dispatch) => {
     dispatch(fetchVideosStart());
     try {
         const response = await CommonService.listVideoDashboard();
-        console.log('response : ', response.data);
         dispatch(fetchVideosSuccess(response.data));
     } catch (error) {
-        console.error('Fetch videos error:', error);
         dispatch(fetchVideosFailure(error.response ? error.response.data : error.message));
     }
 }
 
 
 export const createVideo = (payload) => async (dispatch) => {
-    console.log('hit create video : ', payload);
     dispatch(createVideoStart());
     try {
         const response = await CommonService.createVideo(payload);
-        console.log('sukses : ', response);
         dispatch(createVideoSuccess(response));
     } catch (error) {
         dispatch(createVideoFailure(error.response.data));

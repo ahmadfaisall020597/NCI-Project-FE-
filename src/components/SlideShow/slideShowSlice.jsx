@@ -17,7 +17,6 @@ const slideShowSlice = createSlice({
       },
       fetchslideshowSuccess: (state, action) => {
         state.slideshow = action.payload;
-        console.log('state : ', state.slideshow);
         state.loading = false;
       },
       fetchslideshowFailure: (state, action) => {
@@ -25,7 +24,6 @@ const slideShowSlice = createSlice({
         state.error = action.payload;
       },
       createSlideShowStart: (state) => {
-        console.log('state create slideshow : ', state)
         state.loading = true;
         state.error = null;
       },
@@ -64,7 +62,6 @@ const slideShowSlice = createSlice({
         state.error = action.payload;
       },
       setPagination: (state, action) => {
-        console.log('action page:', action)
         state.currentPage = action.payload.currentPage;
         state.totalPages = action.payload.totalPages;
       },
@@ -89,7 +86,6 @@ export const {
   } = slideShowSlice.actions;
 
   export const fetchSlideShow = (page = 1, searchQuery = '') => async (dispatch) => {
-    console.log('hit fetch berita')
     dispatch(fetchslideshowStart());
     try {
       const response = await CommonService.listSlideShow(page, 10, searchQuery);
@@ -100,7 +96,6 @@ export const {
           currentPage: page,
           totalPages: response.data.last_page || 1,
         }))
-        console.log('response : ', response);
       }
         else {
           throw new Error('Invalid response structure');
@@ -114,7 +109,6 @@ export const {
     dispatch(fetchslideshowStart());
     try {
       const response = await CommonService.listSlideShowDashboard();
-      console.log('response berita dashboard', response)
       dispatch(fetchslideshowSuccess(response.data));
     } catch (error) {
       dispatch(fetchslideshowFailure(error.response ? error.response.data : error.message));
@@ -122,7 +116,6 @@ export const {
   };
 
   export const createSlideShow = (payload) => async (dispatch) => {
-    console.log('hit create slide show:', payload)
     dispatch(createSlideShowStart());
     try {
        // Create a new FormData object
@@ -140,8 +133,6 @@ export const {
            'Content-Type': 'multipart/form-data',
          },
        });
-   
-       console.log('response : ', response);
        dispatch(createSlideShowSuccess(response));
     } catch (error) {
       dispatch(createSlideShowFailure(error.response?.data || error.message));

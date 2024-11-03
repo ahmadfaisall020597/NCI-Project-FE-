@@ -1,5 +1,6 @@
 import { Container, Card } from "react-bootstrap";
 import { Images } from "../../../helpers/images";
+import WhatsAppButton from "../../../partials/Whatsapp/whatsapp";
 import './styles.css'; // Import CSS file for custom styles
 
 const StrukturOrganisasiPage = () => {
@@ -10,6 +11,7 @@ const StrukturOrganisasiPage = () => {
                     <Card.Img variant="top" src={Images.strukturOrganisasi} alt="Struktur Organisasi" style={{ height: 'auto' }} />
                 </Card.Body>
             </Card>
+            <WhatsAppButton />
         </Container>
     );
 };

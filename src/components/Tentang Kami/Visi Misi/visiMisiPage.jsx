@@ -5,11 +5,11 @@ import { useEffect } from "react";
 import { getLoading, setVisiMisi } from "./visiMisiSlice";
 import "./styles.css";
 import { useMediaQuery } from "react-responsive";
+import WhatsAppButton from "../../../partials/Whatsapp/whatsapp";
 
 const VisiMisiPage = () => {
     const dispatch = useDispatch();
     const { visi, misi, moto } = useSelector((state) => state.visiMisi);
-    console.log('visi : ', visi);
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
     useEffect(() => {
@@ -71,6 +71,7 @@ const VisiMisiPage = () => {
     return (
         <Stack>
             {renderVisiandMisi()}
+            <WhatsAppButton />
         </Stack>
     );
 };

@@ -7,12 +7,12 @@ import { objectRouter } from '../../utils/router/objectRouter';
 import Footer from '../../partials/Footer/footer';
 import { fetchPelatihanDashboard } from '../Pelatihan/pelatihanSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import WhatsAppButton from '../../partials/Whatsapp/whatsapp';
 
 const ProgramPelatihanPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { pelatihan } = useSelector((state) => state.pelatihan);
-    console.log('pelatihanDashboard', pelatihan)
     useEffect(() => {
         dispatch(fetchPelatihanDashboard());
     }, []);
@@ -61,6 +61,7 @@ const ProgramPelatihanPage = () => {
                     </div>
                 ))}
             </div>
+            <WhatsAppButton />
             <Footer />
         </Stack>
     );

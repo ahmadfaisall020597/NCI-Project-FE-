@@ -58,8 +58,6 @@ const PelatihanPage = () => {
     (state) => state.pelatihan
   );
 
-  console.log('data', pelatihan)
-
   useEffect(() => {
     dispatch(fetchPelatihan(currentPage, debouncedQuery));
   }, [dispatch, currentPage, debouncedQuery]);
@@ -74,7 +72,6 @@ const PelatihanPage = () => {
 
   
   useEffect(() => {
-    console.log('Pelatihan state updated:', pelatihan);
 }, [pelatihan]);
   
   const handlePageChange = (page) => {

@@ -18,7 +18,6 @@ const beritaSlice = createSlice({
       },
       fetchnewsSuccess: (state, action) => {
         state.news = action.payload;
-        console.log('state : ', state.news);
         state.loading = false;
       },
       fetchnewsFailure: (state, action) => {
@@ -26,7 +25,6 @@ const beritaSlice = createSlice({
         state.error = action.payload;
       },
       createNewsStart: (state) => {
-        console.log('state create berita : ', state)
         state.loading = true;
         state.error = null;
       },
@@ -65,7 +63,6 @@ const beritaSlice = createSlice({
         state.error = action.payload;
       },
       setPagination: (state, action) => {
-        console.log('action page:', action)
         state.currentPage = action.payload.currentPage;
         state.totalPages = action.payload.totalPages;
       },
@@ -90,7 +87,6 @@ export const {
 } = beritaSlice.actions;
 
 export const fetchNews = (page = 1, searchQuery = '') => async (dispatch) => {
-  console.log('hit fetch berita')
   dispatch(fetchnewsStart());
   try {
     const response = await CommonService.listBerita(page, 10, searchQuery);
@@ -114,7 +110,6 @@ export const fetchNewsDashboard = () => async (dispatch) => {
   dispatch(fetchnewsStart());
   try {
     const response = await CommonService.listBeritaDashboard();
-    console.log('response berita dashboard', response)
     dispatch(fetchnewsSuccess(response.data));
   } catch (error) {
     dispatch(fetchnewsFailure(error.response ? error.response.data : error.message));
@@ -122,7 +117,6 @@ export const fetchNewsDashboard = () => async (dispatch) => {
 };
 
 export const createNews = (payload) => async (dispatch) => {
-  console.log('hit create berita:', payload)
   dispatch(createNewsStart());
   try {
      // Create a new FormData object
@@ -140,8 +134,6 @@ export const createNews = (payload) => async (dispatch) => {
          'Content-Type': 'multipart/form-data',
        },
      });
- 
-     console.log('response : ', response);
      dispatch(createNewsSuccess(response));
   } catch (error) {
     dispatch(createNewsFailure(error.response?.data || error.message));
