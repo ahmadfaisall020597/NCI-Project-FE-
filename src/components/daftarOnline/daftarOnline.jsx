@@ -1,4 +1,5 @@
 import { Stack, Button } from "react-bootstrap";
+import WhatsAppButton from "../../partials/Whatsapp/whatsapp";
 import './styles.css';
 
 const DaftarOnlinePage = () => {
@@ -15,6 +16,7 @@ const DaftarOnlinePage = () => {
             <Button className="register-button" onClick={handleRegisterClick}>
                 Klik di sini
             </Button>
+            <WhatsAppButton />
         </Stack>
     );
 };

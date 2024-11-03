@@ -1,4 +1,5 @@
 import React from 'react';
+import WhatsAppButton from "../../partials/Whatsapp/whatsapp";
 import { Stack } from 'react-bootstrap';
 
 const KemendikbudPage = () => {
@@ -10,6 +11,7 @@ const KemendikbudPage = () => {
         style={{ border: 'none', width: '100%', height: '100%' }}
         allowFullScreen
       />
+      <WhatsAppButton />
     </Stack>
   );
 };
