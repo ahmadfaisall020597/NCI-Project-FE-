@@ -387,16 +387,19 @@ const DashboardPage = () => {
                     cursor: "pointer",
                     position: "relative",
                     overflow: "hidden",
-                    border: "hidden", // Remove border
+                    border: "none", // Remove border
                     padding: 0, // Ensure no padding around the image
                     margin: 0, // Remove any margin
+                    backgroundColor: "whuite", // Set background to black for visual effect
                   }}
                   onClick={() => handleVideoClick(video.url)}
                 >
                   {selectedVideo === video.url && videoId ? (
                     <div style={{ position: "relative", paddingTop: "56.25%" }}>
                       <iframe
-                        src={`https://www.youtube.com/embed/${videoId}?autoplay=${state.playing ? 1 : 0}`}
+                        src={`https://www.youtube.com/embed/${videoId}?autoplay=${
+                          state.playing ? 1 : 0
+                        }`}
                         title={video.title}
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -407,6 +410,7 @@ const DashboardPage = () => {
                           left: 0,
                           width: "100%",
                           height: "100%",
+                          border: "none", // Ensure there are no borders
                         }}
                       />
                     </div>
@@ -419,6 +423,10 @@ const DashboardPage = () => {
                         height: "100%",
                         objectFit: "cover", // Ensure the image covers the card
                         display: "block", // Remove gaps around the image
+                        position: "absolute", // Position absolutely to fill the card
+                        top: "-23px", // Move up to create the cropping effect
+                        left: 0, // Align to the left
+                        zIndex: 0, // Send image behind the text
                       }}
                     />
                   )}
@@ -435,7 +443,6 @@ const DashboardPage = () => {
                       zIndex: 1, // Ensure title is on top
                     }}
                   >
-                    {/* Ensure that the title wraps correctly and is fully visible */}
                     <h6
                       style={{
                         margin: 0,
