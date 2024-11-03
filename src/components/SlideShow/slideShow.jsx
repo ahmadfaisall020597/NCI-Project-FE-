@@ -172,13 +172,31 @@ const slideShowPage = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setState((prevState) => ({
-      ...prevState,
-      image_url: file ? file : null,
-      imagePreview: file ? URL.createObjectURL(file) : state.image_url,
-    }));
+  
+    // Function to validate file size
+    const validateFileSize = (file) => {
+      if (file && file.size > 2048 * 1024) { // Check if file size exceeds 2MB
+        setState((prevState) => ({
+          ...prevState,
+          error: "Ukuran file tidak boleh lebih dari 2MB", // Set error message
+        }));
+        return false; // File size is invalid
+      }
+      return true; // File size is valid
+    };
+  
+    // Validate the file size before updating state
+    if (file && validateFileSize(file)) {
+      setState((prevState) => ({
+        ...prevState,
+        image_url: file, // Set the image file
+        imagePreview: URL.createObjectURL(file), // Set the preview
+      }));
+    } else {
+      // Optionally clear the file input if the size is invalid
+      e.target.value = null; // Clear the input field
+    }
   };
-
   const formattedDate = state.date
   ? dayjs(state.date).format("YYYY-MM-DDTHH:mm")
   : "";

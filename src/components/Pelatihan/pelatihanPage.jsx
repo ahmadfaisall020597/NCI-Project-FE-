@@ -105,6 +105,7 @@ const PelatihanPage = () => {
       validated: true,
     }));
 
+    // Check for required fields
     if (
       state.title === "" ||
       state.image_kemendikbud_ristek === "" ||
@@ -124,6 +125,32 @@ const PelatihanPage = () => {
         error: "Semua field harus diisi",
       }));
       return;
+    }
+
+    // Function to validate file size
+    const validateFileSize = (file) => {
+      if (file.size > 2048 * 1024) { // Check if file size exceeds 2MB
+        return false;
+      }
+      return true;
+    };
+
+    // Validate images
+    const imageFields = [
+      state.image_kemendikbud_ristek,
+      state.image_logo_mitra,
+      state.image_spanduk_pelatihan,
+    ];
+
+    for (let i = 0; i < imageFields.length; i++) {
+      const file = imageFields[i]; // Assuming file paths or file objects are in these states
+      if (file && !validateFileSize(file)) {
+        setState((prevState) => ({
+          ...prevState,
+          error: "Ukuran file tidak boleh lebih dari 2MB",
+        }));
+        return;
+      }
     }
 
     const pelatihanData = {
@@ -151,14 +178,13 @@ const PelatihanPage = () => {
     try {
       if (state.id) {
         await dispatch(updatePelatihan(state.id, pelatihanData));
-        // Mengganti alert success dengan SweetAlert setelah update
         Swal.fire("Berhasil", "Pelatihan berhasil diupdate!", "success");
       } else {
         await dispatch(createPelatihan(pelatihanData));
-        // Mengganti alert success dengan SweetAlert setelah create
         Swal.fire("Berhasil", "Pelatihan berhasil dibuat!", "success");
       }
 
+      // Reset state
       setState({
         id: null,
         title: "",
@@ -181,6 +207,7 @@ const PelatihanPage = () => {
         validated: false,
         error: "",
       });
+
       // Reset input file field using ref
       if (inputFileRef.current) {
         inputFileRef.current.value = ""; // Reset input file value
@@ -188,7 +215,8 @@ const PelatihanPage = () => {
     } finally {
       setIsLoading(false); // Set loading to false after operation
     }
-  };
+};
+
 
   const handleAddPersyaratan = () => {
     setState((prevState) => ({
@@ -214,14 +242,33 @@ const PelatihanPage = () => {
   const handleImageChange = (e) => {
     const { name, files } = e.target;
     const file = files[0];
-    const filePreview = file ? URL.createObjectURL(file) : null;
   
-    setState((prevState) => ({
-      ...prevState,
-      [`${name}`]: file || null,  // Set the image file
-      [`${name}Preview`]: filePreview || prevState[`${name}Preview`]  // Set the preview
-    }));
+    // Validate the file size before setting it in state
+    const validateFileSize = (file) => {
+      if (file && file.size > 2048 * 1024) { // Check if file size exceeds 2MB
+        setState((prevState) => ({
+          ...prevState,
+          error: "Ukuran file tidak boleh lebih dari 2MB", // Set error message
+        }));
+        return false; // File size is invalid
+      }
+      return true; // File size is valid
+    };
+  
+    if (file && validateFileSize(file)) {
+      const filePreview = URL.createObjectURL(file); // Create a preview for valid files
+  
+      setState((prevState) => ({
+        ...prevState,
+        [`${name}`]: file,  // Set the image file
+        [`${name}Preview`]: filePreview  // Set the preview
+      }));
+    } else {
+      // Optionally clear the file input if the size is invalid
+      e.target.value = null; // Clear the input field
+    }
   };
+  
   
   const handleEdit = (pelatihan) => {
     let parsedPersyaratan;
