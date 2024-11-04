@@ -94,7 +94,7 @@ export const objectRouter = {
         title: "Daftar Online",
         path: "/daftar-online",
         element: <DaftarOnlinePage />,
-        needAuth: true,
+        needAuth: false,
         header: true,
         footer: false,
         index: true

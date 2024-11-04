@@ -511,13 +511,21 @@ const DashboardPage = () => {
       </Stack>
     );
   };
-  
+
+  const renderMitra = () => (
+    <Stack className="px-2 py-2">
+        <p className="fs-2 fw-semibold text-center">Kerjasama & Mitra Kerja</p>
+        <Stack direction="horizontal" className="position-relative">
+          </Stack>
+      </Stack>
+  );
   return (
     <div className="dashboard-page">
       {renderSpanduk()}
       {renderPengumuman()}
       {renderBeritaKegiatan()}
       {renderVideoKegiatan()}
+      {renderMitra()}
       <WhatsAppButton />
       <Footer />
     </div>
