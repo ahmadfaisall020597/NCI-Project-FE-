@@ -8,8 +8,6 @@ import { useMediaQuery } from 'react-responsive';
 
 const NavbarComponent = () => {
     const [state, setState] = useState({
-        menu: {},
-        menuAdmin: {},
         isAuthenticated: false,
         isMenuOpen: false,
         Auth: null,
@@ -23,8 +21,6 @@ const NavbarComponent = () => {
         const currentPath = window.location.pathname;
         setState(prevState => ({
             ...prevState,
-            menu: menuNavbar,
-            menuAdmin: menuNavbarAdmin,
             isAuthenticated: !!authToken,
             Auth: authToken,
             activeLink: currentPath
@@ -54,6 +50,9 @@ const NavbarComponent = () => {
         }));
     };
 
+    // Choose menu based on authentication status
+    const menuToDisplay = state.isAuthenticated ? menuNavbarAdmin : menuNavbar;
+
     return (
         <Navbar className="custom-navbar" expand="lg">
             <Container fluid>
@@ -75,7 +74,7 @@ const NavbarComponent = () => {
                 />
                 <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
                     <Nav className='ml-auto'>
-                        {state.menuAdmin.links && state.menuAdmin.links.map((link, index) => {
+                        {menuToDisplay.links && menuToDisplay.links.map((link, index) => {
                             const isActiveParent = state.activeLink === link.url ||
                                 (link.submenu && link.submenu.some(sub => state.activeLink === sub.url));
                             if (link.requiresAuth && !state.isAuthenticated) return null;
