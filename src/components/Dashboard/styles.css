@@ -165,79 +165,112 @@
     overflow: hidden;
     position: relative;
     background-color: #79b2db;
-    /* Optional: add a background color */
 }
 
 .label {
     position: absolute;
-    /* Make the label absolute */
-    left: 30vh;
-    /* Set a fixed position from the left */
+    left: 5%; /* Adjusted for better placement */
     top: 50%;
-    /* Center vertically */
     transform: translateY(-50%);
-    /* Adjust to center */
     font-weight: bold;
-    /* Make the label bold */
+    font-size: 18px; /* Default font size */
+    color: black; /* Changed text color for better contrast */
 }
 
 .marquee {
     display: flex;
     align-items: center;
-    /* Center vertically for label and item */
     justify-content: center;
-    /* Center the item */
     flex: 1;
     position: relative;
 }
 
 .marquee-item {
     display: flex;
-    font-size: 16px;
+    font-size: 18px; /* Default font size */
     align-items: center;
     justify-content: center;
     height: 50px;
     opacity: 0;
-    /* Mulai dengan tidak terlihat */
     animation: slideDown 0.5s forwards;
-    /* Animasi muncul */
 }
 
 .show {
     opacity: 1;
-    /* Menjadi terlihat */
     animation: slideDown 0.5s forwards;
-    /* Animasi untuk muncul */
 }
 
 .hide {
     opacity: 0;
-    /* Hilang */
     animation: slideDownOut 0.5s forwards;
 }
 
-/* Kunci animasi muncul */
 @keyframes slideDown {
     0% {
         opacity: 0;
         transform: translateY(-100%);
     }
-
     100% {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-/* Kunci animasi menghilang */
 @keyframes slideDownOut {
     0% {
         opacity: 1;
         transform: translateY(0);
     }
-
     100% {
         opacity: 0;
         transform: translateY(100%);
+    }
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .label {
+        font-size: 14px; /* Smaller font size for medium screens */
+        color: black;
+    }
+
+    .marquee-item {
+        font-size: 14px; /* Adjust font size for marquee items */
+    }
+}
+
+@media (max-width: 768px) {
+    .label {
+        font-size: 12px; /* Smaller font size for small screens */
+        left: 5%; /* Adjusted left position for smaller screens */
+        color: black;
+    }
+
+    .marquee-item {
+        font-size: 12px; /* Further adjust font size for items */
+    }
+
+    .marquee-container {
+        height: 40px; /* Reduced height for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .label {
+        font-size: 12px; /* Smallest font size for extra small screens */
+        left: 1%; /* Adjusted for better visibility */
+        bottom: -112%; /* Adjusted for better visibility */;
+        margin-bottom: -1px;
+        color: black;
+    }
+
+    .marquee-item {
+        font-size: 12px; /* Smallest font size for items */
+        text-align: center;
+        margin-top: 3px;
+    }
+
+    .marquee-container {
+        height: 92px; /* Further reduced height */
     }
 }

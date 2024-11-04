@@ -123,42 +123,39 @@ const DashboardPage = () => {
     const [isExiting, setIsExiting] = useState(false);
 
     useEffect(() => {
-      const interval = setInterval(() => {
-        setIsExiting(true); // Set exit state to true before changing index
-        setTimeout(() => {
-          setCurrentIndex(
-            (prevIndex) => (prevIndex + 1) % Math.min(pengumuman.length, 10)
-          );
-          setIsExiting(false); // Reset exit state after changing index
-        }, 500); // Durasi yang sama dengan durasi animasi
-      }, 3000); // Ubah setiap 3 detik
+        const interval = setInterval(() => {
+            setIsExiting(true);
+            setTimeout(() => {
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % Math.min(pengumuman.length, 10));
+                setIsExiting(false);
+            }, 500);
+        }, 3000);
 
-      return () => clearInterval(interval);
+        return () => clearInterval(interval);
     }, [pengumuman.length]);
-    // Sort pengumuman by date
-    const sortedPengumuman = pengumuman
-      .slice()
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    // Limit to 10 items
+    const sortedPengumuman = pengumuman
+        .slice()
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
     const limitedPengumuman = sortedPengumuman.slice(0, 10);
 
-    // Return the JSX
     return (
-      <div className="marquee-container">
-        <div className="marquee">
-          <span className="label">Pengumuman : </span>
-          {limitedPengumuman.length > 0 && (
-            <div className={`marquee-item ${isExiting ? "hide" : "show"}`}>
-              <span className="marquee-deskripsi">
-                {limitedPengumuman[currentIndex].deskripsi}
-              </span>
+        <div className="marquee-container">
+            <div className="marquee">
+                <span className="label">Pengumuman : </span>
+                {limitedPengumuman.length > 0 && (
+                    <div className={`marquee-item ${isExiting ? "hide" : "show"}`}>
+                        <span className="marquee-deskripsi">
+                            {limitedPengumuman[currentIndex].deskripsi}
+                        </span>
+                    </div>
+                )}
             </div>
-          )}
         </div>
-      </div>
     );
-  };
+};
+
 
   const renderBeritaKegiatan = () => {
     const scrollRef = useRef(null);
