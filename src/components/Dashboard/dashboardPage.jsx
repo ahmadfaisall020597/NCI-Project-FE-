@@ -67,21 +67,22 @@ const DashboardPage = () => {
   const getThumbnailUrl = (videoId) =>
     `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-  const renderSpanduk = () => (
+const renderSpanduk = () => (
     <Stack>
-      <Carousel indicators>
-        {slideshow.map((item) => (
-          <Carousel.Item key={item.id} className="carousel-item">
-            <img
-              className="d-block carousel-image"
-              src={item.image_url}
-              alt={`slide${item.id}`}
-            />
-          </Carousel.Item>
-        ))}
-      </Carousel>
+        <Carousel indicators>
+            {slideshow.map((item) => (
+                <Carousel.Item key={item.id} className="carousel-item">
+                    <img
+                        className="d-block carousel-image"
+                        src={item.image_url}
+                        alt={`slide${item.id}`}
+                    />
+                </Carousel.Item>
+            ))}
+        </Carousel>
     </Stack>
-  );
+);
+
 
   const handleBeritaDetail = (id) => {
     const item = {
@@ -123,39 +124,40 @@ const DashboardPage = () => {
     const [isExiting, setIsExiting] = useState(false);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIsExiting(true);
-            setTimeout(() => {
-                setCurrentIndex((prevIndex) => (prevIndex + 1) % Math.min(pengumuman.length, 10));
-                setIsExiting(false);
-            }, 500);
-        }, 3000);
+      const interval = setInterval(() => {
+        setIsExiting(true);
+        setTimeout(() => {
+          setCurrentIndex(
+            (prevIndex) => (prevIndex + 1) % Math.min(pengumuman.length, 10)
+          );
+          setIsExiting(false);
+        }, 500);
+      }, 3000);
 
-        return () => clearInterval(interval);
+      return () => clearInterval(interval);
     }, [pengumuman.length]);
 
     const sortedPengumuman = pengumuman
-        .slice()
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
+      .slice()
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
 
     const limitedPengumuman = sortedPengumuman.slice(0, 10);
 
     return (
-        <div className="marquee-container">
-            <div className="marquee">
-                <span className="label">Pengumuman : </span>
-                {limitedPengumuman.length > 0 && (
-                    <div className={`marquee-item ${isExiting ? "hide" : "show"}`}>
-                        <span className="marquee-deskripsi">
-                            {limitedPengumuman[currentIndex].deskripsi}
-                        </span>
-                    </div>
-                )}
+      <div className="marquee-container">
+        <div className="marquee">
+          <span className="label">Pengumuman : </span>
+          {limitedPengumuman.length > 0 && (
+            <div className={`marquee-item ${isExiting ? "hide" : "show"}`}>
+              <span className="marquee-deskripsi">
+                {limitedPengumuman[currentIndex].deskripsi}
+              </span>
             </div>
+          )}
         </div>
+      </div>
     );
-};
-
+  };
 
   const renderBeritaKegiatan = () => {
     const scrollRef = useRef(null);
@@ -313,7 +315,6 @@ const DashboardPage = () => {
     );
   };
   
-
   const renderVideoKegiatan = () => {
     const scrollRef = useRef(null);
   
@@ -496,8 +497,6 @@ const DashboardPage = () => {
     );
   };
   
-  
-
   const renderMitra = () => {
     const mitraImages = [
       Images.mitra1,

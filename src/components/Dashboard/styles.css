@@ -19,7 +19,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .stack-container {
@@ -34,7 +34,7 @@
 
 @media (min-width: 1025px) and (max-width: 1440px) {
     .carousel-item {
-        height: 86vh;
+        height: 61vh;
     }
 
     .carousel-image {
@@ -47,7 +47,7 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .carousel-item {
-        height: 72vh;
+        height: 50vh;
     }
 
     .carousel-image {
@@ -79,7 +79,7 @@
 
 @media (min-width: 375px) and (max-width: 576px) {
     .carousel-item {
-        height: 30vh;
+        height: 24vh;
     }
 
     .stack-container {
