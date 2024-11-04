@@ -11,11 +11,7 @@ const Footer = () => {
               <iframe
                 width="100%" 
                 height="400"
-                frameBorder="0"
-                scrolling="no"
-                marginHeight="0"
-                marginWidth="0"
-                src="https://maps.google.com/maps?width=520&height=400&hl=en&q=Jl.%20Asem%20Jaya%20No.5%204,%20RT.004/RW.005,%20Kel.Mustika%20Jaya,%20Kec.%20Mustika%20Jaya,%20Kota%20Bekasi,%20Jawa%20Barat%2017158+(NCI)&t=&z=14&ie=UTF8&iwloc=B&output=embed"
+                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=LPK%20Nusa%20Citra%20Indonesia+(LPK%20Nusa%20Citra%20Indonesia)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                 title="Google Map Location"
                 style={{ width: "100%", height: "auto" }}
               ></iframe>
@@ -43,9 +39,17 @@ const Footer = () => {
               </li>
               <li>
                 <i className="fas fa-map-marker-alt"></i>
-                <span>Alamat : Jl. Asem Jaya No.5 4, RT.004/RW.005</span>
+                <span>Alamat : Jln. Dukuh, Jl. Zamrud Selatan 3 No.7 Blok F</span>
                 <br />
-                <span>Kel. Mustika Jaya, Kec. Mustika Jaya,</span>
+                <span>RT.002/RW.021 Padurenan, Kec. Mustika Jaya,</span>
+                <br />
+                <span>Kota Bekasi, Jawa Barat 17158</span>
+              </li>
+              <li>
+                <i className="fas fa-map-marker-alt"></i>
+                <span>Alamat Workshop : Jl. Raya Asem Jaya No.5 4, RT.004/RW.005</span>
+                <br />
+                <span>Mustika Jaya, Kec. Mustika Jaya</span>
                 <br />
                 <span>Kota Bekasi, Jawa Barat 17158</span>
               </li>

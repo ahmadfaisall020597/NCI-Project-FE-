@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stack, Carousel, Card, Image, Button } from "react-bootstrap";
 import "./styles.css";
-import { dataSpanduk } from "../../data/dataSpanduk";
 import { useMediaQuery } from "react-responsive";
 import { objectRouter } from "../../utils/router/objectRouter";
 import { useDispatch, useSelector } from "react-redux";
@@ -175,15 +174,29 @@ const DashboardPage = () => {
   };
 
   const renderBeritaKegiatan = () => {
+    const scrollRef = useRef(null);
+  
+    const scroll = (direction) => {
+      if (scrollRef.current) {
+        const maxScrollLeft = scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
+        const currentScroll = scrollRef.current.scrollLeft;
+        const scrollAmount = direction === "left" ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
+  
+        if (direction === "left" && currentScroll <= 0) {
+          scrollRef.current.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+        } else if (direction === "right" && currentScroll >= maxScrollLeft) {
+          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+      }
+    };
+  
     const sortedData = news
       .slice()
       .sort((a, b) => new Date(b.date) - new Date(a.date));
-
     const limitedData = sortedData.slice(0, 10);
-    {
-      /* Scrolling Text Section */
-    }
-
+  
     return (
       <Stack className="px-2 py-2">
         <p className="fs-2 fw-semibold text-center">KEGIATAN</p>
@@ -315,17 +328,31 @@ const DashboardPage = () => {
       </Stack>
     );
   };
+  
 
   const renderVideoKegiatan = () => {
     const scrollRef = useRef(null);
-
+  
     const scroll = (direction) => {
       if (scrollRef.current) {
-        const scrollAmount = direction === "left" ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
-        scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
+        const maxScrollLeft = scrollWidth - clientWidth;
+  
+        // Check if we're at the start or end of the scrollable area
+        if (direction === "right" && scrollLeft >= maxScrollLeft) {
+          // Reset to the start when reaching the end
+          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        } else if (direction === "left" && scrollLeft <= 0) {
+          // Reset to the end when reaching the start
+          scrollRef.current.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+        } else {
+          // Otherwise, scroll normally
+          const scrollAmount = direction === "left" ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
+          scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
       }
     };
-
+  
     return (
       <Stack className="px-2 py-2">
         <p className="fs-2 fw-semibold text-center">VIDEO KEGIATAN</p>
@@ -361,7 +388,7 @@ const DashboardPage = () => {
             className="overflow-auto"
             style={{
               whiteSpace: "nowrap",
-              overflowY: "hidden", // Prevent vertical scroll
+              overflowY: "hidden",
               scrollbarWidth: "none",
               msOverflowStyle: "none",
             }}
@@ -382,10 +409,10 @@ const DashboardPage = () => {
                     cursor: "pointer",
                     position: "relative",
                     overflow: "hidden",
-                    border: "none", // Remove border
-                    padding: 0, // Ensure no padding around the image
-                    margin: 0, // Remove any margin
-                    backgroundColor: "whuite", // Set background to black for visual effect
+                    border: "none",
+                    padding: 0,
+                    margin: 0,
+                    backgroundColor: "whuite",
                   }}
                   onClick={() => handleVideoClick(video.url)}
                 >
@@ -405,7 +432,7 @@ const DashboardPage = () => {
                           left: 0,
                           width: "100%",
                           height: "100%",
-                          border: "none", // Ensure there are no borders
+                          border: "none",
                         }}
                       />
                     </div>
@@ -416,12 +443,12 @@ const DashboardPage = () => {
                       style={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "cover", // Ensure the image covers the card
-                        display: "block", // Remove gaps around the image
-                        position: "absolute", // Position absolutely to fill the card
-                        top: "-23px", // Move up to create the cropping effect
-                        left: 0, // Align to the left
-                        zIndex: 0, // Send image behind the text
+                        objectFit: "cover",
+                        display: "block",
+                        position: "absolute",
+                        top: "-23px",
+                        left: 0,
+                        zIndex: 0,
                       }}
                     />
                   )}
@@ -434,17 +461,17 @@ const DashboardPage = () => {
                       width: "100%",
                       backgroundColor: "white",
                       color: "black",
-                      boxShadow: "0 -1px 5px rgba(0, 0, 0, 0.1)", // Optional: shadow effect
-                      zIndex: 1, // Ensure title is on top
+                      boxShadow: "0 -1px 5px rgba(0, 0, 0, 0.1)",
+                      zIndex: 1,
                     }}
                   >
                     <h6
                       style={{
                         margin: 0,
-                        whiteSpace: "normal", // Allow title to wrap
-                        overflow: "visible", // Avoid cutting off long text
-                        textOverflow: "unset", // Disable text truncation
-                        fontSize: isMobile ? "12px" : "14px", // Adjust size based on screen
+                        whiteSpace: "normal",
+                        overflow: "visible",
+                        textOverflow: "unset",
+                        fontSize: isMobile ? "12px" : "14px",
                       }}
                     >
                       {video.title}
@@ -484,9 +511,7 @@ const DashboardPage = () => {
       </Stack>
     );
   };
-
-
-
+  
   return (
     <div className="dashboard-page">
       {renderSpanduk()}

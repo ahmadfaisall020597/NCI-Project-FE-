@@ -46,10 +46,7 @@ const ProgramPelatihanPage = () => {
                                 />
                             </div>
                             <Card.Body className="card-body">
-                                <Card.Title>{programItem.title}</Card.Title>
-                                <Card.Text>
-                                    {programItem.deskripsi}
-                                </Card.Text>
+                                <Card.Title className='card-title'>{programItem.title}</Card.Title>
                                 <ul>
                                     <li><strong>Durasi:</strong> {programItem.duration}</li>
                                     <li><strong>Tanggal Mulai:</strong> {new Date(programItem.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</li>

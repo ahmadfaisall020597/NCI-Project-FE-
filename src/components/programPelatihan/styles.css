@@ -1,28 +1,18 @@
-.text-center {
-    text-align: center; 
-    margin-bottom: 20px; 
-}
-
-.card {
-    overflow: hidden;
-    height: 100%;
-}
-
 .card-body {
     display: flex; 
     flex-direction: column; 
-    justify-content: space-between; 
+    justify-content: flex-start;  /* Change from space-between to flex-start */
     overflow: hidden;
     font-size: 1rem;
-    height: 250px;
+    height: auto;  /* Change from fixed height to auto */
 }
 
 .card-title {
     font-size: 1.25rem; 
     margin-bottom: 10px; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    white-space: normal; 
+    overflow: visible;  /* Allow visible overflow */
+    text-overflow: clip;  /* Remove ellipsis for long text */
+    white-space: normal;  /* Allow text to wrap */
 }
 
 .card-text {
