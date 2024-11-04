@@ -11,6 +11,7 @@ import { fetchSlideShowDashboard } from "../SlideShow/slideShowSlice";
 import { fetchPengumuman } from "../Pengumuman/pengumumanSlice";
 import Footer from "../../partials/Footer/footer";
 import WhatsAppButton from "../../partials/Whatsapp/whatsapp";
+import { Images } from "../../helpers/images";
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -30,20 +31,6 @@ const DashboardPage = () => {
 
   const { selectedVideo } = state;
 
-  const scroll = (direction) => {
-    if (direction === "left") {
-      scrollRef.current.scrollBy({
-        left: -400,
-        behavior: "smooth",
-      });
-    } else if (direction === "right") {
-      scrollRef.current.scrollBy({
-        left: 400,
-        behavior: "smooth",
-      });
-    }
-  };
-
   useEffect(() => {
     dispatch(fetchVideosDashboard());
     if (videos) {
@@ -55,7 +42,7 @@ const DashboardPage = () => {
     }
     dispatch(fetchNewsDashboard());
     dispatch(fetchPengumuman());
-    dispatch(fetchSlideShowDashboard())
+    dispatch(fetchSlideShowDashboard());
   }, []);
 
   const setSelectedVideo = (videoUrl) => {
@@ -511,14 +498,56 @@ const DashboardPage = () => {
       </Stack>
     );
   };
+  
+  
 
-  const renderMitra = () => (
-    <Stack className="px-2 py-2">
-        <p className="fs-2 fw-semibold text-center">Kerjasama & Mitra Kerja</p>
-        <Stack direction="horizontal" className="position-relative">
-          </Stack>
+  const renderMitra = () => {
+    const mitraImages = [
+      Images.mitra1,
+      Images.mitra3,
+      Images.mitra4,
+      Images.mitra5,
+      Images.mitra6,
+      Images.mitra7,
+      Images.mitra8,
+    ];
+
+    return (
+      <Stack className="px-2 py-2">
+        <p className="fs-2 fw-semibold text-center">KERJASAMA & MITRA KERJA</p>
+        <Stack
+          direction="horizontal"
+          className="justify-content-center flex-wrap gap-3"
+        >
+          {mitraImages.map((src, index) => (
+            <div
+              key={index}
+              className="mitra-image-container"
+              style={{
+                width: "200px", // Adjust width as needed
+                height: "200px", // Adjust height as needed
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={src}
+                alt={`Mitra ${index + 1}`}
+                className="img-fluid rounded"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+          ))}
+        </Stack>
       </Stack>
-  );
+    );
+  };
+
   return (
     <div className="dashboard-page">
       {renderSpanduk()}

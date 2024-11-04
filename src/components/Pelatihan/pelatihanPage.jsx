@@ -583,10 +583,19 @@ const PelatihanPage = () => {
                 <Form.Control
                   type="text"
                   placeholder="Masukkan biaya pelatihan"
-                  value={state.biaya}
-                  onChange={(e) =>
-                    setState({ ...state, biaya: e.target.value })
+                  value={
+                    state.biaya
+                      ? parseInt(state.biaya).toLocaleString("id-ID", {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        })
+                      : ""
                   }
+                  onChange={(e) => {
+                    // Remove any non-digit characters before updating the state
+                    const rawValue = e.target.value.replace(/\D/g, "");
+                    setState({ ...state, biaya: rawValue });
+                  }}
                   required
                 />
               </InputGroup>
