@@ -37,20 +37,29 @@ const DetailPelatihanPage = () => {
   return (
     <Stack className="py-2 px-4">
       <h2 className="text-center">{title}</h2>
-      
+
       {/* Logos Section */}
-      <div className="text-center mb-3">
+      <div className="text-center mb-2">
         <Image
           src={image_kemendikbud_ristek}
           alt="Kemendikbud Logo"
           className="me-3"
-          style={{ width: 200, height: "auto" }}
+          style={{ 
+            width: isMobile ? 200 : 200,
+            height: "auto",
+            margin: isMobile ? 18 : 0
+          }}
         />
         <Image
           src={image_logo_nci}
           alt="NCI Logo"
           className="me-3"
-          style={{ width: 200, height: "auto" }}
+          style={{ 
+            width: isMobile ? 200 : 200, 
+            height: "auto", 
+            margin: isMobile ? 17 : 0, 
+            marginTop: isMobile ? 1 : 0 
+          }}
         />
         <Image
           src={image_logo_mitra}
@@ -74,7 +83,7 @@ const DetailPelatihanPage = () => {
           src={image_spanduk_pelatihan}
           alt={title}
           style={{
-            width: "65%",
+            width: "100%",
             height: "100%",
             objectFit: "contain",
           }}
@@ -84,48 +93,48 @@ const DetailPelatihanPage = () => {
       {/* Card Section */}
       <Card className="mt-4">
         {/* <Card.Body> */}
-          <ListGroup variant="flush">
+        <ListGroup variant="flush">
           <ListGroup.Item>
-              <strong>Deskripsi :</strong> {deskripsi}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Durasi:</strong> {duration} hari
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Tanggal Mulai:</strong>{" "}
-              {new Date(date).toLocaleDateString("id-ID", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Lokasi:</strong> {location}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Biaya:</strong> {biaya === "0.00" ? "Gratis" : biaya}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Output:</strong> {output}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Persyaratan:</strong>
-              <ul>
-                {parsedPersyaratan.map((syarat, index) => (
-                  <li key={index}>{syarat}</li>
-                ))}
-              </ul>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <strong>Pendaftaran:</strong>{" "}
-              <a href={url_daftar} target="_blank" rel="noopener noreferrer">
-                Link Daftar
-              </a>
-            </ListGroup.Item>
-          </ListGroup>
+            <strong>Deskripsi :</strong> {deskripsi}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Durasi:</strong> {duration} hari
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Tanggal Mulai:</strong>{" "}
+            {new Date(date).toLocaleDateString("id-ID", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Lokasi:</strong> {location}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Biaya:</strong> {biaya === "0.00" ? "Gratis" : biaya}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Output:</strong> {output}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Persyaratan:</strong>
+            <ul>
+              {parsedPersyaratan.map((syarat, index) => (
+                <li key={index}>{syarat}</li>
+              ))}
+            </ul>
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <strong>Pendaftaran:</strong>{" "}
+            <a href={url_daftar} target="_blank" rel="noopener noreferrer">
+              Link Daftar
+            </a>
+          </ListGroup.Item>
+        </ListGroup>
         {/* </Card.Body> */}
       </Card>
-    <WhatsAppButton />
+      <WhatsAppButton />
     </Stack>
   );
 };
