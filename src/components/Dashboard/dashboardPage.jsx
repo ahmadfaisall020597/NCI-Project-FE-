@@ -27,6 +27,8 @@ const DashboardPage = () => {
     playing: false,
   });
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const isLaptop = useMediaQuery({ query: "(max-width: 1024px)"});
+  const isLaptopLg = useMediaQuery({ query: "(max-width: 1440px)"});
   const scrollRef = useRef(null);
 
   const { selectedVideo } = state;
@@ -551,7 +553,7 @@ const DashboardPage = () => {
             variant="light"
             className="position-absolute"
             style={{
-              left: isMobile ? "0px" : "80px",
+              left: isMobile ? "0px" : isLaptop ? "90px" : isLaptopLg ? "275px" : "550px",
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 1,
@@ -608,7 +610,7 @@ const DashboardPage = () => {
             variant="light"
             className="position-absolute"
             style={{
-              right: isMobile ? "0px" : "80px",
+              right: isMobile ? "0px" : isLaptop ? "90px" : isLaptopLg ? "275px" : "550px",
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 1,
