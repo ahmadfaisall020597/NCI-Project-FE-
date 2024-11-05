@@ -553,7 +553,7 @@ const DashboardPage = () => {
             variant="light"
             className="position-absolute"
             style={{
-              left: isMobile ? "0px" : isLaptop ? "90px" : isLaptopLg ? "275px" : "550px",
+              left: isMobile ? "0px" : isLaptop ? "90px" : isLaptopLg ? "275px" : "370px",
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 1,
@@ -610,7 +610,7 @@ const DashboardPage = () => {
             variant="light"
             className="position-absolute"
             style={{
-              right: isMobile ? "0px" : isLaptop ? "90px" : isLaptopLg ? "275px" : "550px",
+              right: isMobile ? "0px" : isLaptop ? "90px" : isLaptopLg ? "275px" : "370px",
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 1,
