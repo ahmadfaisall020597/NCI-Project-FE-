@@ -43,6 +43,7 @@ const PelatihanPage = () => {
     url_daftar: "",
     output: "",
     date: "",
+    tanggal_mulai: "",
     validated: false,
     error: "",
   });
@@ -91,11 +92,15 @@ const PelatihanPage = () => {
       date: formattedDate, // Store the formatted date
     });
   };
-  
 
-  const formattedDate = state.date
-  ? dayjs(state.date).format("YYYY-MM-DDTHH:mm")
-  : "";
+  const handleDateStartChange = (e) => {
+    const selectedDate = e.target.value; // Get the raw input value
+    const formattedDate = dayjs(selectedDate).format("YYYY-MM-DD HH:mm"); // Format it
+    setState({
+      ...state,
+      tanggal_mulai: formattedDate, // Store the raw input value
+    });
+  };
 
 
   const handleSubmit = async (e) => {
@@ -171,6 +176,7 @@ const PelatihanPage = () => {
       url_daftar: state.url_daftar,
       output: state.output,
       date: state.date,
+      tanggal_mulai: state.tanggal_mulai
     };
 
     setIsLoading(true);
@@ -203,6 +209,7 @@ const PelatihanPage = () => {
         biaya: "",
         url_daftar: "",
         output: "",
+        tanggal_mulai: "",
         date: "",
         validated: false,
         error: "",
@@ -309,6 +316,7 @@ const PelatihanPage = () => {
       url_daftar: pelatihan.url_daftar,
       output: pelatihan.output,
       date: pelatihan.date == null ? pelatihan.created_at : pelatihan.date,
+      tanggal_mulai: pelatihan.tanggal_mulai == null ? pelatihan.created_at : pelatihan.tanggal_mulai,
       validated: false,
       error: "",
     });
@@ -636,11 +644,24 @@ const PelatihanPage = () => {
               </Form.Control.Feedback>
             </Form.Group>
 
+            <Form.Group className="py-4" controlId="formTanggalMulai">
+              <Form.Label>Tanggal Mulai Pelatihan</Form.Label>
+              <Form.Control
+                type="datetime-local"
+                value={state.tanggal_mulai ? dayjs(state.tanggal_mulai).format("YYYY-MM-DDTHH:mm") : ""}
+                onChange={handleDateStartChange}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Tanggal tidak boleh kosong.
+              </Form.Control.Feedback>
+            </Form.Group>
+
             <Form.Group className="py-4" controlId="formTanggal">
               <Form.Label>Tanggal Dibuat</Form.Label>
               <Form.Control
                 type="datetime-local"
-                value={formattedDate}
+                value={state.date ? dayjs(state.date).format("YYYY-MM-DDTHH:mm") : ""}
                 onChange={handleDateChange}
                 required
               />

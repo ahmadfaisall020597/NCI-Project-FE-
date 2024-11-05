@@ -27,6 +27,7 @@ const DetailPelatihanPage = () => {
       url_daftar,
       output,
       date,
+      tanggal_mulai,
     },
   } = itemDetail;
 
@@ -102,7 +103,7 @@ const DetailPelatihanPage = () => {
           </ListGroup.Item>
           <ListGroup.Item>
             <strong>Tanggal Mulai:</strong>{" "}
-            {new Date(date).toLocaleDateString("id-ID", {
+            {new Date(tanggal_mulai).toLocaleDateString("id-ID", {
               year: "numeric",
               month: "long",
               day: "numeric",

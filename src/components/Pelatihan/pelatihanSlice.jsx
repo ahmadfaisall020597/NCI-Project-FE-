@@ -141,6 +141,9 @@ export const createPelatihan = (payload) => async (dispatch) => {
       if (payload.date) {
         formData.append('date', payload.date);
       }
+      if(payload.tanggal_mulai) {
+        formData.append('tanggal_mulai', payload.tanggal_mulai)
+      }
   
       // Send FormData to the API
       const response = await CommonService.createPelatihan(formData, {
@@ -181,6 +184,9 @@ export const updatePelatihan = (id, payload) => async (dispatch) => {
      if (payload.date) {
        formData.append('date', payload.date);
      }
+     if(payload.tanggal_mulai) {
+      formData.append('tanggal_mulai', payload.tanggal_mulai)
+    }
 
     const response = await CommonService.editPelatihan(id, formData, {
       headers: {

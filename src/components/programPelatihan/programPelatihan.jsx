@@ -49,11 +49,10 @@ const ProgramPelatihanPage = () => {
                                 <Card.Title className='card-title'>{programItem.title}</Card.Title>
                                 <ul>
                                     <li><strong>Durasi:</strong> {programItem.duration}</li>
-                                    <li><strong>Tanggal Mulai:</strong> {new Date(programItem.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</li>
+                                    <li><strong>Tanggal Mulai:</strong> {new Date(programItem.tanggal_mulai).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</li>
                                     <li><strong>Lokasi:</strong> {programItem.location}</li>
                                     <li><strong>Biaya: </strong> {programItem.biaya === "0.00" ? 'Gratis' : parseFloat(programItem.biaya).toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                                 </li>
-
                                 </ul>
                             </Card.Body>
                         </Card>
