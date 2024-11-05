@@ -67,22 +67,21 @@ const DashboardPage = () => {
   const getThumbnailUrl = (videoId) =>
     `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-const renderSpanduk = () => (
+  const renderSpanduk = () => (
     <Stack>
-        <Carousel indicators>
-            {slideshow.map((item) => (
-                <Carousel.Item key={item.id} className="carousel-item">
-                    <img
-                        className="d-block carousel-image"
-                        src={item.image_url}
-                        alt={`slide${item.id}`}
-                    />
-                </Carousel.Item>
-            ))}
-        </Carousel>
+      <Carousel indicators>
+        {slideshow.map((item) => (
+          <Carousel.Item key={item.id} className="carousel-item">
+            <img
+              className="d-block carousel-image"
+              src={item.image_url}
+              alt={`slide${item.id}`}
+            />
+          </Carousel.Item>
+        ))}
+      </Carousel>
     </Stack>
-);
-
+  );
 
   const handleBeritaDetail = (id) => {
     const item = {
@@ -161,28 +160,38 @@ const renderSpanduk = () => (
 
   const renderBeritaKegiatan = () => {
     const scrollRef = useRef(null);
-  
+
     const scroll = (direction) => {
       if (scrollRef.current) {
-        const maxScrollLeft = scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
+        const maxScrollLeft =
+          scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
         const currentScroll = scrollRef.current.scrollLeft;
-        const scrollAmount = direction === "left" ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
-  
+        const scrollAmount =
+          direction === "left"
+            ? -scrollRef.current.offsetWidth
+            : scrollRef.current.offsetWidth;
+
         if (direction === "left" && currentScroll <= 0) {
-          scrollRef.current.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+          scrollRef.current.scrollTo({
+            left: maxScrollLeft,
+            behavior: "smooth",
+          });
         } else if (direction === "right" && currentScroll >= maxScrollLeft) {
           scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
         } else {
-          scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+          scrollRef.current.scrollBy({
+            left: scrollAmount,
+            behavior: "smooth",
+          });
         }
       }
     };
-  
+
     const sortedData = news
       .slice()
       .sort((a, b) => new Date(b.date) - new Date(a.date));
     const limitedData = sortedData.slice(0, 10);
-  
+
     return (
       <Stack className="px-2 py-2">
         <p className="fs-2 fw-semibold text-center">KEGIATAN</p>
@@ -314,30 +323,39 @@ const renderSpanduk = () => (
       </Stack>
     );
   };
-  
+
   const renderVideoKegiatan = () => {
     const scrollRef = useRef(null);
-  
+
     const scroll = (direction) => {
       if (scrollRef.current) {
         const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
         const maxScrollLeft = scrollWidth - clientWidth;
-  
+
         // Check if we're at the start or end of the scrollable area
         if (direction === "right" && scrollLeft >= maxScrollLeft) {
           // Reset to the start when reaching the end
           scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
         } else if (direction === "left" && scrollLeft <= 0) {
           // Reset to the end when reaching the start
-          scrollRef.current.scrollTo({ left: maxScrollLeft, behavior: "smooth" });
+          scrollRef.current.scrollTo({
+            left: maxScrollLeft,
+            behavior: "smooth",
+          });
         } else {
           // Otherwise, scroll normally
-          const scrollAmount = direction === "left" ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
-          scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+          const scrollAmount =
+            direction === "left"
+              ? -scrollRef.current.offsetWidth
+              : scrollRef.current.offsetWidth;
+          scrollRef.current.scrollBy({
+            left: scrollAmount,
+            behavior: "smooth",
+          });
         }
       }
     };
-  
+
     return (
       <Stack className="px-2 py-2">
         <p className="fs-2 fw-semibold text-center">VIDEO KEGIATAN</p>
@@ -408,7 +426,6 @@ const renderSpanduk = () => (
                           state.playing ? 1 : 0
                         }`}
                         title={video.title}
-                        frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                         style={{
@@ -429,11 +446,8 @@ const renderSpanduk = () => (
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        display: "block",
                         position: "absolute",
                         top: "-23px",
-                        left: 0,
-                        zIndex: 0,
                       }}
                     />
                   )}
@@ -446,7 +460,6 @@ const renderSpanduk = () => (
                       width: "100%",
                       backgroundColor: "white",
                       color: "black",
-                      boxShadow: "0 -1px 5px rgba(0, 0, 0, 0.1)",
                       zIndex: 1,
                     }}
                   >
@@ -507,42 +520,118 @@ const renderSpanduk = () => (
       Images.mitra7,
       Images.mitra8,
     ];
-
+  
+    // Group images in sets of three
+    const groupedImages = [];
+    for (let i = 0; i < mitraImages.length; i += 3) {
+      groupedImages.push(mitraImages.slice(i, i + 3));
+    }
+  
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const scrollRef = useRef(null); // Use ref to potentially handle scrolling
+  
+    const handleNext = () => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex < groupedImages.length - 1 ? prevIndex + 1 : 0
+      );
+    };
+  
+    const handlePrev = () => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : groupedImages.length - 1
+      );
+    };
+  
     return (
-      <Stack className="px-2 py-2">
+      <Stack className="px-2 py-2 position-relative">
         <p className="fs-2 fw-semibold text-center">KERJASAMA & MITRA KERJA</p>
-        <Stack
-          direction="horizontal"
-          className="justify-content-center flex-wrap gap-3"
-        >
-          {mitraImages.map((src, index) => (
-            <div
-              key={index}
-              className="mitra-image-container"
-              style={{
-                width: "200px", // Adjust width as needed
-                height: "200px", // Adjust height as needed
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                src={src}
-                alt={`Mitra ${index + 1}`}
-                className="img-fluid rounded"
+        <div className="d-flex justify-content-center align-items-center position-relative">
+          {/* Previous Button */}
+          <Button
+            variant="light"
+            className="position-absolute"
+            style={{
+              left: isMobile ? "0px" : "80px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 1,
+              backgroundColor: "transparent",
+              border: "none",
+              color: "black",
+              fontSize: isMobile ? "2rem" : "4rem",
+            }}
+            onClick={handlePrev}
+          >
+            &#8249;
+          </Button>
+  
+          {/* Display images in groups of 3 */}
+          <Stack
+            direction="horizontal"
+            className="overflow-auto align-items-center"
+            style={{
+              whiteSpace: "nowrap",
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+            gap={2}
+            ref={scrollRef}
+          >
+            {groupedImages[currentIndex].map((src, idx) => (
+              <div
+                key={idx}
+                className="mitra-image-container"
                 style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  objectFit: "contain",
+                  width: "250px",
+                  height: "250px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-              />
-            </div>
-          ))}
-        </Stack>
+              >
+                <img
+                  src={src}
+                  alt={`Mitra ${currentIndex * 3 + idx + 1}`}
+                  className="img-fluid rounded"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+            ))}
+          </Stack>
+  
+          {/* Next Button */}
+          <Button
+            variant="light"
+            className="position-absolute"
+            style={{
+              right: isMobile ? "0px" : "80px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              zIndex: 1,
+              backgroundColor: "transparent",
+              border: "none",
+              color: "black",
+              fontSize: isMobile ? "2rem" : "4rem",
+            }}
+            onClick={handleNext}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.transform = "translateY(-50%) scale(1.2)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.transform = "translateY(-50%) scale(1)")
+            }
+          >
+            &#8250;
+          </Button>
+        </div>
       </Stack>
     );
   };
+  
 
   return (
     <div className="dashboard-page">

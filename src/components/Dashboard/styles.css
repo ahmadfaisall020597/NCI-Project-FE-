@@ -7,6 +7,16 @@
     background-color: black;
 }
 
+.mitra-image-container {
+    border: 2px solid transparent; /* Optional border */
+    border-radius: 8px; /* Rounded corners */
+    transition: transform 0.3s; /* Smooth scaling effect on hover */
+  }
+  
+  .mitra-image-container:hover {
+    transform: scale(1.05); /* Slightly enlarge the image on hover */
+  }
+  
 /* .carousel-item {
     position: relative;
     height: 119vh;
