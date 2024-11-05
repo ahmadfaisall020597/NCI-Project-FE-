@@ -43,34 +43,45 @@
 }
 
 .carousel-item {
-    height: auto; /* Mengisi penuh tinggi layar */
-}
-
-.carousel-image {
+    height: auto; /* Fill the full height of the screen */
+    position: relative; /* Required for positioning of children */
+  }
+  
+  .carousel-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Memastikan gambar memenuhi elemen tanpa mengubah proporsi */
-}
-
-@media (min-width: 1025px) and (max-width: 1440px) {
+    object-fit: cover; /* Ensure the image fills the element without changing proportions */
+    opacity: 0; /* Start with images invisible */
+    transition: opacity 1s ease-in-out; /* Fade effect */
+  }
+  
+  .carousel-item.active .carousel-image {
+    opacity: 1; /* Fade in active image */
+  }
+  
+  @media (min-width: 1025px) and (max-width: 1440px) {
     .carousel-item {
-        height: auto;
+      height: auto;
     }
-
+  
     .carousel-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      width: 100%;
+      height: 100%;
+      opacity: 0; /* Start with images invisible */
+      transition: opacity 1s ease-in-out; /* Fade effect */
+      object-fit: cover;
     }
-}
-
-@media (max-width: 1024px) {
+  }
+  
+  @media (max-width: 1024px) {
     .carousel-image {
-        width: 100vw; /* Mengisi penuh lebar layar di perangkat lebih kecil */
-        height: auto; /* Mengikuti proporsi asli */
-        object-fit: cover;
+      width: 100vw; /* Full width on smaller devices */
+      height: auto; /* Maintain original proportions */
+      opacity: 0; /* Start with images invisible */
+      transition: opacity 1s ease-in-out; /* Fade effect */
+      object-fit: cover;
     }
-}
+  }  
 
 
 .carousel-indicators [data-bs-target] {

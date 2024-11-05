@@ -71,7 +71,7 @@ const DashboardPage = () => {
 
   const renderSpanduk = () => (
     <Stack>
-      <Carousel indicators>
+      <Carousel indicators interval={5000} fade>
         {slideshow.map((item) => (
           <Carousel.Item key={item.id} className="carousel-item">
             <img
@@ -522,55 +522,65 @@ const DashboardPage = () => {
       Images.mitra7,
       Images.mitra8,
     ];
-
+  
     // Group images in sets of three
     const groupedImages = [];
-    for (let i = 0; i < mitraImages.length; i += 3) {
+    for (let i = 0; i < mitraImages.length; i += 1) {
       groupedImages.push(mitraImages.slice(i, i + 3));
     }
-
+  
+    // Duplicate the first two images at the end for circular effect
+    const extendedImages = [...mitraImages, ...mitraImages.slice(0, 2)];
+  
     const [currentIndex, setCurrentIndex] = useState(0);
-    const scrollRef = useRef(null); // Create a ref to access the scrollable element
-
+    const scrollRef = useRef(null);
+  
     const handleNext = () => {
       setCurrentIndex((prevIndex) =>
-        prevIndex < groupedImages.length - 1 ? prevIndex + 1 : 0
+        prevIndex < extendedImages.length - 3 ? prevIndex + 1 : 0
       );
       scroll("right");
     };
-
+  
     const handlePrev = () => {
       setCurrentIndex((prevIndex) =>
-        prevIndex > 0 ? prevIndex - 1 : groupedImages.length - 1
+        prevIndex > 0 ? prevIndex - 1 : extendedImages.length - 3
       );
       scroll("left");
     };
-
+  
     const scroll = (direction) => {
       if (scrollRef.current) {
         const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
         const maxScrollLeft = scrollWidth - clientWidth;
-
-        if (direction === "right" && scrollLeft >= maxScrollLeft) {
-          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
-        } else if (direction === "left" && scrollLeft <= 0) {
-          scrollRef.current.scrollTo({
-            left: maxScrollLeft,
-            behavior: "smooth",
-          });
-        } else {
-          const scrollAmount =
-            direction === "left"
-              ? -scrollRef.current.offsetWidth
-              : scrollRef.current.offsetWidth;
-          scrollRef.current.scrollBy({
-            left: scrollAmount,
-            behavior: "smooth",
-          });
+        const scrollAmount = scrollRef.current.offsetWidth;
+    
+        // Menentukan nilai target scroll berdasarkan arah
+        let targetScrollLeft;
+        
+        if (direction === "right") {
+          if (scrollLeft >= maxScrollLeft) {
+            targetScrollLeft = 0; // Gulir kembali ke awal
+          } else {
+            targetScrollLeft = scrollLeft + scrollAmount; // Gulir ke kanan
+          }
+        } else if (direction === "left") {
+          if (scrollLeft <= 0) {
+            targetScrollLeft = maxScrollLeft; // Gulir kembali ke akhir
+          } else {
+            targetScrollLeft = scrollLeft - scrollAmount; // Gulir ke kiri
+          }
         }
+    
+        // Gulir dengan efek smooth
+        scrollRef.current.scrollTo({
+          left: targetScrollLeft,
+          behavior: "smooth",
+        });
       }
     };
-
+    
+  
     return (
       <Stack className="px-2 py-2 position-relative">
         <p className="fs-2 fw-semibold text-center">KERJASAMA & MITRA KERJA</p>
@@ -599,7 +609,7 @@ const DashboardPage = () => {
           >
             &#8249;
           </Button>
-
+  
           {/* Display images in groups of 3 */}
           <Stack
             direction="horizontal"
@@ -613,7 +623,7 @@ const DashboardPage = () => {
             gap={2}
             ref={scrollRef}
           >
-            {groupedImages[currentIndex].map((src, idx) => (
+            {extendedImages.slice(currentIndex, currentIndex + 3).map((src, idx) => (
               <div
                 key={idx}
                 className="mitra-image-container"
@@ -627,7 +637,7 @@ const DashboardPage = () => {
               >
                 <img
                   src={src}
-                  alt={`Mitra ${currentIndex * 3 + idx + 1}`}
+                  alt={`Mitra ${currentIndex + idx + 1}`}
                   className="img-fluid rounded"
                   style={{
                     maxWidth: "100%",
@@ -638,7 +648,7 @@ const DashboardPage = () => {
               </div>
             ))}
           </Stack>
-
+  
           {/* Next Button */}
           <Button
             variant="light"
