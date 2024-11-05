@@ -409,7 +409,7 @@ const DashboardPage = () => {
                   style={{
                     minWidth: isMobile ? "340px" : "400px",
                     width: isMobile ? "340px" : "400px",
-                    height: isMobile ? "240px" : "270px",
+                    height: isMobile ? "218px" : "255px",
                     marginRight: "10px",
                     cursor: "pointer",
                     position: "relative",
@@ -449,7 +449,7 @@ const DashboardPage = () => {
                         height: "100%",
                         objectFit: "cover",
                         position: "absolute",
-                        top: "-23px",
+                        top: isMobile ? "-17px" : "-20px",
                       }}
                     />
                   )}
