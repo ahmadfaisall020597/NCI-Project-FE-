@@ -530,19 +530,44 @@ const DashboardPage = () => {
     }
   
     const [currentIndex, setCurrentIndex] = useState(0);
-    const scrollRef = useRef(null); // Use ref to potentially handle scrolling
-  
-    const handleNext = () => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex < groupedImages.length - 1 ? prevIndex + 1 : 0
-      );
-    };
-  
-    const handlePrev = () => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex > 0 ? prevIndex - 1 : groupedImages.length - 1
-      );
-    };
+  const scrollRef = useRef(null); // Create a ref to access the scrollable element
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex < groupedImages.length - 1 ? prevIndex + 1 : 0
+    );
+    scroll("right");
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex > 0 ? prevIndex - 1 : groupedImages.length - 1
+    );
+    scroll("left");
+  };
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { scrollWidth, clientWidth, scrollLeft } = scrollRef.current;
+      const maxScrollLeft = scrollWidth - clientWidth;
+
+      if (direction === "right" && scrollLeft >= maxScrollLeft) {
+        scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+      } else if (direction === "left" && scrollLeft <= 0) {
+        scrollRef.current.scrollTo({
+          left: maxScrollLeft,
+          behavior: "smooth",
+        });
+      } else {
+        const scrollAmount =
+          direction === "left" ? -scrollRef.current.offsetWidth : scrollRef.current.offsetWidth;
+        scrollRef.current.scrollBy({
+          left: scrollAmount,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
   
     return (
       <Stack className="px-2 py-2 position-relative">
@@ -578,6 +603,17 @@ const DashboardPage = () => {
             }}
             gap={2}
             ref={scrollRef}
+            onScroll={() => {
+              const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+              const atEnd = scrollLeft >= scrollWidth - clientWidth;
+              const atStart = scrollLeft <= 0;
+              // Update currentIndex based on scroll position
+              if (atEnd && currentIndex < groupedImages.length - 1) {
+                setCurrentIndex(currentIndex + 1);
+              } else if (atStart && currentIndex > 0) {
+                setCurrentIndex(currentIndex - 1);
+              }
+            }}
           >
             {groupedImages[currentIndex].map((src, idx) => (
               <div
