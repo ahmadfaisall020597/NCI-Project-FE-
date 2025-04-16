@@ -6,7 +6,8 @@ console.log("token : ", token);
 
 const request = async (options) => {
   const client = axios.create({
-    baseURL: "http://localhost/Project%20Freelance/Project%20News/backend/public",
+    // baseURL: "http://localhost/NCI-Project-BE-/public/"
+    baseURL: "https://api.nusacitraindonesia.com/"
   });
   console.log("option request : ", options);
   options.headers = {
